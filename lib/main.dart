@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_auth_1/AppTheme.dart';
+import 'package:simple_auth_1/SplashPage.dart';
 
-import 'LoginPage.dart';
+import 'login/LoginPage.dart';
 
 void main() {
 
@@ -42,13 +43,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: const SplashPage(),
     );
   }
 }
 
 
-
+// Khong su dung ben duoi de coi thoi
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 

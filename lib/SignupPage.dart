@@ -2,11 +2,21 @@
 import 'package:flutter/material.dart';
 
 import 'AppTheme.dart';
-import 'Contants.dart';
+import 'Constants.dart';
 
 abstract class ISignupPage {
 
   void returnWithAbstractClass(String returnText);
+
+}
+
+class UserMakeWidget extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
 
 }
 
@@ -52,6 +62,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final todo = ModalRoute.of(context)?.settings.arguments as User;
 
     final btnSignup = ElevatedButton(
       child: const Text("Login"),

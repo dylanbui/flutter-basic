@@ -2,10 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/SignupPage.dart';
 
-import 'AppTheme.dart';
-import 'Contants.dart';
+import '../AppTheme.dart';
+import '../Constants.dart';
+import '../commons/base_statefull_widget.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
 
@@ -19,10 +20,13 @@ class LoginPage extends StatefulWidget {
 
 }
 
-class _LoginPageState extends State<LoginPage> implements ISignupPage {
+
+class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  bool _isLoading = false;
 
   @override
   void returnWithAbstractClass(String returnText) {

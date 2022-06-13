@@ -4,6 +4,12 @@ import 'dart:core';
 
 import 'package:flutter/widgets.dart';
 
+// Type alias
+// typedef Integer = int;
+// void main() {
+//   print(int == Integer); // true
+// }
+
 
 // Khong su dung dc
 // class InheritedProvider<T> extends InheritedWidget {
@@ -16,6 +22,14 @@ import 'package:flutter/widgets.dart';
 //   // static T of<T>(BuildContext context) => (context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>().runtimeType>() as InheritedProvider<T>).inheritedData;
 //   static InheritedProvider<T>? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>().runtimeType>() as InheritedProvider<T>;
 // }
+
+class BaseError {
+  final String error;
+
+  // Constructor
+  const BaseError(this.error);
+}
+
 
 class Data {
   String text;
