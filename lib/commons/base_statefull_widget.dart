@@ -1,10 +1,10 @@
 
-import 'dart:html';
-
+import 'package:dialog_loader/dialog_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:simple_auth_1/AppTheme.dart';
+
 
 // https://github.com/FlorinMihalache/flutter_progress_hud
 
@@ -14,16 +14,16 @@ abstract class BaseStateFulWidget extends StatefulWidget {
 
 abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
 
-
-
   /// should be overridden in extended widget
   Widget? getLayout() => null;
 
   String getTitle() => "";
   Widget getBody() => const Text("implement getBody() function");
 
+  dynamic getAppBar() => "";
+
   late BuildContext buildContext;
-  // late ProgressHUD progress;
+  DialogLoader? dialogLoader;
 
   // @override
   // Widget build(BuildContext context) {
@@ -34,25 +34,31 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
   @override
   Widget build(BuildContext context) {
     buildContext = context;
+    dialogLoader = DialogLoader(context: buildContext);
 
+    // Muon control thang nao thi phai dung context thang do
     var layout = getLayout();
     if (layout == null) {
+      var appBar = getAppBar();
+      if (appBar is String) {
+        appBar = AppBar(title: Text(appBar),);
+      }
+
+      if (!appBar is AppBar) {
+        throw Exception("Need to AppBar Widget or String !");
+      }
+
       return Scaffold(
-        appBar: AppBar(
-          title: Text(getTitle()),
-        ),
-        body: ProgressHUD(
-            child: getBody()
-        ),
+        appBar: appBar,
+        body: getBody(),
       );
     } else {
       return layout;
     }
   }
 
-
-
   //region Private Support Methods
+
   void hideKeyboard() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
   }
@@ -75,6 +81,40 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
       duration: const Duration(seconds: 1),
     ));
   }
-//endregion
+
+  void showProgressLoading({String? text = "Đang xử lý ..."}) {
+    // LoadingIndicatorDialog().show(context, text: text ?? "Đang xử lý");
+    dialogLoader?.show(
+      theme: LoaderTheme.dialogDefault,
+      title: Container(
+        padding: const EdgeInsets.all(10),
+        child: Text(text ?? "Đang xử lý ...", style: AppTheme.textStyle_2,),
+      ),
+      leftIcon: const SizedBox(
+        child: CircularProgressIndicator(),
+        height: 30.0,
+        width: 30.0,
+      ),
+    );
+
+    // Xai khong tot
+    // final progress = ProgressHUD.of(_contextLoading);
+    // if (text == null) {
+    //   progress?.show();
+    // } else {
+    //   progress?.showWithText(text);
+    // }
+  }
+
+  void hideProgressLoading() {
+    // LoadingIndicatorDialog().dismiss();
+    dialogLoader?.close();
+
+    // Xai khong tot
+    // final progress = ProgressHUD.of(_contextLoading);
+    // progress?.dismiss();
+  }
+
+  //endregion
 
 }

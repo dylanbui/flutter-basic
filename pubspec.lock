@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.3"
+  dialog_loader:
+    dependency: "direct main"
+    description:
+      name: dialog_loader
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3+3"
   dio:
     dependency: "direct main"
     description:
@@ -548,4 +555,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.16.2 <3.0.0"
-  flutter: ">=1.16.0"
+  flutter: ">=1.17.0"
