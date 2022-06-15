@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_auth_1/AppTheme.dart';
-import 'package:simple_auth_1/SplashPage.dart';
+import 'package:simple_auth_1/splash_page.dart';
+import 'package:simple_auth_1/splash_screen.dart';
 
-import 'login/LoginPage.dart';
+import 'login/login_page.dart';
 
 void main() {
 
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const SplashPage(),
+      home: const SplashScreen(),
     );
   }
 }

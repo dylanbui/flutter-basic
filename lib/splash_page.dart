@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_auth_1/SignupPage.dart';
-import 'package:simple_auth_1/login/LoginPage.dart';
-import 'package:simple_auth_1/login/LoginProvider.dart';
+import 'package:simple_auth_1/signup_page.dart';
+import 'package:simple_auth_1/login/login_page.dart';
+import 'package:simple_auth_1/login/login_provider.dart';
 
 import 'AppTheme.dart';
-import 'Constants.dart';
+import 'constants.dart';
 
 class SplashPage extends StatefulWidget {
 
@@ -33,18 +34,33 @@ class _SplashPageState extends State<SplashPage> {
 
     final btnLogin = ElevatedButton(onPressed: () {
 
-      // Navigator.push(context, router);
+      Navigator.push(context, PageTransition(
+          child: ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: const LoginPage(),),
+          type: PageTransitionType.rightToLeft),);
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-          ChangeNotifierProvider<LoginProvider>.value(
-            value: LoginProvider(),
-            child: const LoginPage(),
-          ),
-        ),
-      );
+      // Navigator.push(context, PageTransition(
+      //     duration: const Duration(milliseconds: 250),
+      //     reverseDuration: const Duration(milliseconds: 250),
+      //     child: ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: const LoginPage(),),
+      //     type: PageTransitionType.rightToLeft),);
+
+      // Replace current widget
+      // Navigator.pushReplacement(context, PageTransition(
+      //     duration: const Duration(milliseconds: 250),
+      //     reverseDuration: const Duration(milliseconds: 250),
+      //     child: ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: const LoginPage(),),
+      //     type: PageTransitionType.rightToLeft),);
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) =>
+      //     ChangeNotifierProvider<LoginProvider>.value(
+      //       value: LoginProvider(),
+      //       child: const LoginPage(),
+      //     ),
+      //   ),
+      // );
 
 
 

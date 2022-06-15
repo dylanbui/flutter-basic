@@ -1,17 +1,17 @@
 
 
 
-import 'package:flutter/cupertino.dart';
-import 'package:simple_auth_1/utils/Tuple.dart';
-import 'package:http/http.dart' as http;
+import 'package:simple_auth_1/api/user_api.dart';
+import 'package:simple_auth_1/commons/base_proviver.dart';
+import 'package:simple_auth_1/utils/tuple.dart';
 
-import '../Constants.dart';
+import '../constants.dart';
 
 typedef LoginType = Tuple<User?, BaseError?>;
 
 // typedef Integer = int;
 
-class LoginProvider with ChangeNotifier {
+class LoginProvider extends BaseProvider {
 
   User? _loginUser;
   BaseError? _error;
@@ -31,47 +31,12 @@ class LoginProvider with ChangeNotifier {
     return _loginResult;
   }
 
-  Future doLoginWith(String username, String password) async {
-
-    const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
-    const user = User("Duc Dylan", "dylan.bui@gmail.com", "password duc", 1);
-
-    // chờ 4 giay
-    await Future.delayed(const Duration(seconds: 4));
-
-    if (username == "duc" && password == "123") {
-      _loginResult = const Tuple(user, null);
-    } else {
-      const error = BaseError("Login khong thanh cong");
-      _loginResult = const Tuple(null, error);
-    }
-
-    notifyListeners();
-  }
-
+  // Day la mo hinh xu ly nut bam goi server
   Future<LoginType> doLogin(String username, String password) async {
 
+    // Gia lap goi server
+    return await UserApi().doLogin(username, password);
 
-    const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
-    const user = User("Duc Dylan", "dylan.bui@gmail.com", "password duc", 1);
-
-    // chờ 4 giay
-    await Future.delayed(const Duration(seconds: 4));
-
-    if (username == "duc" && password == "123") {
-      return const Tuple(user, null);
-    }
-
-    const error = BaseError("Login khong thanh cong");
-    return const Tuple(null, error);
-
-    // try {
-    //   // final response = await http.get(Uri(url));
-    //
-    // } catch(error) {
-    //
-    // }
-    // return Tuple(null, null);
   }
 
   // Future<Recipe> fetchAndSetRecipes() async {

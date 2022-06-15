@@ -2,13 +2,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_auth_1/SignupPage.dart';
-import 'package:simple_auth_1/login/LoginProvider.dart';
+import 'package:simple_auth_1/signup_page.dart';
+import 'package:simple_auth_1/login/login_provider.dart';
 
 import '../AppTheme.dart';
-import '../Constants.dart';
+import '../constants.dart';
 import '../commons/base_statefull_widget.dart';
 
 class LoginPage extends BaseStateFulWidget {
@@ -38,12 +37,11 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
     print("returnWithAbstractClass =====>" + returnText);
   }
 
+  @override
+  String getTitle(BuildContext context) => widget.title;
 
   @override
-  String getTitle() => widget.title;
-
-  @override
-  Widget getBody() {
+  Widget getBody(BuildContext context) {
 
     const user = User("Duc", "email duc", "password duc", 1);
     final presenter = Provider.of<LoginProvider>(context, listen: false);

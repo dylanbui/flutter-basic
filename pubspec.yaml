@@ -38,7 +38,8 @@ dependencies:
   quiver: ^3.1.0
   http: ^0.13.4
   fluttertoast: ^8.0.9
-  flutter_progress_hud: ^2.0.2
+  # thay cung tam se coi lai sau, co the ho tro ios, android
+  # flutter_progress_hud: ^2.0.2
   json_annotation: ^4.5.0
   json_serializable: ^6.2.0
   retrofit: ^3.0.1+1
@@ -49,6 +50,12 @@ dependencies:
 
   # thu vien loading nay ok
   dialog_loader: ^0.0.3+3
+  # dung cho navigator page => tot
+  page_transition: ^2.0.5
+  # dung tam de hien confirm_dialog
+  dialogs: ^0.0.7
+  shared_preferences: ^2.0.15
+  pretty_dio_logger: ^1.2.0-beta-1
 
 dev_dependencies:
   flutter_test:
@@ -82,6 +89,11 @@ flutter:
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+
+
+  # Su dung FlutterGen, de generator assets to code file
+  assets:
+    - assets/images/
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

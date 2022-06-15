@@ -15,12 +15,12 @@ abstract class BaseStateFulWidget extends StatefulWidget {
 abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
 
   /// should be overridden in extended widget
-  Widget? getLayout() => null;
+  Widget? getLayout(BuildContext context) => null;
 
-  String getTitle() => "";
-  Widget getBody() => const Text("implement getBody() function");
+  String getTitle(BuildContext context) => "";
+  Widget getBody(BuildContext context) => const Text("implement getBody() function");
 
-  dynamic getAppBar() => "";
+  dynamic getAppBar(BuildContext context) => "";
 
   late BuildContext buildContext;
   DialogLoader? dialogLoader;
@@ -37,20 +37,20 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
     dialogLoader = DialogLoader(context: buildContext);
 
     // Muon control thang nao thi phai dung context thang do
-    var layout = getLayout();
+    var layout = getLayout(context);
     if (layout == null) {
-      var appBar = getAppBar();
+      var appBar = getAppBar(context);
       if (appBar is String) {
         appBar = AppBar(title: Text(appBar),);
       }
 
-      if (!appBar is AppBar) {
+      if (appBar is! AppBar) {
         throw Exception("Need to AppBar Widget or String !");
       }
 
       return Scaffold(
         appBar: appBar,
-        body: getBody(),
+        body: getBody(context),
       );
     } else {
       return layout;
