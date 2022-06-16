@@ -2,7 +2,7 @@
 import 'package:flutter/scheduler.dart';
 import 'package:simple_auth_1/commons/base_proviver.dart';
 
-abstract class BaseLoadMoreRefreshProvider<Item> extends BaseProvider {
+abstract class BaseLoadMoreRefreshProvider<T> extends BaseProvider {
   BaseLoadMoreRefreshProvider() {
     _currentPage = _getPreFirstPage();
   }
@@ -11,7 +11,7 @@ abstract class BaseLoadMoreRefreshProvider<Item> extends BaseProvider {
   final _visibleThreshold = 5;
   final _itemPerPage = 10;
 
-  final itemList = <Item>[];
+  final itemList = <T>[];
   var isEmptyList = false;
 
   var _isRefreshing = false;
@@ -83,7 +83,7 @@ abstract class BaseLoadMoreRefreshProvider<Item> extends BaseProvider {
   }
 
   /// handle load success
-  void onLoadSuccess(int page, List<Item> items) {
+  void onLoadSuccess(int page, List<T> items) {
     _currentPage = page;
     if (_currentPage == getFirstPage()) itemList.clear();
     if (_isRefreshing) resetLoadMore();
@@ -101,14 +101,15 @@ abstract class BaseLoadMoreRefreshProvider<Item> extends BaseProvider {
   }
 
   /// handle load fail
-  void onLoadFail(Exception exception) {
+  /// void onLoadFail(Exception exception) {
+  void onLoadFail(String strErr) {
     isLoading = false;
     _isRefreshing = false;
     isLoadMore = false;
 
     _checkEmptyList();
 
-    showErrorWithString(exception.toString());
+    showErrorWithString(strErr);
 
     notifyListeners();
   }

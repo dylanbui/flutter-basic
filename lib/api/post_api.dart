@@ -1,11 +1,15 @@
 
 
+import 'package:simple_auth_1/commons/network_dio_api.dart';
+
 import '../constants.dart';
 import '../login/login_provider.dart';
 import '../typi_code/post.dart';
 import '../utils/tuple.dart';
 
 typedef PostType = Tuple<Post?, BaseError?>;
+
+// Co the dung injection dependency o cho nay voi get_it, de toi uu hoa build, va tao singleton class
 
 class PostApi {
 
@@ -19,29 +23,41 @@ class PostApi {
   // endregion
 
 
-  Future<LoginType> getPost(int page, int offset) async {
-
+  Future<List<Post>?> getPostList({int page = 0, int offset = 5}) async {
     // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
-    const url = 'https://jsonplaceholder.typicode.com/posts';
-
-
-    // chờ 4 giay
+    final url = "https://jsonplaceholder.typicode.com/posts?_start=${page.toString()}&_limit=${offset.toString()}";
+    // chờ 2 giay , co y lam cham hon
     await Future.delayed(const Duration(seconds: 2));
+    // Co the tra ve null
+    final List? result = await NetworkDioApi().testCall(url, NetworkType.GET);
 
-    // const error = BaseError("Login khong thanh cong");
-    // return const Tuple(null, error);
-
-    // try {
-    //
-    //   final response = await http.get(Uri(url));
-    //
-    // } catch(error) {
-    //
-    // }
-    return const Tuple(null, null);
+    // Phai su dung buoc chuyen doi o day vi khong the dia len api nhu kotlin
+    List<Post>? posts = result?.map((json) => Post.fromJson(json)).toList();
+    return posts;
   }
 
+  Future<Post?> getPost(int postId) async {
+    // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
+    final url = "https://jsonplaceholder.typicode.com/posts/${postId.toString()}";
+    // chờ 2 giay , co y lam cham hon
+    // await Future.delayed(const Duration(seconds: 2));
+    // Lam 2 cach khac nhau de kiem tra
+    final Dictionary? result = await NetworkDioApi().simpleCall(url, NetworkType.GET);
 
+    final post = Post.fromJson(result!!);
+    return post;
+  }
+
+  // Example code
+  // Future<LoginType> getPost({int page = 0, int offset = 5}) async {
+  //   // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
+  //   const url = 'https://jsonplaceholder.typicode.com/posts';
+  //   // chờ 2 giay , co y lam cham hon
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   // final List<Post> list = await NetworkDioApi().simpleCall(url, NetworkType.GET);
+  //   final Tuple<Post?, BaseError?> result = await NetworkDioApi().hardCall(url, NetworkType.GET);
+  //   return const Tuple(null, null);
+  // }
 
 
 }

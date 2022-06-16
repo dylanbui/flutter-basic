@@ -1,7 +1,12 @@
 
-import 'package:flutter/material.dart';
-import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
+
+import '../../widget/platform_progress.dart';
 import '../post.dart';
 
 class PostListPage extends BaseStateFulWidget {
@@ -19,15 +24,21 @@ class PostListPage extends BaseStateFulWidget {
 
 class _PostListPageState extends BaseState<PostListPage> {
 
+  late PostListProvider _postListProvider;
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
 
+  }
 
-
-
+  @override
+  void startBuild(BuildContext context) {
+    _postListProvider = Provider.of<PostListProvider>(context);
+    _postListProvider.firstLoad();
   }
 
   @override
@@ -36,28 +47,82 @@ class _PostListPageState extends BaseState<PostListPage> {
   @override
   Widget getBody(BuildContext context) {
     // TODO: implement getBody
-    return super.getBody(context);
+    //return super.getBody(context);
+    return _buildPostsList(context, _postListProvider.itemList);
   }
 
-
-  ListView _buildPosts(BuildContext context, List<Post> posts) {
-    return ListView.builder(
-      itemCount: posts.length,
-      padding: const EdgeInsets.all(8),
-      itemBuilder: (context, index) {
-        return Card(
-          elevation: 4,
-          child: ListTile(
-            title: Text(
-              posts[index].title ?? "",
-              style: const TextStyle(fontWeight: FontWeight.bold),
+  Widget _buildPostsList(BuildContext context, List<Post> postList) {
+    if (_postListProvider.isLoading) {
+      return const Center(child: PlatformProgress());
+    } else {
+      return Column(
+        children: <Widget>[
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _postListProvider.onRefreshListener,
+              child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: postList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    _postListProvider.onScrollListener(index);
+                    return _buildPostItem(context, postList[index], index);
+                  },
+              ),
             ),
-            subtitle: Text(posts[index].body ?? ""),
           ),
-        );
+          if (_postListProvider.isLoadMore) const PlatformProgress()
+        ],
+      );
+    }
+  }
+
+  Widget _buildPostItem(BuildContext context, Post post, int index) {
+    return GestureDetector(
+      onTap: () {
+        log("GestureDetector index : ${index.toString()}");
       },
+      child: ListTile(
+        title: Text(
+          "${index.toString()}: " + post.title.toString(),
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(post.body ?? ""),
+      ),
     );
   }
+
+  // Example code
+  // Widget _buildPostItem(BuildContext context, Post post, int index) {
+  //   return Card(
+  //     elevation: 4,
+  //     child: ListTile(
+  //       title: Text(
+  //         "${index.toString()}: " + post.title.toString(),
+  //         style: const TextStyle(fontWeight: FontWeight.bold),
+  //       ),
+  //       subtitle: Text(post.body ?? ""),
+  //     ),
+  //   );
+  // }
+
+  // ListView _buildPosts(BuildContext context, List<Post> posts) {
+  //   return ListView.builder(
+  //     itemCount: posts.length,
+  //     padding: const EdgeInsets.all(8),
+  //     itemBuilder: (context, index) {
+  //       return Card(
+  //         elevation: 4,
+  //         child: ListTile(
+  //           title: Text(
+  //             posts[index].title ?? "",
+  //             style: const TextStyle(fontWeight: FontWeight.bold),
+  //           ),
+  //           subtitle: Text(posts[index].body ?? ""),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
 
 

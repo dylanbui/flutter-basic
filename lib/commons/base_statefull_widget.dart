@@ -17,6 +17,7 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
   /// should be overridden in extended widget
   Widget? getLayout(BuildContext context) => null;
 
+  void startBuild(BuildContext context);
   String getTitle(BuildContext context) => "";
   Widget getBody(BuildContext context) => const Text("implement getBody() function");
 
@@ -35,6 +36,8 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
   Widget build(BuildContext context) {
     buildContext = context;
     dialogLoader = DialogLoader(context: buildContext);
+
+    startBuild(context);
 
     // Muon control thang nao thi phai dung context thang do
     var layout = getLayout(context);

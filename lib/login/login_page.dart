@@ -34,7 +34,12 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
 
   @override
   void returnWithAbstractClass(String returnText) {
-    print("returnWithAbstractClass =====>" + returnText);
+    debugger(message: "returnWithAbstractClass =====>" + returnText);
+  }
+
+  @override
+  void startBuild(BuildContext context) {
+
   }
 
   @override
@@ -139,6 +144,8 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
       ),
     );
   }
+
+
 
 
 /*

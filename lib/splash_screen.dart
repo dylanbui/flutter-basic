@@ -33,8 +33,12 @@ class SplashScreen extends StatelessWidget {
 
     // Gia lap chay lay du lieu tu server
     fetchSomething().then((value) {
-      final router = MaterialPageRoute(builder: (context) => const SplashPage(),);
-      Navigator.pushReplacement(context, router);
+      // final router = MaterialPageRoute(builder: (context) => const SplashPage(),);
+      // Navigator.pushReplacement(context, router);
+
+      Navigator.pushReplacement(context, PageTransition(
+          child: const SplashPage(),
+          type: PageTransitionType.fade),);
 
       // Navigator.push(context, PageTransition(
       //     child: ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: const LoginPage(),),

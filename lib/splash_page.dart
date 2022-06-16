@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_auth_1/signup_page.dart';
 import 'package:simple_auth_1/login/login_page.dart';
 import 'package:simple_auth_1/login/login_provider.dart';
+import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
+import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
 import 'AppTheme.dart';
-import 'constants.dart';
 
 class SplashPage extends StatefulWidget {
 
@@ -70,9 +70,10 @@ class _SplashPageState extends State<SplashPage> {
 
 
     final btnSignUp = ElevatedButton(onPressed: () {
-
-
-    }, child: const Text("Sign Up"));
+      Navigator.push(context, PageTransition(
+          child: ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: const PostListPage(),),
+          type: PageTransitionType.rightToLeft),);
+      }, child: const Text("Sign Up"));
 
     // final btnSignUp = TextButton(onPressed: () async {
     //

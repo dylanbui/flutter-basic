@@ -23,6 +23,8 @@ import 'package:flutter/widgets.dart';
 //   static InheritedProvider<T>? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>().runtimeType>() as InheritedProvider<T>;
 // }
 
+typedef Dictionary = Map<String, dynamic>;
+
 class NetworkConfig {
   static String baseURL = NetworkURL.DEV.url;
 }

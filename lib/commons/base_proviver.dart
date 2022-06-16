@@ -21,24 +21,24 @@ abstract class BaseProvider with ChangeNotifier {
   void showErrorWithString(String message) {
     errorMessage = message;
 
-    notifyListeners();
+    // notifyListeners();
   }
 
   void showError(BaseError error) {
     _error = error;
 
-    notifyListeners();
+    // notifyListeners();
   }
 
   void showLoading() {
     isLoading = true;
 
-    notifyListeners();
+    // notifyListeners();
   }
 
   void hideLoading() {
     isLoading = false;
 
-    notifyListeners();
+    // notifyListeners();
   }
 }
