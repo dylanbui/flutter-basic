@@ -66,14 +66,14 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
           hideProgressLoading();
 
           final user = value.item1;
-          final error = value.item2 ?? const BaseError("Khong bit la cai gi");
+          final error = value.item2 ?? const BaseError(1111, "Khong bit la cai gi");
 
           if (user != null) {
             log("Login thanh cong - Username = ${user.userName} -- Email = ${user.email}");
             return;
           }
 
-          log("Co loi xay ra roi !! " + error.error.toString());
+          log("Co loi xay ra roi !! " + error.messenger.toString());
 
         });
 

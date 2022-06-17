@@ -18,7 +18,14 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
+
+# Phien ban 2.17.0 co su dung enum-enhanced
+# https://github.com/dart-lang/language/blob/d16704ae6c9a5fd8f30b7ba9d33a5ab650c7447d/accepted/future-releases/enhanced-enums/feature-specification.md
+
+# Dung thang nay co the xay dung sealed class nhu kotlin va nhieu thu hay ho
+# https://resocoder.com/2020/02/11/freezed-data-class-union-in-one-dart-package/
+
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions

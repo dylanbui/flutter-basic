@@ -1,6 +1,6 @@
 
 
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
 // part 'network_reponse.g.dart';
 //
@@ -31,7 +31,9 @@ class NetworkResponse {
   final String code;
   final String message;
 
-  final dynamic data;
+  final Map<String, dynamic> data;
+  // final dynamic data;
+  // final Object data;
 
   const NetworkResponse({
     required this.result,

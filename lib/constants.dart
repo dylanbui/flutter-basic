@@ -49,10 +49,12 @@ extension NetworkURLExtention on NetworkURL {
 
 
 class BaseError {
-  final String error;
+
+  final int code;
+  final String messenger;
 
   // Constructor
-  const BaseError(this.error);
+  const BaseError(this.code, this.messenger);
 }
 
 

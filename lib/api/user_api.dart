@@ -47,7 +47,7 @@ class UserApi {
       return const Tuple(user, null);
     }
 
-    const error = BaseError("Login khong thanh cong");
+    const error = BaseError(404, "Login khong thanh cong");
     return const Tuple(null, error);
 
     // try {

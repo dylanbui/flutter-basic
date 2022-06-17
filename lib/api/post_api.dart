@@ -1,7 +1,8 @@
 
 
-import 'package:simple_auth_1/commons/network_dio_api.dart';
+import 'package:simple_auth_1/commons/network/network_dio_api.dart';
 
+import '../commons/network/network_constants.dart';
 import '../constants.dart';
 import '../login/login_provider.dart';
 import '../typi_code/post.dart';
@@ -10,6 +11,8 @@ import '../utils/tuple.dart';
 typedef PostType = Tuple<Post?, BaseError?>;
 
 // Co the dung injection dependency o cho nay voi get_it, de toi uu hoa build, va tao singleton class
+
+
 
 class PostApi {
 
@@ -24,6 +27,7 @@ class PostApi {
 
 
   Future<List<Post>?> getPostList({int page = 0, int offset = 5}) async {
+
     // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
     final url = "https://jsonplaceholder.typicode.com/posts?_start=${page.toString()}&_limit=${offset.toString()}";
     // chờ 2 giay , co y lam cham hon
@@ -42,10 +46,14 @@ class PostApi {
     // chờ 2 giay , co y lam cham hon
     // await Future.delayed(const Duration(seconds: 2));
     // Lam 2 cach khac nhau de kiem tra
-    final Dictionary? result = await NetworkDioApi().simpleCall(url, NetworkType.GET);
 
-    final post = Post.fromJson(result!!);
-    return post;
+    final Dictionary? result = await NetworkDioApi().simpleCall(url, type: NetworkType.GET);
+    return (result != null) ? Post.fromJson(result) : null;
+
+    // if (result != null) {
+    //   return Post.fromJson(result);
+    // }
+    // return null;
   }
 
   // Example code
