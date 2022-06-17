@@ -13,7 +13,7 @@ class PostListPage extends BaseStateFulWidget {
 
   final String title = "Post List Page";
 
-  const PostListPage({Key? key}) : super(key: key);
+  PostListPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {

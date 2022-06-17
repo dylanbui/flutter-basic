@@ -4,7 +4,7 @@ import 'package:simple_auth_1/commons/network/network_dio_api.dart';
 
 import '../commons/network/network_constants.dart';
 import '../constants.dart';
-import '../login/login_provider.dart';
+
 import '../typi_code/post.dart';
 import '../utils/tuple.dart';
 
@@ -27,7 +27,6 @@ class PostApi {
 
 
   Future<List<Post>?> getPostList({int page = 0, int offset = 5}) async {
-
     // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
     final url = "https://jsonplaceholder.typicode.com/posts?_start=${page.toString()}&_limit=${offset.toString()}";
     // chờ 2 giay , co y lam cham hon
@@ -37,6 +36,13 @@ class PostApi {
 
     // Phai su dung buoc chuyen doi o day vi khong the dia len api nhu kotlin
     List<Post>? posts = result?.map((json) => Post.fromJson(json)).toList();
+
+    // List<Post>? posts = result?.map((json) {
+    //   var p = Post.fromJson(json);
+    //   // Kiem tra va xu ly du lieu them o day
+    //   return p;
+    // }).toList();
+
     return posts;
   }
 

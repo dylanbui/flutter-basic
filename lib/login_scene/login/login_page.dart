@@ -3,18 +3,21 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_auth_1/signup_page.dart';
-import 'package:simple_auth_1/login/login_provider.dart';
+import 'package:simple_auth_1/login_scene/login_coordinator.dart';
+import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 
-import '../AppTheme.dart';
-import '../constants.dart';
-import '../commons/base_statefull_widget.dart';
+import '../../AppTheme.dart';
+import '../../commons/base_statefull_widget.dart';
+import '../../commons/coordinator/constants.dart';
+import '../../constants.dart';
+import 'login_provider.dart';
+
 
 class LoginPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
 
-  const LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -39,6 +42,8 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
 
   @override
   void startBuild(BuildContext context) {
+    // demo navigator
+    //widget.nav?.navigate(SignUpRouter("message"), context);
 
   }
 

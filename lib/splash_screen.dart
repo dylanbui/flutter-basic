@@ -1,13 +1,7 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_auth_1/splash_page.dart';
 
-import 'login/login_page.dart';
-import 'login/login_provider.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,7 +14,7 @@ class SplashScreen extends StatelessWidget {
     await Future.delayed(const Duration(seconds: 3));
 
     // if (_isHaveData.isEmpty) {
-    //   await prefs.setString(Constants.sp_have_data, "just login");
+    //   await prefs.setString(Constants.sp_have_data, "just login_scene.login");
     //   view.goToNextScreen(true);
     // } else {
     //   view.goToNextScreen(false);

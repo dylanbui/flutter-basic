@@ -1,13 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
-import 'AppTheme.dart';
+import '../../AppTheme.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
+class ForgotPasswordPage extends BaseStateFulWidget {
 
   final String title = "ForgotPassword Page";
 
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+  int codeFw;
+  String? messageFw;
+
+  ForgotPasswordPage(this.codeFw, {this.messageFw, Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override

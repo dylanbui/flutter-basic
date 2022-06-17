@@ -4,7 +4,7 @@ import 'package:simple_auth_1/AppTheme.dart';
 import 'package:simple_auth_1/splash_page.dart';
 import 'package:simple_auth_1/splash_screen.dart';
 
-import 'login/login_page.dart';
+
 
 void main() {
 

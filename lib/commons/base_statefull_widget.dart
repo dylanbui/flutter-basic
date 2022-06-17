@@ -4,12 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:simple_auth_1/AppTheme.dart';
-
+import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
 // https://github.com/FlorinMihalache/flutter_progress_hud
 
+//ignore: must_be_immutable
 abstract class BaseStateFulWidget extends StatefulWidget {
-  const BaseStateFulWidget({Key? key}) : super(key: key);
+
+  BaseStateFulWidget({Key? key, this.nav}) : super(key: key);
+
+  DbNavigation? nav;
 }
 
 abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {

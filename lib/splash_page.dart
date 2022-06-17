@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_auth_1/login/login_page.dart';
-import 'package:simple_auth_1/login/login_provider.dart';
+
 import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
 import 'AppTheme.dart';
+import 'login_scene/login/login_page.dart';
+import 'login_scene/login/login_provider.dart';
 
 class SplashPage extends StatefulWidget {
 
@@ -35,7 +36,7 @@ class _SplashPageState extends State<SplashPage> {
     final btnLogin = ElevatedButton(onPressed: () {
 
       Navigator.push(context, PageTransition(
-          child: ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: const LoginPage(),),
+          child: ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: LoginPage(),),
           type: PageTransitionType.rightToLeft),);
 
       // Navigator.push(context, PageTransition(
@@ -71,7 +72,7 @@ class _SplashPageState extends State<SplashPage> {
 
     final btnSignUp = ElevatedButton(onPressed: () {
       Navigator.push(context, PageTransition(
-          child: ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: const PostListPage(),),
+          child: ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: PostListPage(),),
           type: PageTransitionType.rightToLeft),);
       }, child: const Text("Sign Up"));
 

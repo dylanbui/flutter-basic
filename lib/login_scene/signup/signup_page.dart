@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
-import 'AppTheme.dart';
-import 'constants.dart';
+import '../../AppTheme.dart';
+import '../../constants.dart';
 
 abstract class ISignupPage {
 
@@ -10,17 +12,17 @@ abstract class ISignupPage {
 
 }
 
-class UserMakeWidget extends StatelessWidget {
+// class UserMakeWidget extends StatelessWidget {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // TODO: implement build
+//     throw UnimplementedError();
+//   }
+//
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-
-}
-
-class SignupPage extends StatefulWidget {
+class SignupPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
   User? user;
@@ -29,7 +31,7 @@ class SignupPage extends StatefulWidget {
 
   ISignupPage callback;
 
-  SignupPage(this.user, {Key? key, required this.onChangeText, required this.callback}) : super(key: key);
+  SignupPage(this.user, {Key? key, DbNavigation? nav,required this.onChangeText, required this.callback}) : super(key: key, nav: nav);
 
   //const SignupPage({Key? key}) : super(key: key);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
