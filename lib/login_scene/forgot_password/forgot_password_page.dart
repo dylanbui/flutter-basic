@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provider.dart';
 import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 
 import '../../AppTheme.dart';
@@ -25,17 +26,20 @@ class ForgotPasswordPage extends BaseStateFulWidget {
 
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+class _ForgotPasswordPageState extends BaseState<ForgotPasswordPage, ForgotPasswordProvider> {
 
   TextEditingController emailController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget getLayout(BuildContext context) {
 
     log("codeFw = ${widget.codeFw}");
     log("messageFw = ${widget.messageFw}");
-
 
     final btnForgotPassword = ElevatedButton(
       child: const Text("Yeu cau lay lai PW"),

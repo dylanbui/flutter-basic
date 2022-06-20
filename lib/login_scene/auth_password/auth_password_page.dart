@@ -4,8 +4,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 
 import '../../AppTheme.dart';
+import 'auth_password_provider.dart';
 
 class AuthPasswordPage extends BaseStateFulWidget {
 
@@ -22,7 +24,7 @@ class AuthPasswordPage extends BaseStateFulWidget {
 
 }
 
-class _ForgotPasswordPageState extends BaseState<AuthPasswordPage> {
+class _ForgotPasswordPageState extends BaseState<AuthPasswordPage, AuthPasswordProvider> {
 
   TextEditingController authController = TextEditingController();
 
@@ -38,13 +40,21 @@ class _ForgotPasswordPageState extends BaseState<AuthPasswordPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget? getLayout(BuildContext context) {
 
     final btnAuthCode = ElevatedButton(
       child: const Text("Auth Code"),
       onPressed: () {
         //TODO: btnAuthCode
         log(authController.text);
+
+        showProgressLoading();
+        pageProvider.doAuthPassword("123", "123").then((value) {
+          hideProgressLoading();
+          if (value == true) {
+            widget.nav?.navigate(AuthPasswordCompletedRouter(10), context);
+          }
+        });
 
       },
     );
@@ -75,6 +85,7 @@ class _ForgotPasswordPageState extends BaseState<AuthPasswordPage> {
     );
 
   }
+
 
 
 

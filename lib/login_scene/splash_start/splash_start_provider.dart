@@ -4,20 +4,33 @@ import 'package:simple_auth_1/utils/tuple.dart';
 import '../../constants.dart';
 
 
-class AuthPasswordProvider extends BaseProvider {
+class SplashStartProvider extends BaseProvider {
 
 
+  Future<String> fetchSomething() async {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // final _isHaveData = prefs.getString(Constants.sp_have_data) ?? "";
 
-  // Day la mo hinh xu ly nut bam goi server
-  Future<bool> doAuthPassword(String username, String password) async {
-
-    // chờ 4 giay
+    //TODO Call API from server and do sth
     await Future.delayed(const Duration(seconds: 3));
+    return "Da chay SplashStartPage --- DONE";
 
-    // Gia lap goi server
-    return true;
+    // if (_isHaveData.isEmpty) {
+    //   await prefs.setString(Constants.sp_have_data, "just login_scene.login");
+    //   view.goToNextScreen(true);
+    // } else {
+    //   view.goToNextScreen(false);
+    // }
 
   }
+
+  // Day la mo hinh xu ly nut bam goi server
+  // Future<LoginType> doLogin(String username, String password) async {
+  //
+  //   // Gia lap goi server
+  //   return await UserApi().doLogin(username, password);
+  //
+  // }
 
   // Future<Recipe> fetchAndSetRecipes() async {
   //   const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';

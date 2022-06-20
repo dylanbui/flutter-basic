@@ -12,7 +12,8 @@ import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provid
 import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
-import 'package:simple_auth_1/splash_start_page.dart';
+import 'package:simple_auth_1/login_scene/splash_start/splash_start_page.dart';
+import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 
 import '../constants.dart';
 import 'login_scene/login/login_page.dart';
@@ -38,9 +39,10 @@ class SplashPageCompleteRouter extends DbDefineRoute {
 class AppCoordinator extends DbCoordinator implements DbNavigation {
 
   AppCoordinator(BuildContext context) : super(context) {
-    // var loginPage = LoginPage(nav: this,);
-    // rootPage = ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: loginPage,);
-    rootPage = SplashStartPage(nav: this,);
+    var splashStartPage = SplashStartPage(nav: this,);
+    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
+
+    // rootPage = SplashStartPage(nav: this,);
   }
 
   @override

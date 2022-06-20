@@ -28,7 +28,7 @@ class LoginPage extends BaseStateFulWidget {
 }
 
 
-class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
+class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISignupPage {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -59,7 +59,7 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
   Widget getBody(BuildContext context) {
 
     const user = User("Duc", "email duc", "password duc", 1);
-    final presenter = Provider.of<LoginProvider>(context, listen: false);
+    // final presenter = Provider.of<LoginProvider>(context, listen: false);
 
     final btnLogin = ElevatedButton(
       child: const Text("Login"),
@@ -72,7 +72,7 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
         // Show loading
 
         showProgressLoading();
-        presenter.doLogin(nameController.text, passwordController.text).then((value) {
+        pageProvider.doLogin(nameController.text, passwordController.text).then((value) {
           hideProgressLoading();
 
           final user = value.item1;

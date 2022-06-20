@@ -6,34 +6,34 @@ import 'package:simple_auth_1/app_coordinator.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/base_stateless_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 import 'package:simple_auth_1/splash_page.dart';
 
+//ignore: must_be_immutable
+// class SplashStartPage extends BaseStateFulWidget {
+//   SplashStartPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+//
+//   @override
+//   State<StatefulWidget> createState() {
+//     return _SplashStartPage();
+//   }
+// }
 
-class SplashStartPage extends  BaseStateLessWidget {
-  SplashStartPage({Key? key , DbNavigation? nav}) : super(key: key, nav: nav);
 
-  Future<String> fetchSomething() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // final _isHaveData = prefs.getString(Constants.sp_have_data) ?? "";
+// Su dung StateLess hay StateFul cung deu khong Animation dc cho nay
+//ignore: must_be_immutable
+class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
 
-    //TODO Call API from server and do sth
-    await Future.delayed(const Duration(seconds: 3));
-    return "Da chay SplashStartPage --- DONE";
+  SplashStartPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
 
-    // if (_isHaveData.isEmpty) {
-    //   await prefs.setString(Constants.sp_have_data, "just login_scene.login");
-    //   view.goToNextScreen(true);
-    // } else {
-    //   view.goToNextScreen(false);
-    // }
+// class _SplashStartPage extends BaseState<SplashStartPage, SplashStartProvider> {
 
-  }
 
   @override
   Widget getLayout(BuildContext context) {
 
     // Gia lap chay lay du lieu tu server
-    fetchSomething().then((value) {
+    pageProvider.fetchSomething().then((value) {
       // final router = MaterialPageRoute(builder: (context) => const SplashPage(),);
       // Navigator.pushReplacement(context, router);
 

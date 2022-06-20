@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
 
 import '../../AppTheme.dart';
 import '../../constants.dart';
@@ -43,7 +44,7 @@ class SignupPage extends BaseStateFulWidget {
 
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SignupPageState extends BaseState<SignupPage, SignupProvider> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -63,7 +64,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget getLayout(BuildContext context) {
     // final todo = ModalRoute.of(context)?.settings.arguments as User;
 
     final btnSignup = ElevatedButton(
