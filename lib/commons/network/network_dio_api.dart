@@ -63,10 +63,11 @@ class NetworkDioApi {
   // Simple call for https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
   Future<T?> simpleCall<T>(String url, {NetworkType type = NetworkType.GET, Dictionary? params}) async {
 
-    if (T is! List || T is! Map<String, dynamic>) {
-      // return const Tuple(null, BaseError("Cast error: T only is : List, Map<String, dynamic>"));
-      throw Exception("Cast error: T only is : List, Map<String, dynamic>");
-    }
+    // Check kieu nya bi sai, tam thoi dong lai
+    // if (T is! List || T is! Map<String, dynamic>) {
+    //   // return const Tuple(null, BaseError("Cast error: T only is : List, Map<String, dynamic>"));
+    //   throw Exception("Cast error: T only is : List, Map<String, dynamic>");
+    // }
 
     try {
       Response<T> result;

@@ -1,5 +1,8 @@
 
 import '../../constants.dart';
+import '../../utils/tuple.dart';
+
+typedef ResultType<T> = Tuple<T?, BaseError?>;
 
 enum NetworkType {
   GET, POST, PUT, DELETE

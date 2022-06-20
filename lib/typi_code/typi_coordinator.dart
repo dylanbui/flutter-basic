@@ -11,12 +11,14 @@ import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_page.d
 import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provider.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
+import 'package:simple_auth_1/typi_code/comments/comment_list_page.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
 import '../constants.dart';
 import '../login_scene/login/login_page.dart';
 import '../login_scene/login/login_provider.dart';
+import 'comments/comment_list_provider.dart';
 
 
 // class SignUpRouter extends DbDefineRoute {
@@ -39,8 +41,11 @@ import '../login_scene/login/login_provider.dart';
 class TypiCoordinator extends DbCoordinator implements DbNavigation {
 
   TypiCoordinator(BuildContext context) : super(context) {
-    var postListPage = PostListPage(nav: this,);
-    rootPage = ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: postListPage,);
+    // var postListPage = PostListPage(nav: this,);
+    // rootPage = ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: postListPage,);
+
+    var commentListPage = CommentListPage(nav: this,);
+    rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
   }
 
   @override

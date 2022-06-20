@@ -9,6 +9,7 @@ import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 import '../../AppTheme.dart';
 import 'auth_password_provider.dart';
 
+//ignore: must_be_immutable
 class AuthPasswordPage extends BaseStateFulWidget {
 
   final String title = "Auth Password Page";
@@ -18,9 +19,7 @@ class AuthPasswordPage extends BaseStateFulWidget {
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return _ForgotPasswordPageState();
-  }
+  State<StatefulWidget> createState() => _ForgotPasswordPageState();
 
 }
 
