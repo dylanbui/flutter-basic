@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
 abstract class BaseStateLessWidget extends StatelessWidget {
 
-  const BaseStateLessWidget({Key? key}) : super(key: key);
+  DbNavigation? nav;
+
+  BaseStateLessWidget({Key? key, this.nav}) : super(key: key);
 
   Widget getLayout(BuildContext context);
 

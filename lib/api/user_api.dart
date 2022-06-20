@@ -37,10 +37,10 @@ class UserApi {
   Future<LoginType> doLogin(String username, String password) async {
 
     const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
-    const user = User("Duc Dylan", "dylan.bui@gmail.com", "password duc", 1);
+    const user = User("Duc Dylan", "dylan.bui@gmail.com", "password duc", 10);
 
     // chờ 4 giay
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (username == "duc" && password == "123") {
       return const Tuple(user, null);

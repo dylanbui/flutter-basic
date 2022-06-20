@@ -6,9 +6,12 @@ abstract class DbDefineRoute {
 
 }
 
+// Ban chat cua implements khhong the co default function, toan bo phai overwrite lai
 abstract class DbNavigation {
 
   void navigate(DbDefineRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
+
+  void pop(BuildContext context);
 
 }
 
@@ -20,7 +23,8 @@ abstract class DbCoordinator {
   DbCoordinator(this.buildContext);
 
   void start();
-  void startSameRootController();
+  void startSameRootController() {}
+
 
 
 }

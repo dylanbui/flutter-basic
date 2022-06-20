@@ -31,7 +31,7 @@ class SignupPage extends BaseStateFulWidget {
 
   ISignupPage callback;
 
-  SignupPage(this.user, {Key? key, DbNavigation? nav,required this.onChangeText, required this.callback}) : super(key: key, nav: nav);
+  SignupPage({Key? key, DbNavigation? nav, this.user, required this.onChangeText, required this.callback}) : super(key: key, nav: nav);
 
   //const SignupPage({Key? key}) : super(key: key);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
@@ -64,10 +64,10 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    final todo = ModalRoute.of(context)?.settings.arguments as User;
+    // final todo = ModalRoute.of(context)?.settings.arguments as User;
 
     final btnSignup = ElevatedButton(
-      child: const Text("Login"),
+      child: const Text("Sign Up"),
       onPressed: () {
         //TODO: Login
         // print(nameController.text);
@@ -84,7 +84,9 @@ class _SignupPageState extends State<SignupPage> {
 
         widget.callback.returnWithAbstractClass("Gui them hang tu callback --- " + TimeOfDay.now().toString());
 
-        Navigator.pop(context, user); // data back to the first screen}
+        widget.nav?.pop(context);
+        // Navigator.pop(context, user); // data back to the first screen}
+        // Navigator.pop(context);
 
       },
     );

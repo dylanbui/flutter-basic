@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
 import '../../widget/platform_progress.dart';
@@ -13,7 +14,7 @@ class PostListPage extends BaseStateFulWidget {
 
   final String title = "Post List Page";
 
-  PostListPage({Key? key}) : super(key: key);
+  PostListPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
 
   @override
   State<StatefulWidget> createState() {
@@ -22,55 +23,63 @@ class PostListPage extends BaseStateFulWidget {
 
 }
 
-class _PostListPageState extends BaseState<PostListPage> {
+class _PostListPageState extends BaseState<PostListPage, PostListProvider> {
 
-  late PostListProvider _postListProvider;
+  // late PostListProvider _postListProvider;
 
+  // @override
+  // PostListProvider createProvider(BuildContext context) => Provider.of<PostListProvider>(context);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-
   }
 
-  @override
-  void startBuild(BuildContext context) {
-    _postListProvider = Provider.of<PostListProvider>(context);
-    _postListProvider.firstLoad();
-  }
+  // @override
+  // void startBuild(BuildContext context) {
+  //   _postListProvider = Provider.of<PostListProvider>(context);
+  //   _postListProvider.firstLoad();
+  // }
 
   @override
-  String getTitle(BuildContext context) => widget.title;
+  getAppBar(BuildContext context) => widget.title;
+
 
   @override
   Widget getBody(BuildContext context) {
+
+    // _postListProvider = Provider.of<PostListProvider>(context);
+    // _postListProvider.firstLoad();
+    pageProvider.firstLoad();
+
     // TODO: implement getBody
     //return super.getBody(context);
-    return _buildPostsList(context, _postListProvider.itemList);
+    // return _buildPostsList(context, _postListProvider.itemList);
+    return _buildPostsList(context, pageProvider.itemList);
   }
 
   Widget _buildPostsList(BuildContext context, List<Post> postList) {
-    if (_postListProvider.isLoading) {
+    if (pageProvider.isLoading) {
       return const Center(child: PlatformProgress());
     } else {
       return Column(
         children: <Widget>[
           Expanded(
             child: RefreshIndicator(
-              onRefresh: _postListProvider.onRefreshListener,
+              onRefresh: pageProvider.onRefreshListener,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   itemCount: postList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    _postListProvider.onScrollListener(index);
+                    pageProvider.onScrollListener(index);
                     return _buildPostItem(context, postList[index], index);
                   },
               ),
             ),
           ),
-          if (_postListProvider.isLoadMore) const PlatformProgress()
+          if (pageProvider.isLoadMore) const PlatformProgress()
         ],
       );
     }
@@ -90,6 +99,7 @@ class _PostListPageState extends BaseState<PostListPage> {
       ),
     );
   }
+
 
   // Example code
   // Widget _buildPostItem(BuildContext context, Post post, int index) {

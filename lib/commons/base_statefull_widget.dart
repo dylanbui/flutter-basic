@@ -3,7 +3,9 @@ import 'package:dialog_loader/dialog_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:simple_auth_1/AppTheme.dart';
+import 'package:simple_auth_1/commons/base_proviver.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
 // https://github.com/FlorinMihalache/flutter_progress_hud
@@ -11,17 +13,18 @@ import 'package:simple_auth_1/commons/coordinator/constants.dart';
 //ignore: must_be_immutable
 abstract class BaseStateFulWidget extends StatefulWidget {
 
+  DbNavigation? nav;
+
   BaseStateFulWidget({Key? key, this.nav}) : super(key: key);
 
-  DbNavigation? nav;
 }
 
-abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
+abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> extends State<B> {
 
   /// should be overridden in extended widget
   Widget? getLayout(BuildContext context) => null;
 
-  void startBuild(BuildContext context);
+  // void startBuild(BuildContext context) { }
   String getTitle(BuildContext context) => "";
   Widget getBody(BuildContext context) => const Text("implement getBody() function");
 
@@ -29,6 +32,10 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
 
   late BuildContext buildContext;
   DialogLoader? dialogLoader;
+
+  late P pageProvider;
+
+  // P createProvider(BuildContext context);
 
   // @override
   // Widget build(BuildContext context) {
@@ -39,9 +46,8 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
   @override
   Widget build(BuildContext context) {
     buildContext = context;
+    pageProvider = Provider.of<P>(context);
     dialogLoader = DialogLoader(context: buildContext);
-
-    startBuild(context);
 
     // Muon control thang nao thi phai dung context thang do
     var layout = getLayout(context);
@@ -78,15 +84,19 @@ abstract class BaseState<B extends BaseStateFulWidget> extends State<B> {
     );
   }
 
+  // TODO: Cai nay co the chay sai, chua dc kiem chung
   void showErrorSnackbar(String message) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+    var snackBar = SnackBar(
       content: Text(
         message,
         style: const TextStyle(color: Colors.red),
       ),
       backgroundColor: Colors.white,
       duration: const Duration(seconds: 1),
-    ));
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    // Scaffold.of(context).showSnackBar(snackBar); // Da bi deprecated
   }
 
   void showProgressLoading({String? text = "Đang xử lý ..."}) {

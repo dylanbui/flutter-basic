@@ -11,6 +11,7 @@ import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_page.d
 import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provider.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
+import 'package:simple_auth_1/typi_code/typi_coordinator.dart';
 
 import '../constants.dart';
 import 'login/login_page.dart';
@@ -34,6 +35,17 @@ class AuthPasswordRouter extends DbDefineRoute {
   AuthPasswordRouter(this.strCodeAuth);
 }
 
+class AuthPasswordCompletedRouter extends DbDefineRoute {
+  int userId;
+  AuthPasswordCompletedRouter(this.userId);
+}
+
+
+class LoginCompletedRouter extends DbDefineRoute {
+  int userId;
+  LoginCompletedRouter(this.userId);
+}
+
 class LoginCoordinator extends DbCoordinator implements DbNavigation {
 
   LoginCoordinator(BuildContext context) : super(context) {
@@ -44,12 +56,20 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
 
   @override
   void start() {
-    Navigator.push(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
+    //var page = PageTransition(child: rootPage, type: PageTransitionType.rightToLeft, settings: const RouteSettings(name: "ten_goi"));
+    // PageTransition ban chat tra ve router
+    // Dat ten no la login root
+    Navigator.push(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft,
+        settings: const RouteSettings(name: "login_root")),);
   }
 
   @override
   void startSameRootController() {
-    // TODO: implement startSameRootController
+    // Navigator.pushReplacement(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
+    // Chua kiem tra, test thu coi dung khong
+    // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
+    //       (route) => route.isFirst == false,);
+    Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
   }
 
   @override
@@ -70,7 +90,7 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
     } else if (toRoute is SignUpRouter) {
       // Navigation to SignUpRouter
       // const user = User("Duc", "email duc", "password duc", 1);
-      final signupPage = SignupPage(toRoute.user, nav: this, onChangeText: (String text) {
+      final signupPage = SignupPage(user: toRoute.user, nav: this, onChangeText: (String text) {
         log(" Hang gui kem ---- " + text);
       }, callback: toRoute.callback,);
 
@@ -83,6 +103,19 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
       //     child: ChangeNotifierProvider<SignupProvider>.value(value: SignupProvider(), child: signupPage,),
       //     type: PageTransitionType.rightToLeft),);
 
+    } else if (toRoute is LoginCompletedRouter) {
+      // Da chung thuc Password thanh cong, tien hanh login luon
+      // Ex: Kiem tra lay thong tin use, luu thong tin tien hanh login
+
+      var typiCoordinator = TypiCoordinator(nextContext);
+      typiCoordinator.startSameRootController();
+
+    } else if (toRoute is AuthPasswordCompletedRouter) {
+      // Da chung thuc Password thanh cong, tien hanh login luon
+      // Ex: Kiem tra lay thong tin use, luu thong tin tien hanh login
+
+      var typiCoordinator = TypiCoordinator(nextContext);
+      typiCoordinator.startSameRootController();
     }
 
 
@@ -90,6 +123,13 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
 
 
 
+  }
+
+  @override
+  void pop(BuildContext context) {
+    if (Navigator.of(context).canPop()) {
+      Navigator.pop(context);
+    }
   }
 
 }

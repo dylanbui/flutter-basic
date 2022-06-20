@@ -16,6 +16,7 @@ class AppTheme {
 
   static const TextStyle textStyle_1 = TextStyle(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 30);
   static const TextStyle textStyle_2 = TextStyle(fontSize: 20);
+  static const TextStyle textStyle_3 = TextStyle(color: Colors.red, fontSize: 15);
 
   static InputDecoration defaultInputDecoration(String text) {
     return InputDecoration(border: const OutlineInputBorder(), labelText: text,);

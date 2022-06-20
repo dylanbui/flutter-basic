@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_auth_1/AppTheme.dart';
+import 'package:simple_auth_1/app_coordinator.dart';
 import 'package:simple_auth_1/splash_page.dart';
 import 'package:simple_auth_1/splash_screen.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
+    final appCoordinator = AppCoordinator(context);
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
+      home: appCoordinator.rootPage,  //const SplashScreen(),
     );
   }
 }

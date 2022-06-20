@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
@@ -20,23 +22,32 @@ class AuthPasswordPage extends BaseStateFulWidget {
 
 }
 
-class _ForgotPasswordPageState extends State<AuthPasswordPage> {
+class _ForgotPasswordPageState extends BaseState<AuthPasswordPage> {
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController authController = TextEditingController();
 
+
+  @override
+  void initState() {
+    // Chua mound => context == null
+    // Chi chay 1 lan
+    // TODO: implement initState
+    super.initState();
+
+    authController.text = widget.strCodeAuth;
+  }
 
   @override
   Widget build(BuildContext context) {
 
-    final btnForgotPassword = ElevatedButton(
-      child: const Text("Login"),
+    final btnAuthCode = ElevatedButton(
+      child: const Text("Auth Code"),
       onPressed: () {
-        //TODO: Login
-        print(emailController.text);
+        //TODO: btnAuthCode
+        log(authController.text);
 
       },
     );
-
 
     //return const Text("noi dung");
     return Scaffold(
@@ -50,13 +61,13 @@ class _ForgotPasswordPageState extends State<AuthPasswordPage> {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.all(10),
-              child:  const Text("Forgot password", style: AppTheme.textStyle_1,),
+              child: const Text("Auth code get new password", style: AppTheme.textStyle_1,),
             ),
             Container(
               padding: const EdgeInsets.all(10),
-              child: TextField(controller: emailController, decoration: AppTheme.defaultInputDecoration("Send new password to email"),),
+              child: TextField(controller: authController, decoration: AppTheme.defaultInputDecoration("Send new password to email"),),
             ),
-            btnForgotPassword,
+            btnAuthCode,
 
           ],
         ),
@@ -64,5 +75,7 @@ class _ForgotPasswordPageState extends State<AuthPasswordPage> {
     );
 
   }
+
+
 
 }

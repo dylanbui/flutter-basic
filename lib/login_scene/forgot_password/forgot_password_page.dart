@@ -1,7 +1,10 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 
 import '../../AppTheme.dart';
 
@@ -30,14 +33,24 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
 
+    log("codeFw = ${widget.codeFw}");
+    log("messageFw = ${widget.messageFw}");
+
+
     final btnForgotPassword = ElevatedButton(
-      child: const Text("Login"),
+      child: const Text("Yeu cau lay lai PW"),
       onPressed: () {
         //TODO: Login
         print(emailController.text);
 
       },
     );
+
+    final btnAuthCode = TextButton(onPressed: () async {
+
+      widget.nav?.navigate(AuthPasswordRouter("666888"), context);
+
+    }, child: const Text("Auth Code", style: AppTheme.textStyle_3,));
 
 
     //return const Text("noi dung");
@@ -59,7 +72,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               child: TextField(controller: emailController, decoration: AppTheme.defaultInputDecoration("Send new password to email"),),
             ),
             btnForgotPassword,
-
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text("Does not have Account ???"),
+                btnAuthCode
+              ],
+            ),
           ],
         ),
       ),

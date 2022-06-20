@@ -37,18 +37,23 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
 
   @override
   void returnWithAbstractClass(String returnText) {
-    debugger(message: "returnWithAbstractClass =====>" + returnText);
+    // Dung thang nay in se dừng app lai
+    // debugger(message: "returnWithAbstractClass =====>" + returnText);
+    log("returnWithAbstractClass =====>" + returnText);
   }
 
   @override
-  void startBuild(BuildContext context) {
-    // demo navigator
-    //widget.nav?.navigate(SignUpRouter("message"), context);
+  void initState() {
+    // TODO: implement initState
+    super.initState();
 
+    // chi co gia tri nay moi cho login
+    nameController.text = "duc";
+    passwordController.text = "123";
   }
 
   @override
-  String getTitle(BuildContext context) => widget.title;
+  getAppBar(BuildContext context) => widget.title;
 
   @override
   Widget getBody(BuildContext context) {
@@ -75,6 +80,7 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
 
           if (user != null) {
             log("Login thanh cong - Username = ${user.userName} -- Email = ${user.email}");
+            widget.nav?.navigate(LoginCompletedRouter(user.value), context);
             return;
           }
 
@@ -88,24 +94,26 @@ class _LoginPageState extends BaseState<LoginPage> implements ISignupPage {
     final btnForgotPw = TextButton(onPressed: () {
 
       //TODO: Forgot password screen
+      widget.nav?.navigate(ForgotPasswordRouter(11223, "Goto Forgot password screen"), context);
 
     }, child: const Text("Forgot password"));
 
 
     final btnSignUp = TextButton(onPressed: () async {
 
+      const user = User("Duc SignUp", "email duc SignUp", "password duc SignUp", 1);
+      widget.nav?.navigate(SignUpRouter(user, this), context);
+
       //TODO: signup screen
       //Navigator.push(context, route)
-      final dataFromSecondPage = await Navigator.push(context, MaterialPageRoute(builder: (context) =>
-          SignupPage(user, onChangeText: (String text) {
-            print(" Hang gui kem ---- " + text);
-          }, callback: this,)),) as User;
-
-
-      print(dataFromSecondPage.userName);
-      print(dataFromSecondPage.email);
-
-
+      // final dataFromSecondPage = await Navigator.push(context, MaterialPageRoute(builder: (context) =>
+      //     SignupPage(user, onChangeText: (String text) {
+      //       print(" Hang gui kem ---- " + text);
+      //     }, callback: this,)),) as User;
+      //
+      //
+      // print(dataFromSecondPage.userName);
+      // print(dataFromSecondPage.email);
 
     }, child: const Text("Sign Up", style: AppTheme.textStyle_2,));
 
