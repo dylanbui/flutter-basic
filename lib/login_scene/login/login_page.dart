@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
+import 'package:simple_auth_1/session_user.dart';
 
-import '../../AppTheme.dart';
+import '../../app_theme.dart';
 import '../../commons/base_statefull_widget.dart';
 import '../../commons/coordinator/constants.dart';
 import '../../constants.dart';
@@ -52,6 +53,18 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISi
     passwordController.text = "123";
   }
 
+  void _loginSuccessful(int id, String name) {
+    log("Login thanh cong - Username = $name -- id = $id");
+    showErrorSnackbar("Login thanh cong - Username = $name -- id = $id");
+    // widget.nav?.navigate(LoginCompletedRouter(id), context);
+  }
+
+  void _loginError(BaseError error) {
+    showToast("Co loi xay ra roi !! " + error.messenger.toString());
+    // log("Co loi xay ra roi !! " + error.messenger.toString());
+  }
+
+
   @override
   getAppBar(BuildContext context) => widget.title;
 
@@ -68,24 +81,20 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISi
         print(nameController.text);
         print(passwordController.text);
 
+        var user = SessionUser.fromSystem();
+        if (user.isLogin()) {
+          showErrorSnackbar("Da login roi : ${user.userName}");
+        } else {
+          log("chua login dc");
+        }
+
+        // return;
         // Validate
         // Show loading
 
         showProgressLoading();
-        pageProvider.doLogin(nameController.text, passwordController.text).then((value) {
+        pageProvider.doLogin(nameController.text, passwordController.text, _loginSuccessful, _loginError).then((value) {
           hideProgressLoading();
-
-          final user = value.item1;
-          final error = value.item2 ?? const BaseError(1111, "Khong bit la cai gi");
-
-          if (user != null) {
-            log("Login thanh cong - Username = ${user.userName} -- Email = ${user.email}");
-            widget.nav?.navigate(LoginCompletedRouter(user.value), context);
-            return;
-          }
-
-          log("Co loi xay ra roi !! " + error.messenger.toString());
-
         });
 
       },

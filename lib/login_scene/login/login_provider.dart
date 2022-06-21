@@ -3,6 +3,7 @@
 
 import 'package:simple_auth_1/api/user_api.dart';
 import 'package:simple_auth_1/commons/base_proviver.dart';
+import 'package:simple_auth_1/session_user.dart';
 import 'package:simple_auth_1/utils/tuple.dart';
 import '../../constants.dart';
 
@@ -31,11 +32,25 @@ class LoginProvider extends BaseProvider {
   }
 
   // Day la mo hinh xu ly nut bam goi server
-  Future<LoginType> doLogin(String username, String password) async {
+  Future doLogin(String username, String password, Function(int id, String name)? success, Function(BaseError err)? error) async {
 
     // Gia lap goi server
-    return await UserApi().doLogin(username, password);
+    var result = await UserApi().doLogin(username, password);
+    var loginUser = result.item1;
+    if (loginUser != null) {
+      SessionUser sessionUser = SessionUser(id: loginUser.value, email: loginUser.email);
+      sessionUser.userName = loginUser.userName;
+      sessionUser.fullName = loginUser.userName;
+      sessionUser.password = loginUser.password;
+      sessionUser.token = "${loginUser.value} - ${loginUser.password}";
+      sessionUser.saveToSystem(); // save prefer
 
+      if (success != null) success(loginUser.value, loginUser.userName ?? "No_name");
+      return;
+    }
+
+    var err = result.item2 ?? const BaseError(404, "Login khong thanh cong");
+    if (error != null) error(err);
   }
 
   // Future<Recipe> fetchAndSetRecipes() async {

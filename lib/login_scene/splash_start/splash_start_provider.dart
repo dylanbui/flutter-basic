@@ -13,7 +13,7 @@ class SplashStartProvider extends BaseProvider {
 
     //TODO Call API from server and do sth
     await Future.delayed(const Duration(seconds: 3));
-    return "Da chay SplashStartPage --- DONE";
+    return "SplashStartProvider --- DONE";
 
     // if (_isHaveData.isEmpty) {
     //   await prefs.setString(Constants.sp_have_data, "just login_scene.login");

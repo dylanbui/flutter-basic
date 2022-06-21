@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simple_auth_1/AppTheme.dart';
+import 'package:simple_auth_1/app_theme.dart';
 import 'package:simple_auth_1/app_coordinator.dart';
 import 'package:simple_auth_1/splash_page.dart';
 import 'package:simple_auth_1/splash_screen.dart';
+import 'package:simple_auth_1/utils/shared_preferences.dart';
+
+import 'app.dart';
 
 
 
-void main() {
+main() async {
 
   /*
   Specifies the set of orientations the application interface can be displayed in.
@@ -18,6 +21,11 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  // Load share preferences data when start app
+  await DbSharedPreferences().loadPreferences();
+  // Load app file
+  await App().startLoad();
 
   runApp(const MyApp());
 }

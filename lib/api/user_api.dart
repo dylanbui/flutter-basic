@@ -1,6 +1,8 @@
 
 
 
+import 'package:simple_auth_1/commons/network/network_constants.dart';
+
 import '../constants.dart';
 
 import '../login_scene/login/login_provider.dart';
@@ -34,7 +36,7 @@ class UserApi {
   //
   // }
 
-  Future<LoginType> doLogin(String username, String password) async {
+  Future<ResultType<User?>> doLogin(String username, String password) async {
 
     const url = 'https://bakeology-alpha-stage.herokuapp.com/user/recipes';
     const user = User("Duc Dylan", "dylan.bui@gmail.com", "password duc", 10);

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_auth_1/AppTheme.dart';
+import 'package:simple_auth_1/app_theme.dart';
 import 'package:simple_auth_1/commons/base_proviver.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
@@ -89,9 +89,9 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
     var snackBar = SnackBar(
       content: Text(
         message,
-        style: const TextStyle(color: Colors.red),
+        style: const TextStyle(color: Colors.black87),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.yellowAccent,
       duration: const Duration(seconds: 1),
     );
 

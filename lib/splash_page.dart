@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
-import 'AppTheme.dart';
+import 'app_theme.dart';
 import 'login_scene/login/login_page.dart';
 import 'login_scene/login/login_provider.dart';
 

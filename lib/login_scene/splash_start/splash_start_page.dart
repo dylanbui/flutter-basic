@@ -37,13 +37,7 @@ class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
       // final router = MaterialPageRoute(builder: (context) => const SplashPage(),);
       // Navigator.pushReplacement(context, router);
 
-      log("Gia tri truoc khi chay " + value);
-      log("Gia tri truoc khi chay " + value);
-
-      if (nav == null) {
-        log("nav la NULLLLL ");
-      }
-
+      log("Gia tri tra ve tu fetchSomething : " + value);
       nav?.navigate(SplashPageCompleteRouter(message: value), context);
 
       // Navigator.pushReplacement(context, PageTransition(

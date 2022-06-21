@@ -14,10 +14,18 @@ import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_page.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
+import 'package:simple_auth_1/session_user.dart';
+import 'package:simple_auth_1/typi_code/main_tab_page.dart';
+import 'package:simple_auth_1/typi_code/main_tab_provider.dart';
+import 'package:simple_auth_1/typi_code/typi_coordinator.dart';
+import 'package:simple_auth_1/utils/logger.dart';
 
 import '../constants.dart';
+import 'app.dart';
 import 'login_scene/login/login_page.dart';
 import 'login_scene/login/login_provider.dart';
+
+import 'package:logger/logger.dart';
 
 
 class SplashPageCompleteRouter extends DbDefineRoute {
@@ -57,12 +65,31 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
 
   void _splashPageComplete(BuildContext nextContext, String? message) {
 
-    log(message ?? "-- Khong co du lieu gui");
+    dLog(message ?? "-- Khong co du lieu gui");
 
     // Lay thong tin current user, kiem tra da login chua
-    var isLogin = false;
+    if (App().currentUser.isLogin()) {
+      dLog("AppCoordinator -- DA LOGIN ROI");
+      dLog(App().currentUser.toString());
+    } else {
+      dLog("AppCoordinator -- CHUAAAA LOGIN");
+    }
+
+
+    var mainTabPage = MainTabPage(nav: this,);
+    var page = ChangeNotifierProvider<MainTabProvider>.value(value: MainTabProvider(), child: mainTabPage,);
+    // Navigator.push(nextContext, PageTransition(child: page, type: PageTransitionType.rightToLeft),);
+    Navigator.pushAndRemoveUntil(nextContext, PageTransition(child: page, type: PageTransitionType.rightToLeft), (route) => false);
+
+    return;
+
+
+    var isLogin = true;
     if (isLogin) {
       // Da login roi, vao man hinh main page
+      var typiCoordinator = TypiCoordinator(nextContext);
+      typiCoordinator.startSameRootController();
+
     } else {
       // chua login, thuc hien login
       var loginCoordinator = LoginCoordinator(nextContext);

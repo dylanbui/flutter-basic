@@ -4,7 +4,7 @@ import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
 
-import '../../AppTheme.dart';
+import '../../app_theme.dart';
 import '../../constants.dart';
 
 abstract class ISignupPage {

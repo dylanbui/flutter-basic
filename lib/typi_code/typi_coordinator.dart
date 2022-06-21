@@ -41,6 +41,7 @@ import 'comments/comment_list_provider.dart';
 class TypiCoordinator extends DbCoordinator implements DbNavigation {
 
   TypiCoordinator(BuildContext context) : super(context) {
+
     // var postListPage = PostListPage(nav: this,);
     // rootPage = ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: postListPage,);
 

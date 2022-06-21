@@ -7,7 +7,7 @@ import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provider.dart';
 import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 
-import '../../AppTheme.dart';
+import '../../app_theme.dart';
 
 class ForgotPasswordPage extends BaseStateFulWidget {
 
