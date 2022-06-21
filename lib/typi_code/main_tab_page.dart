@@ -7,6 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
+// https://blog.logrocket.com/how-to-build-a-bottom-navigation-bar-in-flutter/
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_auth_1/typi_code/comments/comment_list_page.dart';
@@ -79,7 +81,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> {
         ChangeNotifierProvider(create: (ctx) => PostListProvider()),
         ChangeNotifierProvider(create: (ctx) => CommentListProvider()),
       ],
-        child: FadeIndexedStack(
+        child: IndexedStack(
           index: _indexPageInList,
           children: _pages,
         ),

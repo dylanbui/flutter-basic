@@ -49,10 +49,11 @@ class _PostListPageState extends BaseState<PostListPage, PostListProvider> {
 
   @override
   Widget getBody(BuildContext context) {
-
     // _postListProvider = Provider.of<PostListProvider>(context);
     // _postListProvider.firstLoad();
     pageProvider.firstLoad();
+    // Lang nghe su thay doi tu bien
+    // pageProvider.addListener(() {});
 
     // TODO: implement getBody
     //return super.getBody(context);
