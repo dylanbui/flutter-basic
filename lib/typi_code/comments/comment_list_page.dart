@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/typi_code/comment.dart';
+import 'package:simple_auth_1/typi_code/comments/comment_coordinator.dart';
 
 import '../../widget/platform_progress.dart';
 import 'comment_list_provider.dart';
@@ -83,6 +84,9 @@ class _CommentListPageState extends BaseState<CommentListPage, CommentListProvid
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(comment.body ?? ""),
+        onTap: () {
+          widget.nav?.navigate(CommentDetailRouter(comment.id ?? 0), context);
+        },
       ),
     );
   }

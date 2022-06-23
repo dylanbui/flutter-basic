@@ -17,13 +17,14 @@ abstract class DbNavigation {
 
 abstract class DbCoordinator {
 
-  BuildContext buildContext;
+  // Dung buildContext khong co y nghia o day, moi context co the nghi no la 1 note trong cay
+  // BuildContext buildContext;
   late Widget rootPage;
 
-  DbCoordinator(this.buildContext);
+  DbCoordinator();
 
-  void start();
-  void startSameRootController() {}
+  void start(BuildContext fromContext);
+  void startSameRootController(BuildContext fromContext) {}
 
 
 

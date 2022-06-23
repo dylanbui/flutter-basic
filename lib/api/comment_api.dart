@@ -60,16 +60,15 @@ class CommentApi {
 
   Future<ResultType<Comment?>> getComment(int commentId) async {
     // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
-    final url = "https://jsonplaceholder.typicode.com/comments/id=${commentId.toString()}";
-    // chờ 2 giay , co y lam cham hon
-    // await Future.delayed(const Duration(seconds: 2));
+    final url = "https://jsonplaceholder.typicode.com/comments?id=$commentId";
     // Lam 2 cach khac nhau de kiem tra
 
-    final Dictionary? result = await NetworkDioApi().simpleCall(url);
-    Comment? comment = (result != null) ? Comment.fromJson(result) : null;
-
+    final List? result = await NetworkDioApi().simpleCall(url);
+    Map<String, dynamic> map = result?.first;
+    Comment? comment = (result != null) ? Comment.fromJson(map) : null;
     const error = BaseError(404,"Get comment error");
-
+    // chờ 2 giay , co y lam cham hon
+    await Future.delayed(const Duration(seconds: 2));
     return Tuple(comment, comment == null ? error : null);
   }
 

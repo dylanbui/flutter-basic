@@ -15,8 +15,10 @@ import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_page.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 import 'package:simple_auth_1/session_user.dart';
+import 'package:simple_auth_1/typi_code/comments/comment_coordinator.dart';
 import 'package:simple_auth_1/typi_code/main_tab_page.dart';
 import 'package:simple_auth_1/typi_code/main_tab_provider.dart';
+import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
 import 'package:simple_auth_1/typi_code/typi_coordinator.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
@@ -46,7 +48,7 @@ class SplashPageCompleteRouter extends DbDefineRoute {
 
 class AppCoordinator extends DbCoordinator implements DbNavigation {
 
-  AppCoordinator(BuildContext context) : super(context) {
+  AppCoordinator() : super() {
     var splashStartPage = SplashStartPage(nav: this,);
     rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
 
@@ -54,18 +56,16 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   @override
-  void start() {
+  void start(BuildContext fromContext) {
     // Navigator.push(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
   }
 
   @override
-  void startSameRootController() {
+  void startSameRootController(BuildContext fromContext) {
     // TODO: implement startSameRootController
   }
 
   void _splashPageComplete(BuildContext nextContext, String? message) {
-
-    dLog(message ?? "-- Khong co du lieu gui");
 
     // Lay thong tin current user, kiem tra da login chua
     if (App().currentUser.isLogin()) {
@@ -85,15 +85,22 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
 
 
     var isLogin = true;
-    if (isLogin) {
+    if (true) {
       // Da login roi, vao man hinh main page
-      var typiCoordinator = TypiCoordinator(nextContext);
-      typiCoordinator.startSameRootController();
+      // var typiCoordinator = TypiCoordinator();
+      // typiCoordinator.startSameRootController(nextContext);
+
+      // var postCoordinator = PostCoordinator();
+      // postCoordinator.startSameRootController(nextContext);
+
+      var commentCoordinator = CommentCoordinator();
+      commentCoordinator.startSameRootController(nextContext);
+
 
     } else {
       // chua login, thuc hien login
-      var loginCoordinator = LoginCoordinator(nextContext);
-      loginCoordinator.startSameRootController();
+      var loginCoordinator = LoginCoordinator();
+      loginCoordinator.startSameRootController(nextContext);
     }
 
   }

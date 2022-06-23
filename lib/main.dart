@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final appCoordinator = AppCoordinator(context);
+    final appCoordinator = AppCoordinator();
 
     return MaterialApp(
       title: 'Flutter Demo',

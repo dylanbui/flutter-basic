@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 import 'package:simple_auth_1/session_user.dart';
+import 'package:simple_auth_1/utils/logger.dart';
 
 import '../../app_theme.dart';
 import '../../commons/base_statefull_widget.dart';
@@ -48,9 +49,12 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISi
     // TODO: implement initState
     super.initState();
 
+    wLog("initState - 1");
+
     // chi co gia tri nay moi cho login
     nameController.text = "duc";
     passwordController.text = "123";
+    wLog("initState - 2");
   }
 
   void _loginSuccessful(int id, String name) {
@@ -70,6 +74,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISi
 
   @override
   Widget getBody(BuildContext context) {
+    wLog("getBody - 3");
 
     const user = User("Duc", "email duc", "password duc", 1);
     // final presenter = Provider.of<LoginProvider>(context, listen: false);

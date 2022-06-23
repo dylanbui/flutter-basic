@@ -50,16 +50,11 @@ class PostApi {
     // https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
     final url = "https://jsonplaceholder.typicode.com/posts/${postId.toString()}";
     // chờ 2 giay , co y lam cham hon
-    // await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     // Lam 2 cach khac nhau de kiem tra
 
     final Dictionary? result = await NetworkDioApi().simpleCall(url, type: NetworkType.GET);
     return (result != null) ? Post.fromJson(result) : null;
-
-    // if (result != null) {
-    //   return Post.fromJson(result);
-    // }
-    // return null;
   }
 
   // Example code

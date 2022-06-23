@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
+import '../../utils/logger.dart';
 import '../../widget/platform_progress.dart';
 import '../post.dart';
 
@@ -87,18 +89,31 @@ class _PostListPageState extends BaseState<PostListPage, PostListProvider> {
   }
 
   Widget _buildPostItem(BuildContext context, Post post, int index) {
-    return GestureDetector(
-      onTap: () {
-        log("GestureDetector index : ${index.toString()}");
-      },
-      child: ListTile(
-        title: Text(
-          "${index.toString()}: " + post.title.toString(),
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(post.body ?? ""),
+    return ListTile(
+      title: Text(
+        "${index.toString()}: " + post.title.toString(),
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
+      subtitle: Text(post.body ?? ""),
+      onTap: () {
+        eLog("GestureDetector index : ${index.toString()}");
+        eLog("Post id : ${post.id.toString()}");
+        widget.nav?.navigate(PostDetailRouter(post.id ?? 4), context);
+      },
     );
+
+    // return GestureDetector(
+    //   onTap: () {
+    //     log("GestureDetector index : ${index.toString()}");
+    //   },
+    //   child: ListTile(
+    //     title: Text(
+    //       "${index.toString()}: " + post.title.toString(),
+    //       style: const TextStyle(fontWeight: FontWeight.bold),
+    //     ),
+    //     subtitle: Text(post.body ?? ""),
+    //   ),
+    // );
   }
 
 

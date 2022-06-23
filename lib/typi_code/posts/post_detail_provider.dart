@@ -10,9 +10,13 @@ import '../post.dart';
 
 class PostDetailProvider extends BaseProvider {
 
+  PostDetailProvider() {
+    isLoading = true;
+  }
 
-  @override
-  void loadData(int page) async {
+  Post? post;
+
+  void loadData(int postId) async {
 
     // Chay ngon roi
     // PostApi().getPost(4).then((post) {
@@ -25,13 +29,11 @@ class PostDetailProvider extends BaseProvider {
     //
     // });
 
-
-    PostApi().getPostList(page: page, offset: 10).then((value) {
-      if (value != null) {
-        // onLoadSuccess(page, value);
-      } else {
-        // onLoadFail("Load du lieu bi loi");
-      }
+    // isLoading = true;
+    PostApi().getPost(postId).then((value) {
+      isLoading = false;
+      post = value;
+      notifyListeners();
     });
 
 

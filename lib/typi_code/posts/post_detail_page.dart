@@ -11,23 +11,46 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/typi_code/posts/post_detail_provider.dart';
 import '../../commons/base_statefull_widget.dart';
+import '../../widget/platform_progress.dart';
 import '../post.dart';
 
 //ignore: must_be_immutable
 class PostDetailPage extends BaseStateFulWidget {
+  int postId;
 
-
-  PostDetailPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  PostDetailPage(this.postId, {Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
   @override
   State<PostDetailPage> createState() => _PostDetailPageState();
 }
 
 class _PostDetailPageState extends BaseState<PostDetailPage, PostDetailProvider> {
 
-  late Post post;
+  @override
+  void initState() {
+    super.initState();
+
+  }
 
   @override
-  Widget build(BuildContext context) {
+  getAppBar(BuildContext context) {
+    return "Detail Post Id: ${widget.postId} ";
+  }
+
+  @override
+  Widget getBody(BuildContext context) {
+    // Bat dau load
+    if (pageProvider.isLoading) {
+      pageProvider.loadData(widget.postId);
+      return const Center(child: PlatformProgress());
+    }
+
+    // load xong, kiem tra gia tri
+    var post = pageProvider.post;
+    if (post == null) {
+      return const Center(child: Text("Loi khi load du lieu hay khong co du lieu"));
+    }
+
+    // Co du lieu, hien thi du lieu
     return Column(
       children: [
         Card(

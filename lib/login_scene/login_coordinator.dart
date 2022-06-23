@@ -14,6 +14,7 @@ import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
 import 'package:simple_auth_1/typi_code/typi_coordinator.dart';
 
 import '../constants.dart';
+import '../utils/logger.dart';
 import 'login/login_page.dart';
 import 'login/login_provider.dart';
 
@@ -48,28 +49,28 @@ class LoginCompletedRouter extends DbDefineRoute {
 
 class LoginCoordinator extends DbCoordinator implements DbNavigation {
 
-  LoginCoordinator(BuildContext context) : super(context) {
+  LoginCoordinator() : super() {
     var loginPage = LoginPage(nav: this,);
     // loginPage.nav = this;
     rootPage = ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: loginPage,);
   }
 
   @override
-  void start() {
+  void start(BuildContext fromContext) {
     //var page = PageTransition(child: rootPage, type: PageTransitionType.rightToLeft, settings: const RouteSettings(name: "ten_goi"));
     // PageTransition ban chat tra ve router
     // Dat ten no la login root
-    Navigator.push(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft,
+    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft,
         settings: const RouteSettings(name: "login_root")),);
   }
 
   @override
-  void startSameRootController() {
+  void startSameRootController(BuildContext fromContext) {
     // Navigator.pushReplacement(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
     // Chua kiem tra, test thu coi dung khong
     // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
     //       (route) => route.isFirst == false,);
-    Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
+    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
   }
 
   @override
@@ -91,7 +92,7 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
       // Navigation to SignUpRouter
       // const user = User("Duc", "email duc", "password duc", 1);
       final signupPage = SignupPage(user: toRoute.user, nav: this, onChangeText: (String text) {
-        log(" Hang gui kem ---- " + text);
+        eLog(" Hang gui kem ---- " + text);
       }, callback: toRoute.callback,);
 
       // Cach 1
@@ -107,15 +108,15 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
       // Da chung thuc Password thanh cong, tien hanh login luon
       // Ex: Kiem tra lay thong tin use, luu thong tin tien hanh login
 
-      var typiCoordinator = TypiCoordinator(nextContext);
-      typiCoordinator.startSameRootController();
+      var typiCoordinator = TypiCoordinator();
+      typiCoordinator.startSameRootController(nextContext);
 
     } else if (toRoute is AuthPasswordCompletedRouter) {
       // Da chung thuc Password thanh cong, tien hanh login luon
       // Ex: Kiem tra lay thong tin use, luu thong tin tien hanh login
 
-      var typiCoordinator = TypiCoordinator(nextContext);
-      typiCoordinator.startSameRootController();
+      var typiCoordinator = TypiCoordinator();
+      typiCoordinator.startSameRootController(nextContext);
     }
 
 

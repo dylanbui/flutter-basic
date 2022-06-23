@@ -4,6 +4,22 @@ import 'package:flutter/cupertino.dart';
 import '../constants.dart';
 
 abstract class BaseProvider with ChangeNotifier {
+
+  var _isStart = true;
+
+  void isStart(bool start) {
+    if (start == true) {
+      _isStart = true;
+      isLoading = true;
+      _error = null;
+    } else {
+      _isStart = false;
+    }
+
+    notifyListeners();
+  }
+
+
   var isLoading = false;
   var errorMessage = "";
   BaseError? _error;

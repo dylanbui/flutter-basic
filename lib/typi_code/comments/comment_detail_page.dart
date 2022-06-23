@@ -13,11 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
+import '../../widget/platform_progress.dart';
 import 'comment_detail_provider.dart';
 
 //ignore: must_be_immutable
 class CommentDetailPage extends BaseStateFulWidget {
-  CommentDetailPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+
+  int commentId;
+
+  CommentDetailPage(this.commentId, {Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
 
   @override
   State<CommentDetailPage> createState() => _CommentDetailPageState();
@@ -27,12 +31,9 @@ class CommentDetailPage extends BaseStateFulWidget {
   // State<StatefulWidget> createState() {
   //   return _CommentListPageState();
   // }
-
 }
 
 class _CommentDetailPageState extends BaseState<CommentDetailPage, CommentDetailProvider> {
-
-  late Comment comment;
 
   @override
   void initState() {
@@ -40,10 +41,26 @@ class _CommentDetailPageState extends BaseState<CommentDetailPage, CommentDetail
 
   }
 
-
+  @override
+  getAppBar(BuildContext context) {
+    return "Detail Comment Id: ${widget.commentId} ";
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget getBody(BuildContext context) {
+    // Bat dau load
+    if (pageProvider.isLoading) {
+      pageProvider.loadData(widget.commentId);
+      return const Center(child: PlatformProgress());
+    }
+
+    // load xong, kiem tra gia tri
+    var comment = pageProvider.comment;
+    if (comment == null) {
+      return const Center(child: Text("Loi khi load du lieu hay khong co du lieu"));
+    }
+
+    // Co du lieu, hien thi du lieu
     return Column(
       children: [
         Card(
@@ -74,6 +91,14 @@ class _CommentDetailPageState extends BaseState<CommentDetailPage, CommentDetail
       ],
     );
   }
+
+
+
+
+
+
+
+
 }
 
 
