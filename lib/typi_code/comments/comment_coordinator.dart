@@ -20,8 +20,16 @@ class CommentDetailRouter extends DbDefineRoute {
 
 class CommentCoordinator extends DbCoordinator implements DbNavigation {
 
-  CommentCoordinator() : super() {
+  // dart multiple constructors
+  // CommentCoordinator.buildWithHideTabbar() {
+  //   var commentListPage = CommentListPage(nav: this,);
+  //   commentListPage.showAppBar = false;
+  //   rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
+  // }
+
+  CommentCoordinator({bool showAppBar = true}) : super() {
     var commentListPage = CommentListPage(nav: this,);
+    commentListPage.showAppBar = showAppBar;
     rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
   }
 

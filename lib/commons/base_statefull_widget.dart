@@ -14,6 +14,7 @@ import 'package:simple_auth_1/commons/coordinator/constants.dart';
 abstract class BaseStateFulWidget extends StatefulWidget {
 
   DbNavigation? nav;
+  bool showAppBar = true;
 
   BaseStateFulWidget({Key? key, this.nav}) : super(key: key);
 
@@ -59,6 +60,9 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
 
       if (appBar is! AppBar) {
         throw Exception("Need to AppBar Widget or String !");
+      }
+      if (widget.showAppBar == false) {
+        appBar = null;
       }
 
       return Scaffold(

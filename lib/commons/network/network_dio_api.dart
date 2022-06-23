@@ -48,6 +48,10 @@ class NetworkDioApi {
 
   Future<List?> testCall(String url, NetworkType type) async {
     try {
+      // Add header if need
+      // _dio.options.headers['content-Type'] = 'application/json';
+      // _dio.options.headers["authorization"] = "Bearer --String token--";
+
       Response<List> result = await _dio.get(url);
 
       log("count = + ${result.data?.length.toString()}" );

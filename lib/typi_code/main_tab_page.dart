@@ -62,10 +62,10 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
   void _navigateToPage(int index) {
     switch (index) {
       case 0:
-        if (_pages.indexWhere((page) => page is PostCoordinator) == -1) _pages.add(PostCoordinator());
+        if (_pages.indexWhere((page) => page is PostCoordinator) == -1) _pages.add(PostCoordinator(showAppBar: false));
         break;
       case 1:
-        if (_pages.indexWhere((page) => page is CommentCoordinator) == -1) _pages.add(CommentCoordinator());
+        if (_pages.indexWhere((page) => page is CommentCoordinator) == -1) _pages.add(CommentCoordinator(showAppBar: false));
         break;
     }
     setState(() {
@@ -122,7 +122,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
       appBar: appBar(),
       body: FadeIndexedStack(
         index: _indexPageInList,
-        children: _pages.map((coordinator) => coordinator.rootPage).toList() ,
+        children: _pages.map((coordinator) => coordinator.rootPage).toList(),
       ),
       drawer: leftMenu(),
       bottomNavigationBar: bottomTabbar(),
