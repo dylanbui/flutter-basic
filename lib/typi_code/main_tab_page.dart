@@ -18,6 +18,7 @@ import 'package:simple_auth_1/typi_code/comments/comment_list_provider.dart';
 import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
+import 'package:simple_auth_1/utils/logger.dart';
 
 import '../commons/base_statefull_widget.dart';
 import '../commons/coordinator/constants.dart';
@@ -39,6 +40,158 @@ class MainTabPage extends BaseStateFulWidget {
   }
 }
 
+// Cach 1: chay tot su dung them animation change tab
+class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with WidgetsBindingObserver {
+
+  late AppLifecycleState _notification;
+  var _selectedIndexPage = 0;
+  final List<DbCoordinator> _pages = [PostCoordinator()];
+
+  int get _indexPageInList {
+    switch (_selectedIndexPage) {
+    /* Home Page */
+      case 0:
+        return _pages.indexWhere((page) => page is PostCoordinator);
+      case 1:
+        return _pages.indexWhere((page) => page is CommentCoordinator);
+      default:
+        return 0;
+    }
+  }
+
+  void _navigateToPage(int index) {
+    switch (index) {
+      case 0:
+        if (_pages.indexWhere((page) => page is PostCoordinator) == -1) _pages.add(PostCoordinator());
+        break;
+      case 1:
+        if (_pages.indexWhere((page) => page is CommentCoordinator) == -1) _pages.add(CommentCoordinator());
+        break;
+    }
+    setState(() {
+      _selectedIndexPage = index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        {
+          // _updateCurrentUserStatus(true);
+          iLog("AppLifecycleState.resumed");
+          break;
+        }
+      case AppLifecycleState.inactive:
+        {
+          iLog("AppLifecycleState.inactive");
+          break;
+        }
+      case AppLifecycleState.paused:
+        {
+          // _updateCurrentUserStatus(false);
+          iLog("AppLifecycleState.paused");
+          break;
+        }
+      case AppLifecycleState.detached:
+        {
+          // _updateCurrentUserStatus(false);
+          iLog("AppLifecycleState.detached");
+          break;
+        }
+    }
+  }
+
+  @override
+  Widget? getLayout(BuildContext context) {
+
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: FadeIndexedStack(
+        index: _indexPageInList,
+        children: _pages.map((coordinator) => coordinator.rootPage).toList() ,
+      ),
+      drawer: leftMenu(),
+      bottomNavigationBar: bottomTabbar(),
+    );
+
+  }
+
+  Drawer leftMenu() {
+    return Drawer(
+      // Add a ListView to the drawer. This ensures the user can scroll
+      // through the options in the drawer if there isn't enough vertical
+      // space to fit everything.
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text('Drawer Header'),
+          ),
+          ListTile(
+            title: const Text('Item 1'),
+            onTap: () {
+              // Update the state of the app
+              // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: const Text('Item 2'),
+            onTap: () {
+              // Update the state of the app
+              // Then close the drawer
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),);
+  }
+
+  BottomNavigationBar bottomTabbar() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      onTap: _navigateToPage,
+      backgroundColor: Theme.of(context).canvasColor,
+      unselectedItemColor: const Color(0x4D000000),
+      selectedItemColor: Theme.of(context).primaryColor,
+      showUnselectedLabels: true,
+      currentIndex: _selectedIndexPage,
+      items: [
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.home),
+          backgroundColor: Theme.of(context).canvasColor,
+          label: "Post",
+        ),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.list),
+          backgroundColor: Theme.of(context).canvasColor,
+          label: "Comment",
+        ),
+      ],
+    );
+  }
+}
+
+
+
+/*
+// // Cach 2: chay tot
 class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> {
 
 
@@ -72,98 +225,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> {
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: MultiProvider(providers: [
-        ChangeNotifierProvider(create: (ctx) => PostListProvider()),
-        ChangeNotifierProvider(create: (ctx) => CommentListProvider()),
-      ],
-        child: getTab(),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        onTap: _navigateToPage,
-        backgroundColor: Theme.of(context).canvasColor,
-        unselectedItemColor: const Color(0x4D000000),
-        selectedItemColor: Theme.of(context).primaryColor,
-        showUnselectedLabels: true,
-        currentIndex: _selectedIndexPage,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            backgroundColor: Theme.of(context).canvasColor,
-            label: "Post",
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.list),
-            backgroundColor: Theme.of(context).canvasColor,
-            label: "Comment",
-          ),
-        ],
-      ),
-    );
-
-  }
-
-
-}
-
-
-
-/*
-
-class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> {
-
-  var _selectedIndexPage = 0;
-  final List<Widget> _pages = [PostListPage()];
-
-  int get _indexPageInList {
-    switch (_selectedIndexPage) {
-    /* Home Page */
-      case 0:
-        return _pages.indexWhere((page) => page is PostListPage);
-      case 1:
-        return _pages.indexWhere((page) => page is CommentListPage);
-      default:
-        return 0;
-    }
-  }
-
-  void _navigateToPage(int index) {
-    switch (index) {
-      case 0:
-        if (_pages.indexWhere((page) => page is PostListPage) == -1) _pages.add(PostListPage());
-        break;
-      case 1:
-        if (_pages.indexWhere((page) => page is CommentListPage) == -1) _pages.add(CommentListPage());
-        break;
-    }
-    setState(() {
-      _selectedIndexPage = index;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-
-
-  }
-
-  @override
-  Widget? getLayout(BuildContext context) {
-
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: MultiProvider(providers: [
-        ChangeNotifierProvider(create: (ctx) => PostListProvider()),
-        ChangeNotifierProvider(create: (ctx) => CommentListProvider()),
-      ],
-        child: IndexedStack(
-          index: _indexPageInList,
-          children: _pages,
-        ),
-      ),
+      body: getTab(),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: _navigateToPage,
@@ -193,3 +255,4 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> {
 }
 
 */
+
