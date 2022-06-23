@@ -119,6 +119,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
 
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
+      appBar: appBar(),
       body: FadeIndexedStack(
         index: _indexPageInList,
         children: _pages.map((coordinator) => coordinator.rootPage).toList() ,
@@ -127,6 +128,36 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
       bottomNavigationBar: bottomTabbar(),
     );
 
+  }
+
+  AppBar appBar() {
+    return AppBar(
+      // AppBar title se nen lay theo page chon
+      title: const Text("AppBar title"),
+      leading: Builder(
+        builder: (BuildContext context) {
+          return RotatedBox(
+            quarterTurns: 1,
+            child: IconButton(
+              icon: const Icon(Icons.bar_chart_rounded, color: Colors.black,
+              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          );
+        },
+      ),
+      backgroundColor: Colors.redAccent,
+      elevation: 0.0,
+      actions: [
+        IconButton(
+            color: Colors.black,
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              // Navigator.pushNamed(context, '/search');
+              dLog("Search action on Tabbar Page");
+            }),
+      ],
+    );
   }
 
   Drawer leftMenu() {
