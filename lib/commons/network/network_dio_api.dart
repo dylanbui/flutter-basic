@@ -62,8 +62,23 @@ class NetworkDioApi {
     }
   }
 
+  Future<ResultType<T>> makeCall<T>(String url, {NetworkType type = NetworkType.GET, Dictionary? params}) async {
+    try {
+      Response<T> result;
+      if (type == NetworkType.POST) {
+        result = await _dio.post<T>(url, data: params,);
+      } else {
+        result = await _dio.get<T>(url);
+      }
+      return ResultType(result.data as T, null); // Thay the bang Tuple cung dc;
+    } on DioError catch (ex) {
+      return ResultType(null as T, NetworkError(ex.hashCode, ex.message));
+    }
+  }
+
 
   // T only is : List, Map<String, dynamic>
+  // Dung cho tat ca cac truong hop can call server Json
   // Simple call for https://jsonplaceholder.typicode.com/posts?_start=0&_limit=5
   Future<T?> simpleCall<T>(String url, {NetworkType type = NetworkType.GET, Dictionary? params}) async {
 

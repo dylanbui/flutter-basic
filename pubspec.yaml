@@ -63,6 +63,23 @@ dependencies:
   dialogs: ^0.0.7
   shared_preferences: ^2.0.15
   pretty_dio_logger: ^1.2.0-beta-1
+  transparent_image: ^2.0.0
+  # Hive là một cơ sở dữ liệu key-value nhẹ và nhanh chóng được viết bằng Dart thuần túy.
+  hive: ^2.2.2
+  # Flutter plugin để khởi chạy một URL trên mobile app
+  url_launcher: ^6.1.4
+  # thư viện Flutter để hiển thị hình ảnh từ internet và giữ chúng trong thư mục bộ nhớ cache.
+  cached_network_image: ^3.2.1
+  pull_to_refresh: ^2.0.0
+  # Flutter plugin để tìm các vị trí thường được sử dụng trên hệ thống tập tin hệ thống (filesystem).
+  path_provider: ^2.0.11
+  # xu ly xin quyen
+  permission_handler: 9.2.0 # ^10.0.0 , su dung cung 1 phien ban, phien ban moi yeu cau android compileSdkVersion 33
+
+
+
+  # The Flutter code generator for your assets, fonts, colors, … — Get rid of all String-based APIs.
+#  flutter_gen
 
 dev_dependencies:
   flutter_test:

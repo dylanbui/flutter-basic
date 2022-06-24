@@ -27,9 +27,9 @@ class CommentCoordinator extends DbCoordinator implements DbNavigation {
   //   rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
   // }
 
-  CommentCoordinator({bool showAppBar = true}) : super() {
+  CommentCoordinator({bool showAppBarOnRootPage = true}) : super() {
     var commentListPage = CommentListPage(nav: this,);
-    commentListPage.showAppBar = showAppBar;
+    commentListPage.showAppBar = showAppBarOnRootPage;
     rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
   }
 

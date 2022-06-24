@@ -12,12 +12,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:simple_auth_1/typi_code/comments/comment_list_page.dart';
-import 'package:simple_auth_1/typi_code/comments/comment_list_provider.dart';
+import 'package:simple_auth_1/typi_code/photos/photo_coordinator.dart';
 import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
-import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
-import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
 import '../commons/base_statefull_widget.dart';
@@ -45,7 +41,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
 
   late AppLifecycleState _notification;
   var _selectedIndexPage = 0;
-  final List<DbCoordinator> _pages = [PostCoordinator()];
+  final List<DbCoordinator> _pages = [PostCoordinator(showAppBarOnRootPage: false)];
 
   int get _indexPageInList {
     switch (_selectedIndexPage) {
@@ -62,10 +58,10 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
   void _navigateToPage(int index) {
     switch (index) {
       case 0:
-        if (_pages.indexWhere((page) => page is PostCoordinator) == -1) _pages.add(PostCoordinator(showAppBar: false));
+        if (_pages.indexWhere((page) => page is PostCoordinator) == -1) _pages.add(PostCoordinator(showAppBarOnRootPage: false));
         break;
       case 1:
-        if (_pages.indexWhere((page) => page is CommentCoordinator) == -1) _pages.add(CommentCoordinator(showAppBar: false));
+        if (_pages.indexWhere((page) => page is CommentCoordinator) == -1) _pages.add(CommentCoordinator(showAppBarOnRootPage: false));
         break;
     }
     setState(() {
@@ -139,18 +135,18 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
           return RotatedBox(
             quarterTurns: 1,
             child: IconButton(
-              icon: const Icon(Icons.bar_chart_rounded, color: Colors.black,
+              icon: const Icon(Icons.bar_chart_rounded, color: Colors.white,
               ),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           );
         },
       ),
-      backgroundColor: Colors.redAccent,
+      // backgroundColor: Colors.redAccent,
       elevation: 0.0,
       actions: [
         IconButton(
-            color: Colors.black,
+            color: Colors.white,
             icon: const Icon(Icons.search),
             onPressed: () {
               // Navigator.pushNamed(context, '/search');
@@ -175,11 +171,12 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
             child: Text('Drawer Header'),
           ),
           ListTile(
-            title: const Text('Item 1'),
+            title: const Text('Photo List'),
             onTap: () {
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
+              PhotoCoordinator().start(context);
             },
           ),
           ListTile(

@@ -19,9 +19,9 @@ class PostDetailRouter extends DbDefineRoute {
 
 class PostCoordinator extends DbCoordinator implements DbNavigation {
 
-  PostCoordinator({bool showAppBar = true}) : super() {
+  PostCoordinator({bool showAppBarOnRootPage = true}) : super() {
     var postListPage = PostListPage(nav: this,);
-    postListPage.showAppBar = showAppBar;
+    postListPage.showAppBar = showAppBarOnRootPage;
     rootPage = ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: postListPage,);
   }
 
