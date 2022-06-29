@@ -185,6 +185,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
+              PhotoCoordinator().startDemoAlert(context);
             },
           ),
         ],

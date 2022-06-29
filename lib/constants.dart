@@ -91,3 +91,4 @@ class InheritedDataProvider extends InheritedWidget {
   bool updateShouldNotify(InheritedDataProvider oldWidget) => data != oldWidget.data;
   static InheritedDataProvider? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<InheritedDataProvider>();
 }
+

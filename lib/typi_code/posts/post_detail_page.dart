@@ -38,6 +38,8 @@ class _PostDetailPageState extends BaseState<PostDetailPage, PostDetailProvider>
 
   @override
   Widget getBody(BuildContext context) {
+    // co the dung cach nay de truyen du lieu thong qua router
+    // final Post? post = ModalRoute.of(context)?.settings.arguments as Post?;
     // Bat dau load
     if (pageProvider.isLoading) {
       pageProvider.loadData(widget.postId);

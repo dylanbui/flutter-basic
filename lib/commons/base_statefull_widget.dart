@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_auth_1/app_theme.dart';
 import 'package:simple_auth_1/commons/base_proviver.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/commons/custom_app_bar.dart';
 
 // https://github.com/FlorinMihalache/flutter_progress_hud
 
@@ -26,10 +27,10 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
   Widget? getLayout(BuildContext context) => null;
 
   // void startBuild(BuildContext context) { }
-  String getTitle(BuildContext context) => "";
-  Widget getBody(BuildContext context) => const Text("implement getBody() function");
-
   dynamic getAppBar(BuildContext context) => "";
+  Widget getBody(BuildContext context) => const Text("implement getBody() function");
+  List<Widget> getAppBarAction() => [];
+
 
   late BuildContext buildContext;
   DialogLoader? dialogLoader;
@@ -52,28 +53,29 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
 
     // Muon control thang nao thi phai dung context thang do
     var layout = getLayout(context);
-    if (layout == null) {
-      var appBar = getAppBar(context);
-      if (appBar is String) {
-        appBar = AppBar(title: Text(appBar),);
-      }
-
-      if (appBar is! AppBar) {
-        throw Exception("Need to AppBar Widget or String !");
-      }
-      if (widget.showAppBar == false) {
-        appBar = null;
-      }
-
-      return Scaffold(
-        appBar: appBar,
-        body: getBody(context),
-      );
-    } else {
+    if (layout != null) {
       return layout;
     }
-  }
 
+    var appBar = getAppBar(context);
+    if (appBar is String) {
+      // tao 1 custom use for common theme
+      appBar = CustomAppBar(appBar, appBarActions: getAppBarAction(),);
+    }
+
+    // if (appBar is! AppBar) {
+    //   throw Exception("Need to AppBar Widget or String !");
+    // }
+
+    if (widget.showAppBar == false) {
+      appBar = null;
+    }
+
+    return Scaffold(
+      appBar: appBar,
+      body: getBody(context),
+    );
+  }
   //region Private Support Methods
 
   void hideKeyboard() {

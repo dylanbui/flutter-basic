@@ -7,10 +7,8 @@ import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_provider.dart';
 import 'package:simple_auth_1/typi_code/photos/shared/photo_list_item.dart';
-import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:simple_auth_1/utils/logger.dart';
 
-import '../../utils/logger.dart';
 import '../../widget/platform_progress.dart';
 import '../photo.dart';
 
@@ -32,10 +30,12 @@ class _PhotoListPageState extends BaseState<PhotoListPage, PhotoListProvider> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // Hãy lưu ý rằng bên trong phương thức initState(){...},
+    // chúng ta có một Provider nhưng chúng ta đã khai báo listen: false
+    // vì chúng ta không thể gán vào một active listener bên trong phương thức này.
+
+    // Provider.of<PhotoListProvider>(context, listen: false);
     super.initState();
-
-
   }
 
   // @override
@@ -46,6 +46,24 @@ class _PhotoListPageState extends BaseState<PhotoListPage, PhotoListProvider> {
 
   @override
   getAppBar(BuildContext context) => widget.title;
+
+  @override
+  List<Widget> getAppBarAction() {
+    return <Widget>[
+      IconButton(
+        icon: const Icon(Icons.notifications),
+        onPressed: () {
+          eLog("click : Icons.notifications");
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.person),
+        onPressed: () {
+          eLog("click : Icons.person");
+        },
+      ),
+    ];
+  }
 
 
   @override

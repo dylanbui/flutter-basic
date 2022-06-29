@@ -12,6 +12,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/show_alert_demo/show_alert_page.dart';
+import 'package:simple_auth_1/login_scene/show_alert_demo/show_alert_provider.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_page.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_provider.dart';
 
@@ -33,10 +35,16 @@ class PhotoCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   @override
-  void startSameRootController(BuildContext fromContext) {
+  void startSameRootPage(BuildContext fromContext) {
     // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
     //         (route) => route.isFirst == true);
     Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
+  }
+
+  void startDemoAlert(BuildContext fromContext) {
+    var showAlertPage = ShowAlertPage(nav: this,);
+    rootPage = ChangeNotifierProvider<ShowAlertProvider>.value(value: ShowAlertProvider(), child: showAlertPage,);
+    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
   }
 
   @override
@@ -56,3 +64,4 @@ class PhotoCoordinator extends DbCoordinator implements DbNavigation {
     Navigator.pop(context);
   }
 }
+

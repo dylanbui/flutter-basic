@@ -61,7 +61,7 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   @override
-  void startSameRootController(BuildContext fromContext) {
+  void startSameRootPage(BuildContext fromContext) {
     // TODO: implement startSameRootController
   }
 
@@ -94,13 +94,13 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
       // postCoordinator.startSameRootController(nextContext);
 
       var commentCoordinator = CommentCoordinator();
-      commentCoordinator.startSameRootController(nextContext);
+      commentCoordinator.startSameRootPage(nextContext);
 
 
     } else {
       // chua login, thuc hien login
       var loginCoordinator = LoginCoordinator();
-      loginCoordinator.startSameRootController(nextContext);
+      loginCoordinator.startSameRootPage(nextContext);
     }
 
   }

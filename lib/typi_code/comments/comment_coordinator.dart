@@ -39,7 +39,7 @@ class CommentCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   @override
-  void startSameRootController(BuildContext fromContext) {
+  void startSameRootPage(BuildContext fromContext) {
     // TODO: implement startSameRootController
     // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
     //         (route) => route.isFirst == true);

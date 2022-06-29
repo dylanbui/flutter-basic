@@ -31,12 +31,15 @@ class PostCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   @override
-  void startSameRootController(BuildContext fromContext) {
+  void startSameRootPage(BuildContext fromContext) {
     // TODO: implement startSameRootController
     // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
     //         (route) => route.isFirst == true);
 
-    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
+    Navigator.pushAndRemoveUntil(fromContext,
+      PageTransition(child: rootPage,
+          type: PageTransitionType.rightToLeft,
+          settings: const RouteSettings(name: "ten")), (route) => false,);
   }
 
   @override
@@ -46,7 +49,10 @@ class PostCoordinator extends DbCoordinator implements DbNavigation {
       // Navigation to PostDetailRouter
       final postDetailPage = PostDetailPage(toRoute.postId , nav: this,);
       var postDetailChild = ChangeNotifierProvider<PostDetailProvider>.value(value: PostDetailProvider(), child: postDetailPage,);
-      Navigator.push(nextContext, PageTransition(child: postDetailChild, type: PageTransitionType.rightToLeft),);
+      Navigator.push(nextContext,
+        PageTransition(child: postDetailChild,
+            settings: const RouteSettings(name: "PostDetailPage"),
+            type: PageTransitionType.rightToLeft),);
 
     }
 

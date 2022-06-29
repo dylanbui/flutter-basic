@@ -75,6 +75,8 @@ dependencies:
   path_provider: ^2.0.11
   # xu ly xin quyen
   permission_handler: 9.2.0 # ^10.0.0 , su dung cung 1 phien ban, phien ban moi yeu cau android compileSdkVersion 33
+  # show Alert
+  rflutter_alert: ^2.0.4
 
 
 

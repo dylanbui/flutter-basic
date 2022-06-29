@@ -65,7 +65,7 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   @override
-  void startSameRootController(BuildContext fromContext) {
+  void startSameRootPage(BuildContext fromContext) {
     // Navigator.pushReplacement(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
     // Chua kiem tra, test thu coi dung khong
     // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
@@ -109,14 +109,14 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
       // Ex: Kiem tra lay thong tin use, luu thong tin tien hanh login
 
       var typiCoordinator = TypiCoordinator();
-      typiCoordinator.startSameRootController(nextContext);
+      typiCoordinator.startSameRootPage(nextContext);
 
     } else if (toRoute is AuthPasswordCompletedRouter) {
       // Da chung thuc Password thanh cong, tien hanh login luon
       // Ex: Kiem tra lay thong tin use, luu thong tin tien hanh login
 
       var typiCoordinator = TypiCoordinator();
-      typiCoordinator.startSameRootController(nextContext);
+      typiCoordinator.startSameRootPage(nextContext);
     }
 
 

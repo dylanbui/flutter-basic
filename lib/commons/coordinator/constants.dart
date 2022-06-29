@@ -24,7 +24,7 @@ abstract class DbCoordinator {
   DbCoordinator();
 
   void start(BuildContext fromContext);
-  void startSameRootController(BuildContext fromContext) {}
+  void startSameRootPage(BuildContext fromContext) {}
 
 
 
