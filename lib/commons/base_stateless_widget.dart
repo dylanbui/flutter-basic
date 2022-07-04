@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_proviver.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
@@ -9,8 +10,9 @@ abstract class BaseStateLessWidget<P extends BaseProvider> extends StatelessWidg
 
   late P pageProvider;
   DbNavigation? nav;
+  DbNoteRouter? router;
 
-  BaseStateLessWidget({Key? key, this.nav}) : super(key: key);
+  BaseStateLessWidget({Key? key, this.nav, this.router}) : super(key: key);
 
   Widget getLayout(BuildContext context);
 

@@ -1,13 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:simple_auth_1/app_coordinator.dart';
-import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_stateless_widget.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
-import 'package:simple_auth_1/splash_page.dart';
+
+import '../../app_builder.dart';
 
 //ignore: must_be_immutable
 // class SplashStartPage extends BaseStateFulWidget {
@@ -24,10 +22,9 @@ import 'package:simple_auth_1/splash_page.dart';
 //ignore: must_be_immutable
 class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
 
-  SplashStartPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  SplashStartPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
 // class _SplashStartPage extends BaseState<SplashStartPage, SplashStartProvider> {
-
 
   @override
   Widget getLayout(BuildContext context) {
@@ -38,7 +35,7 @@ class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
       // Navigator.pushReplacement(context, router);
 
       log("Gia tri tra ve tu fetchSomething : " + value);
-      nav?.navigate(SplashPageCompleteRouter(message: value), context);
+      router?.navigate(SplashPageCompleteRoute(message: value), context);
 
       // Navigator.pushReplacement(context, PageTransition(
       //     child: const SplashPage(),

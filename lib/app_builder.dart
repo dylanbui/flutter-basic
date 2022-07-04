@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/login_scene/auth_password/auth_password_page.dart';
@@ -13,6 +14,7 @@ import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provid
 import 'package:simple_auth_1/login_scene/login_coordinator.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_page.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
+import 'package:simple_auth_1/login_scene/splash_start/splash_start_builder.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_page.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 import 'package:simple_auth_1/session_user.dart';
@@ -31,10 +33,10 @@ import 'login_scene/login/login_provider.dart';
 import 'package:logger/logger.dart';
 
 
-// class SplashPageCompleteRoute extends DbNoteRoute {
-//   String? message;
-//   SplashPageCompleteRoute({this.message});
-// }
+class SplashPageCompleteRoute extends DbNoteRoute {
+  String? message;
+  SplashPageCompleteRoute({this.message});
+}
 //
 // class ForgotPasswordRouter extends DbDefineRoute {
 //   int codeFw;
@@ -47,13 +49,17 @@ import 'package:logger/logger.dart';
 //   AuthPasswordRouter(this.strCodeAuth);
 // }
 
-class AppCoordinator extends DbCoordinator implements DbNavigation {
+class AppBuilder extends DbNoteBuilder implements DbNoteRouter {
 
-  AppCoordinator() : super() {
+  AppBuilder() : super() {
     // var splashStartPage = SplashStartPage(nav: this,);
     // rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
 
     // rootPage = SplashStartPage(nav: this,);
+
+    var splashStartBuilder = SplashStartBuilder();
+    // var splashStartBuilder = SplashStartBuilder.withAny("", 1);
+    rootPage = splashStartBuilder.rootPage;
   }
 
   @override
@@ -77,10 +83,10 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
     }
 
 
-    var mainTabPage = MainTabPage(nav: this,);
-    var page = ChangeNotifierProvider<MainTabProvider>.value(value: MainTabProvider(), child: mainTabPage,);
-    // Navigator.push(nextContext, PageTransition(child: page, type: PageTransitionType.rightToLeft),);
-    Navigator.pushAndRemoveUntil(nextContext, PageTransition(child: page, type: PageTransitionType.rightToLeft), (route) => false);
+    // var mainTabPage = MainTabPage(nav: this,);
+    // var page = ChangeNotifierProvider<MainTabProvider>.value(value: MainTabProvider(), child: mainTabPage,);
+    // // Navigator.push(nextContext, PageTransition(child: page, type: PageTransitionType.rightToLeft),);
+    // Navigator.pushAndRemoveUntil(nextContext, PageTransition(child: page, type: PageTransitionType.rightToLeft), (route) => false);
 
     return;
 
@@ -106,8 +112,10 @@ class AppCoordinator extends DbCoordinator implements DbNavigation {
 
   }
 
+
+
   @override
-  void navigate(DbDefineRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
     // if (toRoute is SplashPageCompleteRouter) {
     //   _splashPageComplete(nextContext, toRoute.message);
