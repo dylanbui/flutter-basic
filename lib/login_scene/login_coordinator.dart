@@ -47,7 +47,7 @@ class LoginCompletedRouter extends DbDefineRoute {
   LoginCompletedRouter(this.userId);
 }
 
-class LoginCoordinator extends DbCoordinator implements DbNavigation {
+class LoginCoordinator extends DbCoordinator with DbNavigation {
 
   LoginCoordinator() : super() {
     var loginPage = LoginPage(nav: this,);
@@ -126,11 +126,11 @@ class LoginCoordinator extends DbCoordinator implements DbNavigation {
 
   }
 
-  @override
-  void pop(BuildContext context) {
-    if (Navigator.of(context).canPop()) {
-      Navigator.pop(context);
-    }
-  }
+  // @override
+  // void pop(BuildContext context) {
+  //   if (Navigator.of(context).canPop()) {
+  //     Navigator.pop(context);
+  //   }
+  // }
 
 }

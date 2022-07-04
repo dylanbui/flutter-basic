@@ -180,12 +180,21 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
             },
           ),
           ListTile(
-            title: const Text('Item 2'),
+            title: const Text('Demo Alert Dialog'),
             onTap: () {
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
               PhotoCoordinator().startDemoAlert(context);
+            },
+          ),
+          ListTile(
+            title: const Text('Demo Layout'),
+            onTap: () {
+              // Update the state of the app
+              // Then close the drawer
+              Navigator.pop(context);
+              PhotoCoordinator().startDemoLayout(context);
             },
           ),
         ],

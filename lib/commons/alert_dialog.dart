@@ -65,6 +65,7 @@ class AppAlert {
       title: title,
       desc: desc,
       buttons: buttons,
+      style: alertStyle,
       alertAnimation: _fadeAlertAnimation,
     ).show();
   }
@@ -93,7 +94,7 @@ class AppAlert {
       ),
       onPressed: btnOkAction,
       color: const Color.fromRGBO(0, 179, 134, 1.0),
-      radius: BorderRadius.circular(0.0),
+      radius: BorderRadius.circular(5.0),
     );
   }
 
@@ -103,9 +104,9 @@ class AppAlert {
         title ?? "Bỏ qua",
         style: const TextStyle(color: Colors.white, fontSize: 20),
       ),
-      onPressed: () {},
+      onPressed: btnCancelAction,
       color: Colors.black26,
-      radius: BorderRadius.circular(0.0),
+      radius: BorderRadius.circular(5.0),
     );
   }
 

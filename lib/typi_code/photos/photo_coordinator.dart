@@ -14,8 +14,11 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/login_scene/show_alert_demo/show_alert_page.dart';
 import 'package:simple_auth_1/login_scene/show_alert_demo/show_alert_provider.dart';
+import 'package:simple_auth_1/login_scene/show_layout_demo/show_layout_page.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_page.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_provider.dart';
+
+import '../../login_scene/show_layout_demo/show_layout_provider.dart';
 
 class PhotoDetailRouter {
   int photoId;
@@ -44,6 +47,12 @@ class PhotoCoordinator extends DbCoordinator implements DbNavigation {
   void startDemoAlert(BuildContext fromContext) {
     var showAlertPage = ShowAlertPage(nav: this,);
     rootPage = ChangeNotifierProvider<ShowAlertProvider>.value(value: ShowAlertProvider(), child: showAlertPage,);
+    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
+  }
+
+  void startDemoLayout(BuildContext fromContext) {
+    var showDemoPage = ShowLayoutPage(nav: this,);
+    rootPage = ChangeNotifierProvider<ShowLayoutProvider>.value(value: ShowLayoutProvider(), child: showDemoPage,);
     Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
   }
 

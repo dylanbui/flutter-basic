@@ -11,7 +11,11 @@ abstract class DbNavigation {
 
   void navigate(DbDefineRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
 
-  void pop(BuildContext context);
+  void pop(BuildContext context) {
+    if (Navigator.of(context).canPop()) {
+      Navigator.pop(context);
+    }
+  }
 
 }
 

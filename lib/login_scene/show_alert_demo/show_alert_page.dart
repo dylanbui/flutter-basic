@@ -2,9 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:simple_auth_1/commons/alert_dialog.dart';
 
 import '../../commons/base_statefull_widget.dart';
 import '../../commons/coordinator/constants.dart';
+import '../../utils/logger.dart';
 import 'show_alert_provider.dart';
 
 
@@ -32,49 +34,63 @@ class _ShowAlertPageState extends BaseState<ShowAlertPage, ShowAlertProvider> {
   @override
   Widget getBody(BuildContext context) {
 
-    return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              child: const Text('Basic Alert'),
-              onPressed: () => _onBasicAlertPressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Basic Waiting Alert'),
-              onPressed: () => _onBasicWaitingAlertPressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Custom Animation Alert'),
-              onPressed: () => _onCustomAnimationAlertPressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Alert with Button'),
-              onPressed: () => _onAlertButtonPressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Alert with Buttons'),
-              onPressed: () => _onAlertButtonsPressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Alert with Style'),
-              onPressed: () => _onAlertWithStylePressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Alert with Custom Image'),
-              onPressed: () => _onAlertWithCustomImagePressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Alert with Custom Content'),
-              onPressed: () => _onAlertWithCustomContentPressed(context),
-            ),
-            ElevatedButton(
-              child: const Text('Alert with/without Root navigator'),
-              onPressed: () => _onAlertWithRootNavigator(context),
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ElevatedButton(
+            child: const Text('My Alert Warning'),
+            onPressed: () => _onMyAlertWarning(context),
+          ),
+          ElevatedButton(
+            child: const Text('My Alert Error'),
+            onPressed: () => _onMyAlertError(context),
+          ),
+          ElevatedButton(
+            child: const Text('My Alert Success'),
+            onPressed: () => _onMyAlertSuccess(context),
+          ),
+          ElevatedButton(
+            child: const Text('My Alert Info'),
+            onPressed: () => _onMyAlertInfo(context),
+          ),
+          ElevatedButton(
+            child: const Text('Basic Alert'),
+            onPressed: () => _onBasicAlertPressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Basic Waiting Alert'),
+            onPressed: () => _onBasicWaitingAlertPressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Custom Animation Alert'),
+            onPressed: () => _onCustomAnimationAlertPressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Alert with Button'),
+            onPressed: () => _onAlertButtonPressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Alert with Buttons'),
+            onPressed: () => _onAlertButtonsPressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Alert with Style'),
+            onPressed: () => _onAlertWithStylePressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Alert with Custom Image'),
+            onPressed: () => _onAlertWithCustomImagePressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Alert with Custom Content'),
+            onPressed: () => _onAlertWithCustomContentPressed(context),
+          ),
+          ElevatedButton(
+            child: const Text('Alert with/without Root navigator'),
+            onPressed: () => _onAlertWithRootNavigator(context),
+          ),
+        ],
       ),
     );
 
@@ -353,6 +369,34 @@ class _ShowAlertPageState extends BaseState<ShowAlertPage, ShowAlertProvider> {
     );
   }
 
+  _onMyAlertWarning(context) {
+    AppAlert().showWarning(context, "bạn không được bỏ trống quá nhiều fields !!", btnOkAction: () {
+      dLog("_onMyAlertWarning");
+      Navigator.pop(context);
+    });
+  }
 
+  _onMyAlertError(context) {
+    AppAlert().showError(context, "Bạn không được bỏ trống các field yêu cầu. Thanks!!", btnCancelAction: () {
+      dLog("_onMyAlertError");
+      Navigator.pop(context);
+    });
+  }
 
+  _onMyAlertSuccess(context) {
+    AppAlert().showSuccess(context, "Quá trình cập nhật đã hoàn tất !!", btnOkAction: () {
+      dLog("_onMyAlertSuccess");
+      Navigator.pop(context);
+    });
+  }
+
+  _onMyAlertInfo(context) {
+    AppAlert().showInfo(context, "Bạn không có quyền truy cập chức năng này !!", btnOkAction: () {
+      dLog("OK");
+      Navigator.pop(context);
+    }, btnCancelAction: () {
+      dLog("Cancel");
+      Navigator.pop(context);
+    });
+  }
 }
