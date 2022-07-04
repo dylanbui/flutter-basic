@@ -1,22 +1,20 @@
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
-import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
+import 'package:simple_auth_1/typi_code/posts/post_builder.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
 
 import '../../utils/logger.dart';
 import '../../widget/platform_progress.dart';
-import '../post.dart';
+import 'package:simple_auth_1/models/post.dart';
 
 class PostListPage extends BaseStateFulWidget {
 
   final String title = "Post List Page";
 
-  PostListPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  PostListPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
   @override
   State<StatefulWidget> createState() {
@@ -98,7 +96,7 @@ class _PostListPageState extends BaseState<PostListPage, PostListProvider> {
       onTap: () {
         eLog("GestureDetector index : ${index.toString()}");
         eLog("Post id : ${post.id.toString()}");
-        widget.nav?.navigate(PostDetailRouter(post.id ?? 4), context);
+        widget.router?.navigate(PostDetailRoute(post.id ?? 4), context);
       },
     );
 

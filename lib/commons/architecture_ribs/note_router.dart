@@ -16,6 +16,8 @@ abstract class DbNoteRoute {
 // Ban chat cua implements khhong the co default function, toan bo phai overwrite lai
 abstract class DbNoteRouter {
 
+  DbNoteRouter? parentRouter;
+
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
 
   void pop(BuildContext context) {

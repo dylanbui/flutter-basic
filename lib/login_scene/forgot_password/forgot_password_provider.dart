@@ -1,4 +1,4 @@
-import 'package:simple_auth_1/api/user_api.dart';
+
 import 'package:simple_auth_1/commons/base_proviver.dart';
 import 'package:simple_auth_1/utils/tuple.dart';
 import '../../constants.dart';

@@ -14,14 +14,33 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_page.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 
+abstract class SplashStartListener {
+  void splashPageComplete(BuildContext currentContext, String? message);
+}
+
+class SplashPageCompleteRoute extends DbNoteRoute {
+  String? message;
+  SplashPageCompleteRoute({this.message});
+}
+
+
 class SplashStartBuilder extends DbNoteBuilder with DbNoteRouter {
+
+  SplashStartListener? listener;
 
   SplashStartBuilder() : super() {
     var splashStartPage = SplashStartPage(router: this,);
     rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
   }
 
+  // Demo cac overwrite
   SplashStartBuilder.withAny(String param_1, int param_2) {
+    var splashStartPage = SplashStartPage(router: this,);
+    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
+  }
+
+  // Demo cac overwrite
+  SplashStartBuilder.withListener(this.listener) {
     var splashStartPage = SplashStartPage(router: this,);
     rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
   }
@@ -34,9 +53,10 @@ class SplashStartBuilder extends DbNoteBuilder with DbNoteRouter {
 
   @override
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
-    // TODO: implement navigate
-
-
+    if (toRoute is SplashPageCompleteRoute) {
+      listener?.splashPageComplete(nextContext, toRoute.message);
+      // parentRouter?.goiLenParentRouter();
+    }
 
   }
 }

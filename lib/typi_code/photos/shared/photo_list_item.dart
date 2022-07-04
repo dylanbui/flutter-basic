@@ -10,7 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
-import '../../photo.dart';
+import 'package:simple_auth_1/models/photo.dart';
 import 'my_cached_network_image.dart';
 
 

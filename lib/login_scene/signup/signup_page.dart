@@ -1,38 +1,27 @@
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
+import 'package:simple_auth_1/login_scene/signup/signup_builder.dart';
 import 'package:simple_auth_1/login_scene/signup/signup_provider.dart';
 
 import '../../app_theme.dart';
 import '../../constants.dart';
 
-abstract class ISignupPage {
 
-  void returnWithAbstractClass(String returnText);
 
-}
-
-// class UserMakeWidget extends StatelessWidget {
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-//
-// }
-
+//ignore: must_be_immutable
 class SignupPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
-  User? user;
+  final User? user;
   // final Function(String dateTime) onChangeDate;
   final Function(String text) onChangeText;
 
   ISignupPage callback;
 
-  SignupPage({Key? key, DbNavigation? nav, this.user, required this.onChangeText, required this.callback}) : super(key: key, nav: nav);
+  SignupPage({Key? key, DbNoteRouter? router, this.user, required this.onChangeText, required this.callback}) : super(key: key, router: router);
 
   //const SignupPage({Key? key}) : super(key: key);
   // const LoginPage({Key? key, required this.title}) : super(key: key);

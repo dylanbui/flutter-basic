@@ -1,7 +1,7 @@
 
 
 import 'package:simple_auth_1/commons/network/network_dio_api.dart';
-import 'package:simple_auth_1/typi_code/comment.dart';
+import 'package:simple_auth_1/models/comment.dart';
 
 import '../commons/network/network_constants.dart';
 import '../constants.dart';

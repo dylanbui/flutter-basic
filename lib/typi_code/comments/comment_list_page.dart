@@ -2,19 +2,19 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
-import 'package:simple_auth_1/typi_code/comment.dart';
-import 'package:simple_auth_1/typi_code/comments/comment_coordinator.dart';
+import 'package:simple_auth_1/models/comment.dart';
 
 import '../../widget/platform_progress.dart';
+import 'comment_builder.dart';
 import 'comment_list_provider.dart';
 
 class CommentListPage extends BaseStateFulWidget {
 
   final String title = "Comment List Page";
 
-  CommentListPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  CommentListPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
   @override
   State<StatefulWidget> createState() {
@@ -85,7 +85,7 @@ class _CommentListPageState extends BaseState<CommentListPage, CommentListProvid
         ),
         subtitle: Text(comment.body ?? ""),
         onTap: () {
-          widget.nav?.navigate(CommentDetailRouter(comment.id ?? 0), context);
+          widget.router?.navigate(CommentDetailRoute(comment.id ?? 0), context);
         },
       ),
     );

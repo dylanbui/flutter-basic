@@ -3,7 +3,7 @@
 import 'package:simple_auth_1/commons/base_load_more_refresh_provider.dart';
 
 import '../../api/comment_api.dart';
-import '../comment.dart';
+import 'package:simple_auth_1/models/comment.dart';
 
 
 class CommentListProvider extends BaseLoadMoreRefreshProvider<Comment> {

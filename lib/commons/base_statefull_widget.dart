@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_auth_1/app_theme.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_proviver.dart';
 import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/commons/custom_app_bar.dart';
@@ -15,9 +16,10 @@ import 'package:simple_auth_1/commons/custom_app_bar.dart';
 abstract class BaseStateFulWidget extends StatefulWidget {
 
   DbNavigation? nav;
+  DbNoteRouter? router;
   bool showAppBar = true;
 
-  BaseStateFulWidget({Key? key, this.nav}) : super(key: key);
+  BaseStateFulWidget({Key? key, this.nav, this.router}) : super(key: key);
 
 }
 

@@ -1,0 +1,42 @@
+/*
+ * Created with IntelliJ IDEA
+ * Package: 
+ * User: dylanbui
+ * Email: duc@propzy.com
+ * Date: 04/07/2022 - 16:00
+ * To change this template use File | Settings | File Templates.
+ */
+
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+
+import 'main_tab_provider.dart';
+import 'main_tab_page.dart';
+
+class MainTabBuilder extends DbNoteBuilder with DbNoteRouter {
+
+  MainTabBuilder() {
+    var mainTabPage = MainTabPage(router: this,);
+    rootPage = ChangeNotifierProvider<MainTabProvider>.value(value: MainTabProvider(), child: mainTabPage,);
+  }
+
+  @override
+  void start(BuildContext fromContext) {
+    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
+  }
+
+  @override
+  void startSameRootPage(BuildContext fromContext) {
+    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
+  }
+
+  @override
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+    // TODO: implement navigate
+  }
+
+
+}

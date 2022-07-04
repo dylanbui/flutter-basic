@@ -1,14 +1,13 @@
 
 
 import 'package:simple_auth_1/commons/network/network_dio_api.dart';
-import 'package:simple_auth_1/typi_code/photo.dart';
+import 'package:simple_auth_1/models/photo.dart';
 
 import '../commons/network/network_constants.dart';
 import '../constants.dart';
 
-import '../typi_code/post.dart';
+import 'package:simple_auth_1/models/post.dart';
 import '../utils/tuple.dart';
-
 
 
 // Co the dung injection dependency o cho nay voi get_it, de toi uu hoa build, va tao singleton class

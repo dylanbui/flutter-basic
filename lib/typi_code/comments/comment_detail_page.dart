@@ -7,11 +7,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
-import 'package:simple_auth_1/typi_code/comment.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
 
 import '../../widget/platform_progress.dart';
 import 'comment_detail_provider.dart';
@@ -21,7 +20,7 @@ class CommentDetailPage extends BaseStateFulWidget {
 
   int commentId;
 
-  CommentDetailPage(this.commentId, {Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  CommentDetailPage(this.commentId, {Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
   @override
   State<CommentDetailPage> createState() => _CommentDetailPageState();

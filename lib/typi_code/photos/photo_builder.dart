@@ -1,34 +1,29 @@
 /*
  * Created with IntelliJ IDEA
- * Package: typi_code
+ * Package: 
  * User: dylanbui
  * Email: duc@propzy.com
- * Date: 24/06/2022 - 11:06
+ * Date: 04/07/2022 - 15:43
  * To change this template use File | Settings | File Templates.
  */
 
-
+import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
-import 'package:simple_auth_1/login_scene/show_alert_demo/show_alert_page.dart';
-import 'package:simple_auth_1/login_scene/show_alert_demo/show_alert_provider.dart';
-import 'package:simple_auth_1/login_scene/show_layout_demo/show_layout_page.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_page.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_provider.dart';
 
-import '../../login_scene/show_layout_demo/show_layout_provider.dart';
-
-class PhotoDetailRouter {
+class PhotoDetailRoute {
   int photoId;
-  PhotoDetailRouter(this.photoId);
+  PhotoDetailRoute(this.photoId);
 }
 
-class PhotoCoordinator extends DbCoordinator implements DbNavigation {
+class PhotoBuilder extends DbNoteBuilder with DbNoteRouter {
 
-  PhotoCoordinator() : super() {
-    var photoListPage = PhotoListPage(nav: this,);
+  PhotoBuilder() : super() {
+    var photoListPage = PhotoListPage(router: this,);
     rootPage = ChangeNotifierProvider<PhotoListProvider>.value(value: PhotoListProvider(), child: photoListPage,);
   }
 
@@ -45,32 +40,26 @@ class PhotoCoordinator extends DbCoordinator implements DbNavigation {
   }
 
   void startDemoAlert(BuildContext fromContext) {
-    var showAlertPage = ShowAlertPage(nav: this,);
-    rootPage = ChangeNotifierProvider<ShowAlertProvider>.value(value: ShowAlertProvider(), child: showAlertPage,);
-    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
+    // var showAlertPage = ShowAlertPage(nav: this,);
+    // rootPage = ChangeNotifierProvider<ShowAlertProvider>.value(value: ShowAlertProvider(), child: showAlertPage,);
+    // Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
   }
 
   void startDemoLayout(BuildContext fromContext) {
-    var showDemoPage = ShowLayoutPage(nav: this,);
-    rootPage = ChangeNotifierProvider<ShowLayoutProvider>.value(value: ShowLayoutProvider(), child: showDemoPage,);
-    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
+    // var showDemoPage = ShowLayoutPage(nav: this,);
+    // rootPage = ChangeNotifierProvider<ShowLayoutProvider>.value(value: ShowLayoutProvider(), child: showDemoPage,);
+    // Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
   }
 
   @override
-  void navigate(DbDefineRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
-    if (toRoute is PhotoDetailRouter) {
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+    // TODO: implement navigate
+    if (toRoute is PhotoDetailRoute) {
       // Navigation to ForgotPasswordRouter
       // final commentDetailPage = CommentDetailPage(toRoute.commentId, nav: this,);
       // var commentDetailChild = ChangeNotifierProvider<CommentDetailProvider>.value(value: CommentDetailProvider(), child: commentDetailPage,);
       // Navigator.push(nextContext, PageTransition(child: commentDetailChild, type: PageTransitionType.rightToLeft),);
     }
-
-
   }
 
-  @override
-  void pop(BuildContext context) {
-    Navigator.pop(context);
-  }
 }
-

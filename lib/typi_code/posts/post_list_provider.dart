@@ -1,11 +1,10 @@
 
 
-import 'dart:developer';
 
 import 'package:simple_auth_1/api/post_api.dart';
 import 'package:simple_auth_1/commons/base_load_more_refresh_provider.dart';
 
-import '../post.dart';
+import 'package:simple_auth_1/models/post.dart';
 
 class PostListProvider extends BaseLoadMoreRefreshProvider<Post> {
 

@@ -9,17 +9,17 @@
 
 // https://blog.logrocket.com/how-to-build-a-bottom-navigation-bar-in-flutter/
 
-
-
 import 'package:flutter/material.dart';
-import 'package:simple_auth_1/typi_code/photos/photo_coordinator.dart';
-import 'package:simple_auth_1/typi_code/posts/post_coordinator.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/typi_code/comments/comment_builder.dart';
+import 'package:simple_auth_1/typi_code/photos/photo_builder.dart';
+import 'package:simple_auth_1/typi_code/posts/post_builder.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
-import '../commons/base_statefull_widget.dart';
-import '../commons/coordinator/constants.dart';
-import '../widget/fade_indexed_stack.dart';
-import 'comments/comment_coordinator.dart';
+
+import '../../commons/base_statefull_widget.dart';
+import '../../widget/fade_indexed_stack.dart';
 import 'main_tab_provider.dart';
 
 //ignore: must_be_immutable
@@ -27,7 +27,7 @@ class MainTabPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
 
-  MainTabPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  MainTabPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,15 +41,15 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
 
   late AppLifecycleState _notification;
   var _selectedIndexPage = 0;
-  final List<DbCoordinator> _pages = [PostCoordinator(showAppBarOnRootPage: false)];
+  final List<DbNoteBuilder> _pages = [PostBuilder(showAppBarOnRootPage: false)];
 
   int get _indexPageInList {
     switch (_selectedIndexPage) {
     /* Home Page */
       case 0:
-        return _pages.indexWhere((page) => page is PostCoordinator);
+        return _pages.indexWhere((page) => page is PostBuilder);
       case 1:
-        return _pages.indexWhere((page) => page is CommentCoordinator);
+        return _pages.indexWhere((page) => page is CommentBuilder);
       default:
         return 0;
     }
@@ -58,10 +58,10 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
   void _navigateToPage(int index) {
     switch (index) {
       case 0:
-        if (_pages.indexWhere((page) => page is PostCoordinator) == -1) _pages.add(PostCoordinator(showAppBarOnRootPage: false));
+        if (_pages.indexWhere((page) => page is PostBuilder) == -1) _pages.add(PostBuilder(showAppBarOnRootPage: false));
         break;
       case 1:
-        if (_pages.indexWhere((page) => page is CommentCoordinator) == -1) _pages.add(CommentCoordinator(showAppBarOnRootPage: false));
+        if (_pages.indexWhere((page) => page is CommentBuilder) == -1) _pages.add(CommentBuilder(showAppBarOnRootPage: false));
         break;
     }
     setState(() {
@@ -176,7 +176,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
-              PhotoCoordinator().start(context);
+              PhotoBuilder().start(context);
             },
           ),
           ListTile(
@@ -185,7 +185,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
-              PhotoCoordinator().startDemoAlert(context);
+              // PhotoCoordinator().startDemoAlert(context);
             },
           ),
           ListTile(
@@ -194,7 +194,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
-              PhotoCoordinator().startDemoLayout(context);
+              // PhotoCoordinator().startDemoLayout(context);
             },
           ),
         ],

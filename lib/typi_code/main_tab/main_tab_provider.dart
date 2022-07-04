@@ -7,9 +7,9 @@
  * To change this template use File | Settings | File Templates.
  */
 
-import '../commons/base_proviver.dart';
 
 
+import '../../commons/base_proviver.dart';
 
 class MainTabProvider extends BaseProvider {
 

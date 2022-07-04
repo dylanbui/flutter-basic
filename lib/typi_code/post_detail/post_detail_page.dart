@@ -8,17 +8,17 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
-import 'package:simple_auth_1/typi_code/posts/post_detail_provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import '../../commons/base_statefull_widget.dart';
 import '../../widget/platform_progress.dart';
-import '../post.dart';
+import 'post_detail_provider.dart';
+
 
 //ignore: must_be_immutable
 class PostDetailPage extends BaseStateFulWidget {
   int postId;
 
-  PostDetailPage(this.postId, {Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  PostDetailPage(this.postId, {Key? key, DbNoteRouter? router}) : super(key: key, router: router);
   @override
   State<PostDetailPage> createState() => _PostDetailPageState();
 }

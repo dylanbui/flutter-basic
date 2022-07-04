@@ -2,21 +2,20 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_list_provider.dart';
 import 'package:simple_auth_1/typi_code/photos/shared/photo_list_item.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
 import '../../widget/platform_progress.dart';
-import '../photo.dart';
+import 'package:simple_auth_1/models/photo.dart';
 
 class PhotoListPage extends BaseStateFulWidget {
 
   final String title = "Photo List Page";
 
-  PhotoListPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  PhotoListPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
   @override
   State<StatefulWidget> createState() {

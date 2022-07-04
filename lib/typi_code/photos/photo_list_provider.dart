@@ -3,7 +3,7 @@
 import 'package:simple_auth_1/commons/base_load_more_refresh_provider.dart';
 
 import '../../api/photo_api.dart';
-import '../photo.dart';
+import 'package:simple_auth_1/models/photo.dart';
 
 class PhotoListProvider extends BaseLoadMoreRefreshProvider<Photo> {
 
