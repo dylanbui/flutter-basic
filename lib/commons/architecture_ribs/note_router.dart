@@ -8,6 +8,37 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
+abstract class DbRoute {
+
+}
+
+abstract class DbRouting {
+
+  DbNoteRouter? parentRouter;
+
+  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
+
+
+  // Se tach push, pop qua 1 class khac
+  void push(BuildContext fromContext, Widget widget) {
+    Navigator.push(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft),);
+  }
+
+  void pushSameRootPage(BuildContext fromContext, Widget widget) {
+    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
+  }
+
+  void pop(BuildContext context) {
+    if (Navigator.of(context).canPop()) {
+      Navigator.pop(context);
+    }
+  }
+
+}
+
+/////////////////////////////////////////////
 
 abstract class DbNoteRoute {
 

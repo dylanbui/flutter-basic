@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/login_scene/login/login_router.dart';
 import 'package:simple_auth_1/session_user.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
@@ -10,7 +11,6 @@ import '../../app_theme.dart';
 import '../../commons/base_statefull_widget.dart';
 import '../../constants.dart';
 import '../signup/signup_builder.dart';
-import 'login_builder.dart';
 import 'login_provider.dart';
 
 
@@ -18,7 +18,7 @@ class LoginPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
 
-  LoginPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
+  LoginPage({Key? key, DbRouting? routing}) : super(key: key, routing: routing);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class LoginPage extends BaseStateFulWidget {
 }
 
 
-class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISignupPage {
+class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements SignupPageListener {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -106,7 +106,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISi
 
     final btnForgotPw = TextButton(onPressed: () {
       //TODO: Forgot password screen
-      widget.router?.navigate(ForgotPasswordRoute(11223, "Goto Forgot password screen"), context);
+      widget.routing?.navigate(ForgotPasswordRoute(11223, "Goto Forgot password screen"), context);
 
     }, child: const Text("Forgot password"));
 
@@ -114,7 +114,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements ISi
     final btnSignUp = TextButton(onPressed: () async {
       //TODO: signup screen
       const user = User("Duc SignUp", "email duc SignUp", "password duc SignUp", 1);
-      widget.router?.navigate(SignUpRoute(user, this), context);
+      widget.routing?.navigate(SignUpRoute(user, this), context);
 
       //Navigator.push(context, route)
       // final dataFromSecondPage = await Navigator.push(context, MaterialPageRoute(builder: (context) =>

@@ -2,11 +2,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/app_theme.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
+import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_router.dart';
 
-import '../../../app_theme.dart';
-import '../forgot_password_builder.dart';
 import 'auth_password_provider.dart';
 
 //ignore: must_be_immutable
@@ -15,7 +15,7 @@ class AuthPasswordPage extends BaseStateFulWidget {
   final String title = "Auth Password Page";
   String strCodeAuth;
 
-  AuthPasswordPage(this.strCodeAuth, {Key? key, DbNoteRouter? router}) : super(key: key, router: router);
+  AuthPasswordPage(this.strCodeAuth, {Key? key, DbRouting? routing}) : super(key: key, routing: routing);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class _ForgotPasswordPageState extends BaseState<AuthPasswordPage, AuthPasswordP
         pageProvider.doAuthPassword("123", "123").then((value) {
           hideProgressLoading();
           if (value == true) {
-            widget.router?.navigate(AuthPasswordCompletedRoute(10), context);
+            widget.routing?.navigate(AuthPasswordCompletedRoute(10), context);
           }
         });
 

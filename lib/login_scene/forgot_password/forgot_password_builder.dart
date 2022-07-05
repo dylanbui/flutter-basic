@@ -8,55 +8,59 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
-import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/login_scene/forgot_password/auth_password/auth_password_page.dart';
+import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_router.dart';
 
 import 'auth_password/auth_password_provider.dart';
-import 'auth_password/auth_password_page.dart';
 import 'forgot_password_page.dart';
 import 'forgot_password_provider.dart';
 
-class AuthPasswordRoute extends DbNoteRoute {
-  String strCodeAuth;
-  AuthPasswordRoute(this.strCodeAuth);
-}
+// Listener
 
-class AuthPasswordCompletedRoute extends DbNoteRoute {
-  int userId;
-  AuthPasswordCompletedRoute(this.userId);
+// abstract class SignupPageListener {
+//   void returnWithAbstractClass(String returnText);
+// }
+
+// Buildable
+
+abstract class ForgotPasswordBuildable extends DbBuildable {
+
+  Widget build();
+  Widget buildWith(int codeFw, String? messageFw);
+
+  Widget buildAuthPassword(String strCodeAuth);
+
 }
 
 /* Minh hoa ForgotPassword va AuthPassword cung dung chung 1 builder, 1 router
 
+Cho nay van con giai quyet van de thong nhat callback goi ve tu trang con, cu the la AuthPasswordPage can call len ForgotPasswordBuilder
+Giai phap xem xet den la Dependency da co trong code
+
 * */
 
-class ForgotPasswordBuilder extends DbNoteBuilder with DbNoteRouter {
+class ForgotPasswordBuilder extends DbBuilder implements ForgotPasswordBuildable {
 
-  ForgotPasswordBuilder(int codeFw, String? messageFw) {
-    final forgotPasswordPage = ForgotPasswordPage(codeFw, messageFw: messageFw, router: this,);
-    rootPage = ChangeNotifierProvider<ForgotPasswordProvider>.value(value: ForgotPasswordProvider(), child: forgotPasswordPage,);
+  final _routing = ForgotPasswordRouter();
+
+  @override
+  Widget build() {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 
   @override
-  void start(BuildContext fromContext) {
-    // TODO: implement start
-    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
+  Widget buildWith(int codeFw, String? messageFw) {
+    final forgotPasswordPage = ForgotPasswordPage(codeFw, messageFw: messageFw, routing: _routing,);
+    return ChangeNotifierProvider<ForgotPasswordProvider>.value(value: ForgotPasswordProvider(), child: forgotPasswordPage,);
   }
 
   @override
-  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
-
-    if (toRoute is AuthPasswordRoute) {
-      // Navigation to AuthPasswordRouter
-      final authPasswordPage = AuthPasswordPage(toRoute.strCodeAuth, router: this,);
-      var authPasswordChild = ChangeNotifierProvider<AuthPasswordProvider>.value(value: AuthPasswordProvider(), child: authPasswordPage,);
-      Navigator.push(nextContext, PageTransition(child: authPasswordChild, type: PageTransitionType.rightToLeft),);
-    }
-
-
-
+  Widget buildAuthPassword(String strCodeAuth) {
+    final authPasswordPage = AuthPasswordPage(strCodeAuth, routing: _routing,);
+    return ChangeNotifierProvider<AuthPasswordProvider>.value(value: AuthPasswordProvider(), child: authPasswordPage,);
   }
 
 

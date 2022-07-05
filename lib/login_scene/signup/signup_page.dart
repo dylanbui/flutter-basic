@@ -19,9 +19,9 @@ class SignupPage extends BaseStateFulWidget {
   // final Function(String dateTime) onChangeDate;
   final Function(String text) onChangeText;
 
-  ISignupPage callback;
+  SignupPageListener callback;
 
-  SignupPage({Key? key, DbNoteRouter? router, this.user, required this.onChangeText, required this.callback}) : super(key: key, router: router);
+  SignupPage({Key? key, DbRouting? routing, this.user, required this.onChangeText, required this.callback}) : super(key: key, routing: routing);
 
   //const SignupPage({Key? key}) : super(key: key);
   // const LoginPage({Key? key, required this.title}) : super(key: key);

@@ -14,49 +14,64 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_page.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 
+
+// Listener
+
 abstract class SplashStartListener {
   void splashPageComplete(BuildContext currentContext, String? message);
 }
 
-class SplashPageCompleteRoute extends DbNoteRoute {
+// Buildable
+
+abstract class SplashStartBuildable extends DbBuildable {
+
+  Widget build();
+  Widget buildWithAny(String param_1, int param_2);
+  Widget buildWithListener(SplashStartListener listener);
+
+}
+
+// Router
+
+class SplashPageCompleteRoute extends DbRoute {
   String? message;
   SplashPageCompleteRoute({this.message});
 }
 
+// Builder
 
-class SplashStartBuilder extends DbNoteBuilder with DbNoteRouter {
+class SplashStartBuilder extends DbBuilder with DbRouting implements SplashStartBuildable {
 
   SplashStartListener? listener;
 
-  SplashStartBuilder() : super() {
-    var splashStartPage = SplashStartPage(router: this,);
-    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
-  }
-
-  // Demo cac overwrite
-  SplashStartBuilder.withAny(String param_1, int param_2) {
-    var splashStartPage = SplashStartPage(router: this,);
-    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
-  }
-
-  // Demo cac overwrite
-  SplashStartBuilder.withListener(this.listener) {
-    var splashStartPage = SplashStartPage(router: this,);
-    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
-  }
-
   @override
-  void start(BuildContext fromContext) {
-
-
-  }
-
-  @override
-  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
     if (toRoute is SplashPageCompleteRoute) {
       listener?.splashPageComplete(nextContext, toRoute.message);
       // parentRouter?.goiLenParentRouter();
     }
 
+  }
+
+  @override
+  Widget build() {
+    var splashStartPage = SplashStartPage(routing: this,);
+    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
+    return rootPage;
+  }
+
+  @override
+  Widget buildWithAny(String param_1, int param_2) {
+    var splashStartPage = SplashStartPage(routing: this,);
+    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
+    return rootPage;
+  }
+
+  @override
+  Widget buildWithListener(SplashStartListener listener) {
+    this.listener = listener;
+    var splashStartPage = SplashStartPage(routing: this,);
+    rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
+    return rootPage;
   }
 }

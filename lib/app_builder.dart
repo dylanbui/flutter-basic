@@ -9,44 +9,23 @@ import 'package:simple_auth_1/utils/logger.dart';
 
 import 'app.dart';
 
+// Buildable
 
-class SplashPageCompleteRoute extends DbNoteRoute {
-  String? message;
-  SplashPageCompleteRoute({this.message});
+abstract class AppBuildable extends DbBuildable {
+
+  Widget build();
+
 }
-//
-// class ForgotPasswordRouter extends DbDefineRoute {
-//   int codeFw;
-//   String? messageFw;
-//   ForgotPasswordRouter(this.codeFw, this.messageFw);
-// }
-//
-// class AuthPasswordRouter extends DbDefineRoute {
-//   String strCodeAuth;
-//   AuthPasswordRouter(this.strCodeAuth);
-// }
 
-class AppBuilder extends DbNoteBuilder implements SplashStartListener {
 
-  AppBuilder() : super() {
-    // var splashStartPage = SplashStartPage(nav: this,);
-    // rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
+class AppBuilder extends DbBuilder with DbRouting implements AppBuildable, SplashStartListener {
 
-    // rootPage = SplashStartPage(nav: this,);
-
-    var splashStartBuilder = SplashStartBuilder.withListener(this);
-    // var splashStartBuilder = SplashStartBuilder.withAny("", 1);
-    rootPage = splashStartBuilder.rootPage;
-  }
 
   @override
-  void start(BuildContext fromContext) {
-    // Navigator.push(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
-  }
-
-  @override
-  void startSameRootPage(BuildContext fromContext) {
-    // TODO: implement startSameRootController
+  Widget build() {
+    final SplashStartBuildable splashStartBuilder = SplashStartBuilder();
+    rootPage = splashStartBuilder.buildWithListener(this);
+    return rootPage;
   }
 
   @override
@@ -59,7 +38,6 @@ class AppBuilder extends DbNoteBuilder implements SplashStartListener {
       dLog("AppCoordinator -- CHUAAAA LOGIN");
     }
 
-
     // Sau khi login xong thi chay thang nay
     final mainTabBuilder = MainTabBuilder();
     mainTabBuilder.start(currentContext);
@@ -68,14 +46,10 @@ class AppBuilder extends DbNoteBuilder implements SplashStartListener {
 
   }
 
+  @override
+  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
-
-
-
-
-
-
-
+  }
 
 
 }

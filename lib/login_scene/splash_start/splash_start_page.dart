@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_stateless_widget.dart';
+import 'package:simple_auth_1/login_scene/splash_start/splash_start_builder.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dart';
 
-import '../../app_builder.dart';
 
 //ignore: must_be_immutable
 // class SplashStartPage extends BaseStateFulWidget {
@@ -22,7 +22,7 @@ import '../../app_builder.dart';
 //ignore: must_be_immutable
 class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
 
-  SplashStartPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
+  SplashStartPage({Key? key, DbRouting? routing}) : super(key: key, routing: routing);
 
 // class _SplashStartPage extends BaseState<SplashStartPage, SplashStartProvider> {
 
@@ -35,7 +35,7 @@ class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
       // Navigator.pushReplacement(context, router);
 
       log("Gia tri tra ve tu fetchSomething : " + value);
-      router?.navigate(SplashPageCompleteRoute(message: value), context);
+      routing?.navigate(SplashPageCompleteRoute(message: value), context);
 
       // Navigator.pushReplacement(context, PageTransition(
       //     child: const SplashPage(),

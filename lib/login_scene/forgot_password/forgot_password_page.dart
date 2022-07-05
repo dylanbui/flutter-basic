@@ -6,6 +6,7 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 
 import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_provider.dart';
+import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_router.dart';
 
 import '../../app_theme.dart';
 import 'forgot_password_builder.dart';
@@ -17,7 +18,7 @@ class ForgotPasswordPage extends BaseStateFulWidget {
   int codeFw;
   String? messageFw;
 
-  ForgotPasswordPage(this.codeFw, {this.messageFw, Key? key, DbNoteRouter? router}) : super(key: key, router: router);
+  ForgotPasswordPage(this.codeFw, {this.messageFw, Key? key, DbRouting? routing}) : super(key: key, routing: routing);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -53,7 +54,7 @@ class _ForgotPasswordPageState extends BaseState<ForgotPasswordPage, ForgotPassw
 
     final btnAuthCode = TextButton(onPressed: () async {
 
-      widget.router?.navigate(AuthPasswordRoute("666888"), context);
+      widget.routing?.navigate(AuthPasswordRoute("666888"), context);
 
     }, child: const Text("Auth Code", style: AppTheme.textStyle_3,));
 

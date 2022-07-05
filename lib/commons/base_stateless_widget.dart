@@ -11,8 +11,9 @@ abstract class BaseStateLessWidget<P extends BaseProvider> extends StatelessWidg
   late P pageProvider;
   DbNavigation? nav;
   DbNoteRouter? router;
+  DbRouting? routing;
 
-  BaseStateLessWidget({Key? key, this.nav, this.router}) : super(key: key);
+  BaseStateLessWidget({Key? key, this.nav, this.router, this.routing}) : super(key: key);
 
   Widget getLayout(BuildContext context);
 
