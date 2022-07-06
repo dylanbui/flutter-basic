@@ -27,7 +27,7 @@ abstract class SignupPageListener {
 
 // Buildable
 
-abstract class SignupBuildable extends DbBuildable {
+abstract class SignupBuildable extends DbNoteBuildable {
 
   Widget build(SignupPageListener listener);
   Widget buildWithUser(User user, SignupPageListener listener);
@@ -43,11 +43,11 @@ class SignUpUserComplete {
 
 // Builder
 
-class SignupBuilder extends DbBuilder with DbRouting implements SignupBuildable {
+class SignupBuilder extends DbNoteBuilder with DbNoteRouter implements SignupBuildable {
 
   @override
   Widget build(SignupPageListener listener) {
-    final signupPage = SignupPage(user: null, routing: this, onChangeText: (String text) {
+    final signupPage = SignupPage(user: null, router: this, onChangeText: (String text) {
       eLog(" Hang gui kem ---- " + text);
     }, callback: listener);
     return ChangeNotifierProvider<SignupProvider>.value(value: SignupProvider(), child: signupPage,);
@@ -55,7 +55,7 @@ class SignupBuilder extends DbBuilder with DbRouting implements SignupBuildable 
 
   @override
   Widget buildWithUser(User user, SignupPageListener listener) {
-    final signupPage = SignupPage(user: user, routing: this, onChangeText: (String text) {
+    final signupPage = SignupPage(user: user, router: this, onChangeText: (String text) {
       eLog(" Hang gui kem ---- " + text);
     }, callback: listener,);
     return ChangeNotifierProvider<SignupProvider>.value(value: SignupProvider(), child: signupPage,);
@@ -63,7 +63,7 @@ class SignupBuilder extends DbBuilder with DbRouting implements SignupBuildable 
 
 
   @override
-  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
     if (toRoute is SignUpUserComplete) {
       // TODO: thuc hien gi khi signup user thanh cong
       // o tren da minh hoa cach goi listener

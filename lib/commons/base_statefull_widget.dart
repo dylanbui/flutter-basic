@@ -18,9 +18,8 @@ abstract class BaseStateFulWidget extends StatefulWidget {
   DbNavigation? nav;
   DbNoteRouter? router;
   bool showAppBar = true;
-  DbRouting? routing;
 
-  BaseStateFulWidget({Key? key, this.nav, this.router, this.routing}) : super(key: key);
+  BaseStateFulWidget({Key? key, this.nav, this.router}) : super(key: key);
 
 }
 

@@ -15,7 +15,7 @@ class AuthPasswordPage extends BaseStateFulWidget {
   final String title = "Auth Password Page";
   String strCodeAuth;
 
-  AuthPasswordPage(this.strCodeAuth, {Key? key, DbRouting? routing}) : super(key: key, routing: routing);
+  AuthPasswordPage(this.strCodeAuth, {Key? key, DbNoteRouter? router}) : super(key: key, router: router);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class _ForgotPasswordPageState extends BaseState<AuthPasswordPage, AuthPasswordP
         pageProvider.doAuthPassword("123", "123").then((value) {
           hideProgressLoading();
           if (value == true) {
-            widget.routing?.navigate(AuthPasswordCompletedRoute(10), context);
+            widget.router?.navigate(AuthPasswordCompletedRoute(10), context);
           }
         });
 

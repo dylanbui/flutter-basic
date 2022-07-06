@@ -13,9 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/typi_code/comments/comment_builder.dart';
+import 'package:simple_auth_1/typi_code/main_tab/main_tab_builder.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_builder.dart';
 import 'package:simple_auth_1/typi_code/posts/post_builder.dart';
 import 'package:simple_auth_1/utils/logger.dart';
+import 'package:simple_auth_1/utils/tuple.dart';
 
 
 import '../../commons/base_statefull_widget.dart';
@@ -41,15 +43,17 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
 
   late AppLifecycleState _notification;
   var _selectedIndexPage = 0;
-  final List<DbNoteBuilder> _pages = [PostBuilder(showAppBarOnRootPage: false)];
+  // final List<DbNoteBuilder> _pages = [PostBuilder(showAppBarOnRootPage: false)];
+  final List<Tuple<DbNoteBuilder, Widget>> _pages = [];
+
 
   int get _indexPageInList {
     switch (_selectedIndexPage) {
     /* Home Page */
       case 0:
-        return _pages.indexWhere((page) => page is PostBuilder);
+        return _pages.indexWhere((page) => page.item1 is PostBuilder);
       case 1:
-        return _pages.indexWhere((page) => page is CommentBuilder);
+        return _pages.indexWhere((page) => page.item1 is CommentBuilder);
       default:
         return 0;
     }
@@ -58,10 +62,20 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
   void _navigateToPage(int index) {
     switch (index) {
       case 0:
-        if (_pages.indexWhere((page) => page is PostBuilder) == -1) _pages.add(PostBuilder(showAppBarOnRootPage: false));
+        if (_pages.indexWhere((page) => page.item1 is PostBuilder) == -1) {
+          final PostBuilder postBuilder = PostBuilder();
+          final widget = postBuilder.build(showAppBarOnRootPage: false);
+          _pages.add(Tuple(postBuilder, widget));
+
+
+        }
         break;
       case 1:
-        if (_pages.indexWhere((page) => page is CommentBuilder) == -1) _pages.add(CommentBuilder(showAppBarOnRootPage: false));
+        if (_pages.indexWhere((page) => page.item1 is CommentBuilder) == -1) {
+          final CommentBuilder commentBuilder = CommentBuilder();
+          final widget = commentBuilder.build(showAppBarOnRootPage: false);
+          _pages.add(Tuple(commentBuilder, widget));
+        }
         break;
     }
     setState(() {
@@ -73,6 +87,10 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    final PostBuilder postBuilder = PostBuilder();
+    final widget = postBuilder.build(showAppBarOnRootPage: false);
+    _pages.add(Tuple(postBuilder, widget));
+
   }
 
   @override
@@ -118,7 +136,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
       appBar: appBar(),
       body: FadeIndexedStack(
         index: _indexPageInList,
-        children: _pages.map((coordinator) => coordinator.rootPage).toList(),
+        children: _pages.map((tupleBuilder) => tupleBuilder.item2).toList(),
       ),
       drawer: leftMenu(),
       bottomNavigationBar: bottomTabbar(),
@@ -176,7 +194,8 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
-              PhotoBuilder().start(context);
+              widget.router?.navigate(PhotoRoute(), context);
+              // PhotoBuilder().start(context);
             },
           ),
           ListTile(
@@ -186,6 +205,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Then close the drawer
               Navigator.pop(context);
               // PhotoCoordinator().startDemoAlert(context);
+              widget.router?.navigate(AlertRoute(), context);
             },
           ),
           ListTile(
@@ -194,6 +214,7 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // Update the state of the app
               // Then close the drawer
               Navigator.pop(context);
+              widget.router?.navigate(LayoutRoute(), context);
               // PhotoCoordinator().startDemoLayout(context);
             },
           ),

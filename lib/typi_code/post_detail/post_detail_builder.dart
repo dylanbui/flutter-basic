@@ -16,26 +16,44 @@ import 'package:simple_auth_1/typi_code/post_detail/post_detail_page.dart';
 
 import 'post_detail_provider.dart';
 
-class PostDetailBuilder extends DbNoteBuilder with DbNoteRouter {
+// Listener
 
-  PostDetailBuilder(int postId) {
-    final postDetailPage = PostDetailPage(postId , router: this,);
-    rootPage = ChangeNotifierProvider<PostDetailProvider>.value(value: PostDetailProvider(), child: postDetailPage,);
-  }
+// Buildable
+
+abstract class PostDetailBuildable extends DbNoteBuildable {
+
+  Widget build(int postId);
+
+}
+
+// Builder
+
+class PostDetailBuilder extends DbNoteBuilder with DbNoteRouter implements PostDetailBuildable {
+
+
+
+  // @override
+  // void start(BuildContext fromContext) {
+  //   Navigator.push(fromContext,
+  //     PageTransition(child: rootPage,
+  //         settings: const RouteSettings(name: "PostDetailPage"),
+  //         type: PageTransitionType.rightToLeft),);
+  // }
+
+
 
   @override
-  void start(BuildContext fromContext) {
-    Navigator.push(fromContext,
-      PageTransition(child: rootPage,
-          settings: const RouteSettings(name: "PostDetailPage"),
-          type: PageTransitionType.rightToLeft),);
+  Widget build(int postId) {
+    final postDetailPage = PostDetailPage(postId , router: this,);
+    rootPage = ChangeNotifierProvider<PostDetailProvider>.value(value: PostDetailProvider(), child: postDetailPage,);
+    return rootPage;
   }
+
 
   @override
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
   }
-
 
 
 

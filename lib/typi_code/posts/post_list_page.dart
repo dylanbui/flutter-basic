@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'package:simple_auth_1/typi_code/posts/post_builder.dart';
 import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
+import 'package:simple_auth_1/typi_code/posts/post_router.dart';
 
 import '../../utils/logger.dart';
 import '../../widget/platform_progress.dart';

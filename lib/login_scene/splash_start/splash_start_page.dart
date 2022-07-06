@@ -22,7 +22,7 @@ import 'package:simple_auth_1/login_scene/splash_start/splash_start_provider.dar
 //ignore: must_be_immutable
 class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
 
-  SplashStartPage({Key? key, DbRouting? routing}) : super(key: key, routing: routing);
+  SplashStartPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
 // class _SplashStartPage extends BaseState<SplashStartPage, SplashStartProvider> {
 
@@ -35,7 +35,7 @@ class SplashStartPage extends BaseStateLessWidget<SplashStartProvider> {
       // Navigator.pushReplacement(context, router);
 
       log("Gia tri tra ve tu fetchSomething : " + value);
-      routing?.navigate(SplashPageCompleteRoute(message: value), context);
+      router?.navigate(SplashPageCompleteRoute(message: value), context);
 
       // Navigator.pushReplacement(context, PageTransition(
       //     child: const SplashPage(),

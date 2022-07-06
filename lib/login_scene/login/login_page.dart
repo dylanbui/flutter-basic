@@ -18,7 +18,7 @@ class LoginPage extends BaseStateFulWidget {
 
   final String title = "Login Page";
 
-  LoginPage({Key? key, DbRouting? routing}) : super(key: key, routing: routing);
+  LoginPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -106,7 +106,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements Sig
 
     final btnForgotPw = TextButton(onPressed: () {
       //TODO: Forgot password screen
-      widget.routing?.navigate(ForgotPasswordRoute(11223, "Goto Forgot password screen"), context);
+      widget.router?.navigate(ForgotPasswordRoute(11223, "Goto Forgot password screen"), context);
 
     }, child: const Text("Forgot password"));
 
@@ -114,7 +114,7 @@ class _LoginPageState extends BaseState<LoginPage, LoginProvider> implements Sig
     final btnSignUp = TextButton(onPressed: () async {
       //TODO: signup screen
       const user = User("Duc SignUp", "email duc SignUp", "password duc SignUp", 1);
-      widget.routing?.navigate(SignUpRoute(user, this), context);
+      widget.router?.navigate(SignUpRoute(user, this), context);
 
       //Navigator.push(context, route)
       // final dataFromSecondPage = await Navigator.push(context, MaterialPageRoute(builder: (context) =>

@@ -11,11 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/typi_code/post_detail/post_detail_builder.dart';
 
+// Route
 
 class PostDetailRoute extends DbNoteRoute {
   int postId;
   PostDetailRoute(this.postId);
 }
+
+// Router
 
 class PostRouter extends DbNoteRouter {
 
@@ -24,8 +27,9 @@ class PostRouter extends DbNoteRouter {
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
     if (toRoute is PostDetailRoute) {
-      final postDetailBuilder = PostDetailBuilder(toRoute.postId);
-      postDetailBuilder.start(nextContext);
+      final PostDetailBuildable postDetailBuilder = PostDetailBuilder();
+      final widget = postDetailBuilder.build(toRoute.postId);
+      push(nextContext, widget);
     }
 
   }

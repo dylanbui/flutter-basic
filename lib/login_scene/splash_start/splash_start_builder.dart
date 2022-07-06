@@ -23,7 +23,7 @@ abstract class SplashStartListener {
 
 // Buildable
 
-abstract class SplashStartBuildable extends DbBuildable {
+abstract class SplashStartBuildable extends DbNoteBuildable {
 
   Widget build();
   Widget buildWithAny(String param_1, int param_2);
@@ -33,36 +33,27 @@ abstract class SplashStartBuildable extends DbBuildable {
 
 // Router
 
-class SplashPageCompleteRoute extends DbRoute {
+class SplashPageCompleteRoute extends DbNoteRoute {
   String? message;
   SplashPageCompleteRoute({this.message});
 }
 
 // Builder
 
-class SplashStartBuilder extends DbBuilder with DbRouting implements SplashStartBuildable {
+class SplashStartBuilder extends DbNoteBuilder with DbNoteRouter implements SplashStartBuildable {
 
   SplashStartListener? listener;
 
   @override
-  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
-    if (toRoute is SplashPageCompleteRoute) {
-      listener?.splashPageComplete(nextContext, toRoute.message);
-      // parentRouter?.goiLenParentRouter();
-    }
-
-  }
-
-  @override
   Widget build() {
-    var splashStartPage = SplashStartPage(routing: this,);
+    var splashStartPage = SplashStartPage(router: this,);
     rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
     return rootPage;
   }
 
   @override
   Widget buildWithAny(String param_1, int param_2) {
-    var splashStartPage = SplashStartPage(routing: this,);
+    var splashStartPage = SplashStartPage(router: this,);
     rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
     return rootPage;
   }
@@ -70,8 +61,17 @@ class SplashStartBuilder extends DbBuilder with DbRouting implements SplashStart
   @override
   Widget buildWithListener(SplashStartListener listener) {
     this.listener = listener;
-    var splashStartPage = SplashStartPage(routing: this,);
+    var splashStartPage = SplashStartPage(router: this,);
     rootPage = ChangeNotifierProvider<SplashStartProvider>.value(value: SplashStartProvider(), child: splashStartPage,);
     return rootPage;
+  }
+
+  @override
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+    if (toRoute is SplashPageCompleteRoute) {
+      listener?.splashPageComplete(nextContext, toRoute.message);
+      // parentRouter?.goiLenParentRouter();
+    }
+
   }
 }

@@ -11,20 +11,20 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/login_scene/forgot_password/forgot_password_builder.dart';
 
-class AuthPasswordRoute extends DbRoute {
+class AuthPasswordRoute extends DbNoteRoute {
   String strCodeAuth;
   AuthPasswordRoute(this.strCodeAuth);
 }
 
-class AuthPasswordCompletedRoute extends DbRoute {
+class AuthPasswordCompletedRoute extends DbNoteRoute {
   int userId;
   AuthPasswordCompletedRoute(this.userId);
 }
 
-class ForgotPasswordRouter extends DbRouting {
+class ForgotPasswordRouter extends DbNoteRouter {
 
   @override
-  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
     if (toRoute is AuthPasswordRoute) {
       // Navigation to AuthPasswordRouter

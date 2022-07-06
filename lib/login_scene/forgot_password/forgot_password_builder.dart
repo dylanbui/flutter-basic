@@ -25,11 +25,10 @@ import 'forgot_password_provider.dart';
 
 // Buildable
 
-abstract class ForgotPasswordBuildable extends DbBuildable {
+abstract class ForgotPasswordBuildable extends DbNoteBuildable {
 
   Widget build();
   Widget buildWith(int codeFw, String? messageFw);
-
   Widget buildAuthPassword(String strCodeAuth);
 
 }
@@ -41,7 +40,7 @@ Giai phap xem xet den la Dependency da co trong code
 
 * */
 
-class ForgotPasswordBuilder extends DbBuilder implements ForgotPasswordBuildable {
+class ForgotPasswordBuilder extends DbNoteBuilder implements ForgotPasswordBuildable {
 
   final _routing = ForgotPasswordRouter();
 
@@ -53,13 +52,13 @@ class ForgotPasswordBuilder extends DbBuilder implements ForgotPasswordBuildable
 
   @override
   Widget buildWith(int codeFw, String? messageFw) {
-    final forgotPasswordPage = ForgotPasswordPage(codeFw, messageFw: messageFw, routing: _routing,);
+    final forgotPasswordPage = ForgotPasswordPage(codeFw, messageFw: messageFw, router: _routing,);
     return ChangeNotifierProvider<ForgotPasswordProvider>.value(value: ForgotPasswordProvider(), child: forgotPasswordPage,);
   }
 
   @override
   Widget buildAuthPassword(String strCodeAuth) {
-    final authPasswordPage = AuthPasswordPage(strCodeAuth, routing: _routing,);
+    final authPasswordPage = AuthPasswordPage(strCodeAuth, router: _routing,);
     return ChangeNotifierProvider<AuthPasswordProvider>.value(value: AuthPasswordProvider(), child: authPasswordPage,);
   }
 

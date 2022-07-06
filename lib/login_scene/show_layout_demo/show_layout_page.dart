@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 
 import '../../commons/base_statefull_widget.dart';
 import '../../commons/coordinator/constants.dart';
@@ -10,7 +11,7 @@ class ShowLayoutPage extends BaseStateFulWidget {
 
   final String title = "Show Demo Layour";
 
-  ShowLayoutPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  ShowLayoutPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override

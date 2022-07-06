@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final appBuilder = AppBuilder();
+    final AppBuildable appBuilder = AppBuilder();
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: appBuilder.rootPage,  //const SplashScreen(),
+      home: appBuilder.build(),  //const SplashScreen(),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:simple_auth_1/commons/alert_dialog.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 
 import '../../commons/base_statefull_widget.dart';
 import '../../commons/coordinator/constants.dart';
@@ -14,7 +15,7 @@ class ShowAlertPage extends BaseStateFulWidget {
 
   final String title = "Show Demo Alert Page";
 
-  ShowAlertPage({Key? key, DbNavigation? nav}) : super(key: key, nav: nav);
+  ShowAlertPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override

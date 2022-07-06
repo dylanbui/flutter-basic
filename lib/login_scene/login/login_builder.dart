@@ -18,7 +18,7 @@ import 'login_provider.dart';
 
 // Buildable
 
-abstract class LoginBuildable extends DbBuildable {
+abstract class LoginBuildable extends DbNoteBuildable {
 
   Widget build();
 
@@ -27,13 +27,13 @@ abstract class LoginBuildable extends DbBuildable {
 // Builder
 
 
-class LoginBuilder extends DbBuilder implements LoginBuildable {
+class LoginBuilder extends DbNoteBuilder implements LoginBuildable {
 
 
   @override
   Widget build() {
-    final routing = LoginRouter();
-    final loginPage = LoginPage(routing: routing,);
+    final router = LoginRouter();
+    final loginPage = LoginPage(router: router,);
     // loginPage.router = this;
     rootPage = ChangeNotifierProvider<LoginProvider>.value(value: LoginProvider(), child: loginPage,);
     return rootPage;

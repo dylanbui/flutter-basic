@@ -18,7 +18,7 @@ class ForgotPasswordPage extends BaseStateFulWidget {
   int codeFw;
   String? messageFw;
 
-  ForgotPasswordPage(this.codeFw, {this.messageFw, Key? key, DbRouting? routing}) : super(key: key, routing: routing);
+  ForgotPasswordPage(this.codeFw, {this.messageFw, Key? key, DbNoteRouter? router}) : super(key: key, router: router);
   // const LoginPage({Key? key, required this.title}) : super(key: key);
 
   @override
@@ -54,7 +54,7 @@ class _ForgotPasswordPageState extends BaseState<ForgotPasswordPage, ForgotPassw
 
     final btnAuthCode = TextButton(onPressed: () async {
 
-      widget.routing?.navigate(AuthPasswordRoute("666888"), context);
+      widget.router?.navigate(AuthPasswordRoute("666888"), context);
 
     }, child: const Text("Auth Code", style: AppTheme.textStyle_3,));
 

@@ -14,17 +14,17 @@ import 'package:flutter/material.dart';
 ///
 /// Subclasses should define a set of properties that are required by the module from the DI graph. A dependency is
 /// typically provided and satisfied by its immediate parent module.
-abstract class Dependency {}
+abstract class DbNoteDependency {}
 
 /// The special empty dependency.
-abstract class EmptyDependency extends Dependency {}
+abstract class DbNoteEmptyDependency extends DbNoteDependency {}
 
 /// The base builder protocol that all builders should conform to.
-abstract class DbBuildable {}
+abstract class DbNoteBuildable {}
 
 
 /// Utility that instantiates a RIB and sets up its internal wirings.
-class DbBuilder<T extends Dependency> extends DbBuildable {
+class DbNoteBuilder<T extends DbNoteDependency> extends DbNoteBuildable {
   /// The dependency used for this builder to build the RIB.
   final T? dependency;
 
@@ -33,21 +33,21 @@ class DbBuilder<T extends Dependency> extends DbBuildable {
   /// Initializer.
   ///
   /// - parameter dependency: The dependency used for this builder to build the RIB.
-  DbBuilder({this.dependency});
+  DbNoteBuilder({this.dependency});
 }
 
 ///////////////////////////////
 
 
-abstract class DbNoteBuilder {
-
-  // Dung buildContext khong co y nghia o day, moi context co the nghi no la 1 note trong cay
-  // BuildContext buildContext;
-  late Widget rootPage;
-
-  DbNoteBuilder();
-
-  void start(BuildContext fromContext);
-  void startSameRootPage(BuildContext fromContext) {}
-
-}
+// abstract class DbNoteBuilder {
+//
+//   // Dung buildContext khong co y nghia o day, moi context co the nghi no la 1 note trong cay
+//   // BuildContext buildContext;
+//   late Widget rootPage;
+//
+//   DbNoteBuilder();
+//
+//   void start(BuildContext fromContext);
+//   void startSameRootPage(BuildContext fromContext) {}
+//
+// }

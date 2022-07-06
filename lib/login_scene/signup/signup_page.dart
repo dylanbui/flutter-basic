@@ -21,7 +21,7 @@ class SignupPage extends BaseStateFulWidget {
 
   SignupPageListener callback;
 
-  SignupPage({Key? key, DbRouting? routing, this.user, required this.onChangeText, required this.callback}) : super(key: key, routing: routing);
+  SignupPage({Key? key, DbNoteRouter? router, this.user, required this.onChangeText, required this.callback}) : super(key: key, router: router);
 
   //const SignupPage({Key? key}) : super(key: key);
   // const LoginPage({Key? key, required this.title}) : super(key: key);

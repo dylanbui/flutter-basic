@@ -14,13 +14,13 @@ import 'package:simple_auth_1/login_scene/signup/signup_builder.dart';
 
 // Route
 
-class SignUpRoute extends DbRoute {
+class SignUpRoute extends DbNoteRoute {
   User user;
   SignupPageListener listener;
   SignUpRoute(this.user, this.listener);
 }
 
-class ForgotPasswordRoute extends DbRoute {
+class ForgotPasswordRoute extends DbNoteRoute {
   int codeFw;
   String? messageFw;
   ForgotPasswordRoute(this.codeFw, this.messageFw);
@@ -28,10 +28,10 @@ class ForgotPasswordRoute extends DbRoute {
 
 // Router
 
-class LoginRouter extends DbRouting {
+class LoginRouter extends DbNoteRouter {
 
   @override
-  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
     if (toRoute is SignUpRoute) {
       SignupBuildable signupBuilder = SignupBuilder();
       final widget = signupBuilder.build(toRoute.listener);

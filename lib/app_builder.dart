@@ -11,14 +11,14 @@ import 'app.dart';
 
 // Buildable
 
-abstract class AppBuildable extends DbBuildable {
+abstract class AppBuildable extends DbNoteBuildable {
 
   Widget build();
 
 }
 
 
-class AppBuilder extends DbBuilder with DbRouting implements AppBuildable, SplashStartListener {
+class AppBuilder extends DbNoteBuilder with DbNoteRouter implements AppBuildable, SplashStartListener {
 
 
   @override
@@ -39,15 +39,14 @@ class AppBuilder extends DbBuilder with DbRouting implements AppBuildable, Splas
     }
 
     // Sau khi login xong thi chay thang nay
-    final mainTabBuilder = MainTabBuilder();
-    mainTabBuilder.start(currentContext);
-
-
+    final MainTabBuildable mainTabBuilder = MainTabBuilder();
+    final widget = mainTabBuilder.build();
+    pushSameRootPage(currentContext, widget);
 
   }
 
   @override
-  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
   }
 

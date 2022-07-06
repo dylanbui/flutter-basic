@@ -10,16 +10,17 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-abstract class DbRoute {
+abstract class DbNoteRoute {
 
 }
 
-abstract class DbRouting {
+abstract class DbNoteRouter {
 
   DbNoteRouter? parentRouter;
 
-  void navigate(DbRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
+  // DbNoteRouter({this.parentRouter});
 
+  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
 
   // Se tach push, pop qua 1 class khac
   void push(BuildContext fromContext, Widget widget) {
@@ -40,21 +41,21 @@ abstract class DbRouting {
 
 /////////////////////////////////////////////
 
-abstract class DbNoteRoute {
-
-}
-
-// Ban chat cua implements khhong the co default function, toan bo phai overwrite lai
-abstract class DbNoteRouter {
-
-  DbNoteRouter? parentRouter;
-
-  void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
-
-  void pop(BuildContext context) {
-    if (Navigator.of(context).canPop()) {
-      Navigator.pop(context);
-    }
-  }
-
-}
+// abstract class DbNoteRoute {
+//
+// }
+//
+// // Ban chat cua implements khhong the co default function, toan bo phai overwrite lai
+// abstract class DbNoteRouter {
+//
+//   DbNoteRouter? parentRouter;
+//
+//   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
+//
+//   void pop(BuildContext context) {
+//     if (Navigator.of(context).canPop()) {
+//       Navigator.pop(context);
+//     }
+//   }
+//
+// }

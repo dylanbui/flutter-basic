@@ -18,6 +18,17 @@ import 'comment_detail_provider.dart';
 import 'comment_list_page.dart';
 import 'comment_list_provider.dart';
 
+// Listener
+
+// Buildable
+
+abstract class CommentBuildable extends DbNoteBuildable {
+
+  Widget build({bool showAppBarOnRootPage = true});
+
+}
+
+// Route
 
 class CommentDetailRoute extends DbNoteRoute {
   int commentId;
@@ -28,28 +39,9 @@ class CommentDetailRoute extends DbNoteRoute {
 
 * */
 
-class CommentBuilder extends DbNoteBuilder with DbNoteRouter {
+// Builder
 
-  CommentBuilder({bool showAppBarOnRootPage = true}) : super() {
-    var commentListPage = CommentListPage(router: this,);
-    commentListPage.showAppBar = showAppBarOnRootPage;
-    rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
-  }
-
-  @override
-  void start(BuildContext fromContext) {
-    Navigator.push(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),);
-  }
-
-  @override
-  void startSameRootPage(BuildContext fromContext) {
-    // TODO: implement startSameRootController
-    // Navigator.pushAndRemoveUntil(buildContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft),
-    //         (route) => route.isFirst == true);
-
-    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: rootPage, type: PageTransitionType.rightToLeft), (route) => false);
-  }
-
+class CommentBuilder extends DbNoteBuilder with DbNoteRouter implements CommentBuildable{
 
   @override
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
@@ -59,6 +51,14 @@ class CommentBuilder extends DbNoteBuilder with DbNoteRouter {
       var commentDetailChild = ChangeNotifierProvider<CommentDetailProvider>.value(value: CommentDetailProvider(), child: commentDetailPage,);
       Navigator.push(nextContext, PageTransition(child: commentDetailChild, type: PageTransitionType.rightToLeft),);
     }
+  }
+
+  @override
+  Widget build({bool showAppBarOnRootPage = true}) {
+    var commentListPage = CommentListPage(router: this,);
+    commentListPage.showAppBar = showAppBarOnRootPage;
+    rootPage = ChangeNotifierProvider<CommentListProvider>.value(value: CommentListProvider(), child: commentListPage,);
+    return rootPage;
   }
 
 
