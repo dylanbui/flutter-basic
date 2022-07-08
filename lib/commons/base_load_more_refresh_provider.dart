@@ -1,6 +1,6 @@
 
 import 'package:flutter/scheduler.dart';
-import 'package:simple_auth_1/commons/base_proviver.dart';
+import 'package:simple_auth_1/commons/base_provider.dart';
 
 abstract class BaseLoadMoreRefreshProvider<T> extends BaseProvider {
   BaseLoadMoreRefreshProvider() {

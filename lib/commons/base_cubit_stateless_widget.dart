@@ -2,56 +2,47 @@
 import 'package:dialog_loader/dialog_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
 import 'package:simple_auth_1/app_theme.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
-import 'package:simple_auth_1/commons/base_provider.dart';
-import 'package:simple_auth_1/commons/coordinator/constants.dart';
 import 'package:simple_auth_1/commons/custom_app_bar.dart';
 
-// https://github.com/FlorinMihalache/flutter_progress_hud
-
 //ignore: must_be_immutable
-abstract class BaseStateFulWidget extends StatefulWidget {
+abstract class BaseCubitStateLessWidget<P extends Cubit> extends StatelessWidget {
 
-  DbNavigation? nav;
+  late P pageProvider;
+  late State currentState;
   DbNoteRouter? router;
+
+  BaseCubitStateLessWidget({Key? key, this.router}) : super(key: key);
+
   bool showAppBar = true;
+  DialogLoader? dialogLoader;
 
-  BaseStateFulWidget({Key? key, this.nav, this.router}) : super(key: key);
+  // Init chi chay 1 lan khi build lan dau
+  bool _begin = true;
+  void init(BuildContext context);
 
-}
-
-abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> extends State<B> {
-
-  /// should be overridden in extended widget
+  // Tao make layout
+  /// Way 1: should be overridden in extended widget
   Widget? getLayout(BuildContext context) => null;
 
-  // void startBuild(BuildContext context) { }
+  /// Way 2
   dynamic getAppBar(BuildContext context) => "";
   Widget getBody(BuildContext context) => const Text("implement getBody() function");
   List<Widget> getAppBarAction() => [];
 
 
-  late BuildContext buildContext;
-  DialogLoader? dialogLoader;
-
-  late P pageProvider;
-
-  // P createProvider(BuildContext context);
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   buildContext = context;
-  //   return getLayout();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    buildContext = context;
-    pageProvider = Provider.of<P>(context);
-    dialogLoader = DialogLoader(context: buildContext);
+    pageProvider = BlocProvider.of<P>(context);
+    currentState = pageProvider.state;
+
+    if (_begin) {
+      init(context);
+      _begin = false;
+    }
 
     // Muon control thang nao thi phai dung context thang do
     var layout = getLayout(context);
@@ -69,7 +60,7 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
     //   throw Exception("Need to AppBar Widget or String !");
     // }
 
-    if (widget.showAppBar == false) {
+    if (showAppBar == false) {
       appBar = null;
     }
 
@@ -78,7 +69,8 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
       body: getBody(context),
     );
   }
-  //region Private Support Methods
+
+//region Private Support Methods
 
   void hideKeyboard() {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -93,7 +85,7 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
   }
 
   // TODO: Cai nay co the chay sai, chua dc kiem chung
-  void showErrorSnackbar(String message) {
+  void showErrorSnackbar(String message, BuildContext context) {
     var snackBar = SnackBar(
       content: Text(
         message,
@@ -140,6 +132,6 @@ abstract class BaseState<B extends BaseStateFulWidget, P extends BaseProvider> e
     // progress?.dismiss();
   }
 
-  //endregion
+//endregion
 
 }

@@ -2,7 +2,7 @@
 
 import 'package:simple_auth_1/api/post_api.dart';
 
-import '../../commons/base_proviver.dart';
+import '../../commons/base_provider.dart';
 import 'package:simple_auth_1/models/post.dart';
 
 class PostDetailProvider extends BaseProvider {

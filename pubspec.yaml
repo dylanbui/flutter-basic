@@ -42,6 +42,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   provider: ^6.0.3
+  flutter_bloc: ^8.0.1
   quiver: ^3.1.0
   http: ^0.13.4
   fluttertoast: ^8.0.9
@@ -77,6 +78,9 @@ dependencies:
   permission_handler: 9.2.0 # ^10.0.0 , su dung cung 1 phien ban, phien ban moi yeu cau android compileSdkVersion 33
   # show Alert
   rflutter_alert: ^2.0.4
+  # Being able to compare objects in Dart often involves having to override the == operator as well as hashCode.
+  equatable: ^2.0.3
+
 
 
 

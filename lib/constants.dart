@@ -2,6 +2,7 @@
 
 import 'dart:core';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 
 // Type alias
@@ -57,6 +58,18 @@ class BaseError {
   const BaseError(this.code, this.messenger);
 }
 
+abstract class BaseBlocState extends Equatable {
+
+  @override
+  List<Object> get props => [];
+}
+
+abstract class BaseBlocEvent extends Equatable {
+
+  @override
+  List<Object> get props => [];
+
+}
 
 class Data {
   String text;

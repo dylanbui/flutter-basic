@@ -1,6 +1,6 @@
 
 
-import '../../../commons/base_proviver.dart';
+import '../../../commons/base_provider.dart';
 
 class AuthPasswordProvider extends BaseProvider {
 

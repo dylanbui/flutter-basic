@@ -2,7 +2,7 @@
 
 
 
-import 'package:simple_auth_1/commons/base_proviver.dart';
+import 'package:simple_auth_1/commons/base_provider.dart';
 
 
 
