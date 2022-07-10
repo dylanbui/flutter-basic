@@ -18,9 +18,15 @@ import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_state.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 import 'package:simple_auth_1/widget/platform_progress.dart';
 
-class TodoListPage extends BaseCubitStateLessWidget<TodoListCubit> {
+class TodoListPage extends BaseCubitStateLessWidget<TodoListCubit, TodoListState> {
 
-  final String title = "TodoList Page";
+  // @override
+  // String title = "TodoList Page";
+
+  @override
+  String getTitle() {
+    return "";
+  }
 
   TodoListPage({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
 
@@ -29,9 +35,6 @@ class TodoListPage extends BaseCubitStateLessWidget<TodoListCubit> {
     pageProvider.loadData();
 
   }
-
-  @override
-  getAppBar(BuildContext context) => title;
 
   @override
   List<Widget> getAppBarAction() {
@@ -52,11 +55,32 @@ class TodoListPage extends BaseCubitStateLessWidget<TodoListCubit> {
   }
 
   @override
-  Widget getBody(BuildContext context) {
-    if (currentState is TodoListInProgress) {
+  void blocConsumerListener(BuildContext context, TodoListState state) {
+    // Show toast event at here
+    if (state is TodoListGetDataError) {
+      // showToast(state.error.messenger);
+      // showErrorSnackbar(state.error.messenger, context);
+      eLog("blocConsumerListener");
+    }
+  }
+
+  @override
+  bool blocConsumerBuildWhen(BuildContext context, TodoListState state) {
+    eLog("blocConsumerBuildWhen");
+    if (state is TodoListGetDataError) {
+      // showToast(state.error.messenger);
+      showErrorSnackbar(state.error.messenger, context);
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  Widget getBody(BuildContext context, TodoListState state) {
+    if (state is TodoListInProgress) {
       return const Center(child: PlatformProgress());
-    } else if (currentState is TodoListGetDataError) {
-      var state = currentState as TodoListGetDataError;
+    } else if (state is TodoListGetDataError) {
+      //var state = state as TodoListGetDataError;
       // show loi
       showErrorSnackbar(state.error.messenger, context);
       // showToast(state.error.messenger);

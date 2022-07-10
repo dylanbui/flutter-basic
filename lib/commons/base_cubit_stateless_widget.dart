@@ -9,14 +9,15 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/custom_app_bar.dart';
 
 //ignore: must_be_immutable
-abstract class BaseCubitStateLessWidget<P extends Cubit> extends StatelessWidget {
+abstract class BaseCubitStateLessWidget<P extends Cubit<S>, S> extends StatelessWidget {
 
   late P pageProvider;
-  late State currentState;
+  late S currentState;
   DbNoteRouter? router;
 
   BaseCubitStateLessWidget({Key? key, this.router}) : super(key: key);
 
+  String getTitle() => "";
   bool showAppBar = true;
   DialogLoader? dialogLoader;
 
@@ -29,10 +30,12 @@ abstract class BaseCubitStateLessWidget<P extends Cubit> extends StatelessWidget
   Widget? getLayout(BuildContext context) => null;
 
   /// Way 2
-  dynamic getAppBar(BuildContext context) => "";
-  Widget getBody(BuildContext context) => const Text("implement getBody() function");
+  dynamic getAppBar(BuildContext context, S state) => CustomAppBar(getTitle(), appBarActions: getAppBarAction(),);
+  Widget getBody(BuildContext context, S state) => const Text("implement getBody() function");
   List<Widget> getAppBarAction() => [];
 
+  void blocConsumerListener(BuildContext context, S state) { }
+  bool blocConsumerBuildWhen(BuildContext context, S state) { return true; }
 
   @override
   Widget build(BuildContext context) {
@@ -50,24 +53,38 @@ abstract class BaseCubitStateLessWidget<P extends Cubit> extends StatelessWidget
       return layout;
     }
 
-    var appBar = getAppBar(context);
-    if (appBar is String) {
-      // tao 1 custom use for common theme
-      appBar = CustomAppBar(appBar, appBarActions: getAppBarAction(),);
-    }
+    return BlocConsumer<P, S>(
+        listener: (context, state) {
+          blocConsumerListener(context, state);
+        },
+        buildWhen: (lastState, currentState) {
+          // Ko bit bi dien kieu gi
+          return blocConsumerBuildWhen(context, currentState);
+        },
+        builder: (context, state) {
+          return Scaffold(
+            appBar: getAppBar(context, state),
+            body: getBody(context, state),
+          );
+        }
 
-    // if (appBar is! AppBar) {
-    //   throw Exception("Need to AppBar Widget or String !");
-    // }
-
-    if (showAppBar == false) {
-      appBar = null;
-    }
-
-    return Scaffold(
-      appBar: appBar,
-      body: getBody(context),
     );
+
+
+    // var appBar = getAppBar(context);
+    // if (appBar is String) {
+    //   // tao 1 custom use for common theme
+    //   appBar = CustomAppBar(appBar, appBarActions: getAppBarAction(),);
+    // }
+    //
+    // if (showAppBar == false) {
+    //   appBar = null;
+    // }
+    //
+    // return Scaffold(
+    //   appBar: appBar,
+    //   body: getBody(context),
+    // );
   }
 
 //region Private Support Methods
