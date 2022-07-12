@@ -33,7 +33,8 @@ class ToDoApiImpl implements TodoApi {
   @override
   Future<List<Todo>?> getTodoList({int page = 0, int offset = 5}) async {
     // https://jsonplaceholder.typicode.com/todos?_start=0&_limit=5
-    final url = "https://jsonplaceholder.typicode.com/todos?_start=${page.toString()}&_limit=${offset.toString()}";
+    var start = page * offset;
+    final url = "https://jsonplaceholder.typicode.com/todos?_start=${start.toString()}&_limit=${offset.toString()}";
     // chờ 2 giay , co y lam cham hon
     await Future.delayed(const Duration(seconds: 2));
     // Co the tra ve null

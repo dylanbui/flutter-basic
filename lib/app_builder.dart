@@ -5,6 +5,7 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_builder.dart';
 import 'package:simple_auth_1/session_user.dart';
 import 'package:simple_auth_1/typi_code/main_tab/main_tab_builder.dart';
+import 'package:simple_auth_1/typi_code/todos/todo_list_builder.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
 import 'app.dart';
@@ -39,8 +40,12 @@ class AppBuilder extends DbNoteBuilder with DbNoteRouter implements AppBuildable
     }
 
     // Sau khi login xong thi chay thang nay
-    final MainTabBuildable mainTabBuilder = MainTabBuilder();
-    final widget = mainTabBuilder.build();
+    // final MainTabBuildable mainTabBuilder = MainTabBuilder();
+    // final widget = mainTabBuilder.build();
+
+    final TodoListBuildable todoListBuildable = TodoListBuilder();
+    final widget = todoListBuildable.build();
+
     pushSameRootPage(currentContext, widget);
 
   }

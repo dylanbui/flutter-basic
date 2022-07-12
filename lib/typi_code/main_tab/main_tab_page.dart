@@ -218,6 +218,16 @@ class _MainTabPageState extends BaseState<MainTabPage, MainTabProvider> with Wid
               // PhotoCoordinator().startDemoLayout(context);
             },
           ),
+          ListTile(
+            title: const Text('Todos List'),
+            onTap: () {
+              // Update the state of the app
+              // Then close the drawer
+              Navigator.pop(context);
+              widget.router?.navigate(TodoListRoute(), context);
+              // PhotoCoordinator().startDemoLayout(context);
+            },
+          ),
         ],
       ),);
   }

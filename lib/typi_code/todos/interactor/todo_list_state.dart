@@ -11,6 +11,9 @@ import 'package:simple_auth_1/constants.dart';
 import 'package:simple_auth_1/models/todo.dart';
 
 /// State: Initial, InProgress, Success, Failure, Begin, End
+///
+///
+
 
 abstract class TodoListState extends BaseBlocEvent {
   // const TodoListState();
@@ -22,14 +25,22 @@ abstract class TodoListState extends BaseBlocEvent {
 class TodoListInitial extends TodoListState {
 }
 
-class TodoListInProgress extends TodoListState {}
+
+class TodoListInProgress extends TodoListState {
+
+}
+
+class TodoListInLoadMoreProgress extends TodoListState {
+
+}
 
 class TodoListGetDataSuccess extends TodoListState {
   final List<Todo> items;
   final bool hasReachedMax;
   final int totalItems;
+  final int currentPage;
 
-  TodoListGetDataSuccess(this.items, this.hasReachedMax, this.totalItems);
+  TodoListGetDataSuccess(this.items, this.hasReachedMax, this.totalItems, this.currentPage);
 
   @override
   List<Object> get props => [items, hasReachedMax, totalItems];

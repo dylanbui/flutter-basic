@@ -10,34 +10,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/commons/base_cubit_stateless_widget.dart';
+import 'package:simple_auth_1/commons/base_statefull_widget.dart';
 import 'package:simple_auth_1/commons/custom_app_bar.dart';
 import 'package:simple_auth_1/models/todo.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_cubit.dart';
+import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_event.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_state.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 import 'package:simple_auth_1/widget/platform_progress.dart';
 
-class TodoListPage extends StatefulWidget {
-  DbNoteRouter? router;
+class TodoListPageNONE extends BaseCubitStateLessWidget<TodoListCubit, TodoListState> {
 
-  TodoListPage({this.router, Key? key}) : super(key: key);
+  // @override
+  // String title = "TodoList Page";
 
   @override
-  State<TodoListPage> createState() => _TodoListPageState();
-}
-
-class _TodoListPageState extends State<TodoListPage> {
-
-  late TodoListCubit pageProvider;
-
   String getTitle() {
     return "TodoList Page";
   }
 
-  CustomAppBar getAppBar(BuildContext context, TodoListState state) {
+  TodoListPageNONE({Key? key, DbNoteRouter? router}) : super(key: key, router: router);
+
+  @override
+  void init(BuildContext context) {
+    pageProvider.loadData();
+
+  }
+
+  @override
+  getAppBar(BuildContext context, TodoListState state) {
     return CustomAppBar(getTitle(), appBarActions: getAppBarAction(), hideBackButton: true,);
   }
 
+  @override
   List<Widget> getAppBarAction() {
     return <Widget>[
       IconButton(
@@ -56,55 +62,38 @@ class _TodoListPageState extends State<TodoListPage> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    BlocProvider.of<TodoListCubit>(context).loadData();
-
+  void blocConsumerListener(BuildContext context, TodoListState state) {
+    // Show toast event at here
+    if (state is TodoListGetDataError) {
+      // showToast(state.error.messenger);
+      // showErrorSnackbar(state.error.messenger, context);
+      eLog("blocConsumerListener");
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    pageProvider = BlocProvider.of<TodoListCubit>(context);
-
-    // return Container();
-    return BlocConsumer<TodoListCubit, TodoListState>(listener: (context, state) {
-      // Show toast event at here
-      if (state is TodoListGetDataError) {
-        // showToast(state.error.messenger);
-        // showErrorSnackbar(state.error.messenger, context);
-        eLog("blocConsumerListener");
-      }
-    }, buildWhen: (previousState, currentState) {
-      eLog("blocConsumerBuildWhen");
-      if (currentState is TodoListGetDataError) {
-        // showToast(state.error.messenger);
-        // showErrorSnackbar(state.error.messenger, context);
-        return false;
-      }
-      return true;
-    }, builder: (context, state) {
-      return Scaffold(
-        appBar: getAppBar(context, state),
-        body: getBody(context, state),
-      );
-    });
+  bool blocConsumerBuildWhen(BuildContext context, TodoListState previousState, TodoListState state) {
+    eLog("blocConsumerBuildWhen");
+    if (state is TodoListGetDataError) {
+      // showToast(state.error.messenger);
+      showErrorSnackbar(state.error.messenger, context);
+      return false;
+    }
+    return true;
   }
 
+  @override
   Widget getBody(BuildContext context, TodoListState state) {
     if (state is TodoListInProgress) {
       return const Center(child: PlatformProgress());
     } else if (state is TodoListGetDataError) {
       //var state = state as TodoListGetDataError;
       // show loi
-      // showErrorSnackbar(state.error.messenger, context);
+      showErrorSnackbar(state.error.messenger, context);
       // showToast(state.error.messenger);
     }
 
-    return _listView(context, state);
-
-    // return _buildTodosList(context, state);
+    return _buildTodosList(context, state);
   }
 
   // @override
@@ -142,12 +131,7 @@ class _TodoListPageState extends State<TodoListPage> {
       children: <Widget>[
         Expanded(
           child: RefreshIndicator(
-            onRefresh: () async {
-              eLog("reload data");
-              // await Future.delayed(const Duration(seconds: 2));
-              // await pageProvider.loadData();
-            },
-
+            onRefresh: pageProvider.onRefresh,
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
               itemCount: items.length,
@@ -158,7 +142,7 @@ class _TodoListPageState extends State<TodoListPage> {
             ),
           ),
         ),
-        /// if (state is TodoListInLoadMoreProgress) const PlatformProgress()
+        if (currentState is TodoListInLoadMoreProgress) const PlatformProgress()
       ],
     );
 
@@ -177,66 +161,24 @@ class _TodoListPageState extends State<TodoListPage> {
         // router?.navigate(PostDetailRoute(post.id ?? 4), context);
       },
     );
-  }
 
-  Widget _listView(BuildContext context, TodoListState state) {
-    List<Todo> items = [];
-    if (state is TodoListGetDataSuccess) {
-      items = state.items;
-    }
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        eLog("reload data");
-        // await Future.delayed(const Duration(seconds: 2));
-        await pageProvider.onRefresh();
-      },
-      child: ListView(
-        children: List.generate(items.length, (index) {
-          if (index + 5 >= items.length) {
-            pageProvider.loadMoreData();
-          }
-
-          return Card(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(items[index].title.toString()),
-            ),
-          );
-        }),
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(5),
-        // scrollDirection: Axis.vertical,
-        itemExtent: 80,
-        // physics: Platform.isAndroid ? const ClampingScrollPhysics() : const BouncingScrollPhysics(),
-      ),
-      color: Colors.white,
-      backgroundColor: Colors.purple,
-      triggerMode: RefreshIndicatorTriggerMode.anywhere,
-    );
   }
 
 
 }
 
-
-class BottomLoader extends StatelessWidget {
-  const BottomLoader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: const Center(
-        child: SizedBox(
-          width: 33,
-          height: 33,
-          child: CircularProgressIndicator(
-            strokeWidth: 1.5,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
+// class _TodoListPageState extends BaseState<TodoListPage, TodoListProvider> {
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//   }
+//
+//   @override
+//   Widget getLayout(BuildContext context) {
+//     return const Text("");
+//
+//   }
+//
+// }

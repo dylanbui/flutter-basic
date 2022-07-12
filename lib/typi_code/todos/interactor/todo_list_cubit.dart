@@ -23,6 +23,7 @@ class TodoListCubit extends Cubit<TodoListState> {
 
   void initial() {
 
+
   }
 
   void onScrollListener(int index) {
@@ -31,24 +32,46 @@ class TodoListCubit extends Cubit<TodoListState> {
 
 
   Future onRefresh() async {
-
+    await loadData(firstLoad: false);
   }
 
-  Future loadData() async {
+  Future loadData({bool firstLoad = true}) async {
 
-    emit(TodoListInProgress());
+    if (firstLoad) {
+      emit(TodoListInProgress());
+    }
 
-    List<Todo>? list = await _todoApi.getTodoList();
+    // Dau tien load tuong duong 3 page voi offset = 15
+    List<Todo>? list = await _todoApi.getTodoList(page: 0, offset: 15);
 
     if (list != null) {
-      emit(TodoListGetDataSuccess(list, true, list.length));
+      emit(TodoListGetDataSuccess(list, true, list.length, 0));
     } else {
       emit(TodoListGetDataError(const BaseError(404,"Loi ko load dc du lieu")));
     }
 
   }
 
-  void loadMoreData() {
+  void loadMoreData() async {
+    var currentState = state;
+    if (currentState is TodoListGetDataSuccess) {
+
+      var currentPage = currentState.currentPage;
+      if (currentPage == 0) {
+        currentPage = 2;
+      }
+
+      int nextPage = currentState.currentPage + 1;
+
+      List<Todo>? list = await _todoApi.getTodoList(page: nextPage, offset: 5);
+
+      if (list != null) {
+        List<Todo> todos = currentState.items + list;
+        emit(TodoListGetDataSuccess(todos, true, todos.length, nextPage));
+      } else {
+        emit(TodoListGetDataError(const BaseError(404,"Loi ko load dc du lieu")));
+      }
+    }
 
   }
 

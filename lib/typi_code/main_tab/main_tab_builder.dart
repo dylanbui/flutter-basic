@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/typi_code/photos/photo_builder.dart';
+import 'package:simple_auth_1/typi_code/todos/todo_list_builder.dart';
 
 import 'main_tab_provider.dart';
 import 'main_tab_page.dart';
@@ -31,6 +32,7 @@ abstract class MainTabBuildable extends DbNoteBuildable {
 class PhotoRoute extends DbNoteRoute { }
 class AlertRoute extends DbNoteRoute { }
 class LayoutRoute extends DbNoteRoute { }
+class TodoListRoute extends DbNoteRoute { }
 
 // Builder
 
@@ -52,12 +54,15 @@ class MainTabBuilder extends DbNoteBuilder with DbNoteRouter implements MainTabB
       push(nextContext, photoBuilder.build());
 
     } else if (toRoute is AlertRoute) {
-      // PhotoBuildable photoBuilder = PhotoBuilder();
-      // push(nextContext, photoBuilder.build());
+      PhotoBuildable photoBuilder = PhotoBuilder();
+      push(nextContext, photoBuilder.build());
 
     } else if (toRoute is LayoutRoute) {
-      // PhotoBuildable photoBuilder = PhotoBuilder();
-      // push(nextContext, photoBuilder.build());
+      PhotoBuildable photoBuilder = PhotoBuilder();
+      push(nextContext, photoBuilder.build());
+    } else if (toRoute is TodoListRoute) {
+      TodoListBuildable todoListBuilder = TodoListBuilder();
+      push(nextContext, todoListBuilder.build());
     }
 
 

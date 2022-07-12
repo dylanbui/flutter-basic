@@ -34,8 +34,8 @@ abstract class BaseCubitStateLessWidget<P extends Cubit<S>, S> extends Stateless
   Widget getBody(BuildContext context, S state) => const Text("implement getBody() function");
   List<Widget> getAppBarAction() => [];
 
-  void blocConsumerListener(BuildContext context, S state) { }
-  bool blocConsumerBuildWhen(BuildContext context, S state) { return true; }
+  void blocConsumerListener(BuildContext context, S currentState) { }
+  bool blocConsumerBuildWhen(BuildContext context, S previousState, S state) { return true; }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +57,10 @@ abstract class BaseCubitStateLessWidget<P extends Cubit<S>, S> extends Stateless
         listener: (context, state) {
           blocConsumerListener(context, state);
         },
-        buildWhen: (lastState, currentState) {
+        // Khong chay theo dung yeu cau
+        buildWhen: (previousState, currentState) {
           // Ko bit bi dien kieu gi
-          return blocConsumerBuildWhen(context, currentState);
+          return blocConsumerBuildWhen(context, previousState, currentState);
         },
         builder: (context, state) {
           return Scaffold(
