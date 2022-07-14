@@ -15,6 +15,7 @@ import 'package:simple_auth_1/models/todo.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_cubit.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_state.dart';
 import 'package:simple_auth_1/utils/logger.dart';
+import 'package:simple_auth_1/widget/load_more_widget.dart';
 import 'package:simple_auth_1/widget/platform_progress.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -191,29 +192,42 @@ class _TodoListPageState extends State<TodoListPage> {
         // await Future.delayed(const Duration(seconds: 2));
         await pageProvider.onRefresh();
       },
-      child: ListView(
-        children: List.generate(items.length, (index) {
-          if (index + 5 >= items.length) {
-            pageProvider.loadMoreData();
-          }
+      child: DbLoadMore(
+        isFinish: false, //count >= 60,
+        onLoadMore: _loadMore,
+        child: ListView(
 
-          return Card(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(items[index].title.toString()),
-            ),
-          );
-        }),
-        shrinkWrap: true,
-        padding: const EdgeInsets.all(5),
-        // scrollDirection: Axis.vertical,
-        itemExtent: 80,
-        // physics: Platform.isAndroid ? const ClampingScrollPhysics() : const BouncingScrollPhysics(),
+          children: List.generate(items.length, (index) {
+            return Card(
+              child: Container(
+                alignment: Alignment.center,
+                child: Text(items[index].title.toString()),
+              ),
+            );
+          }),
+          // shrinkWrap: true,
+          padding: const EdgeInsets.all(5),
+          // scrollDirection: Axis.vertical,
+          itemExtent: 80,
+          // physics: Platform.isAndroid ? const ClampingScrollPhysics() : const BouncingScrollPhysics(),
+        ),
+
+        // whenEmptyLoad: false,
+        delegate: const DefaultLoadMoreDelegate(),
+        textBuilder: DefaultLoadMoreTextBuilder.english,
       ),
       color: Colors.white,
       backgroundColor: Colors.purple,
       triggerMode: RefreshIndicatorTriggerMode.anywhere,
     );
+  }
+
+  Future<bool> _loadMore() async {
+    eLog("onLoadMore");
+    // await Future.delayed(const Duration(seconds: 0, milliseconds: 2000));
+    await pageProvider.loadMoreData();
+    // load();
+    return true;
   }
 
 

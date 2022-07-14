@@ -52,7 +52,7 @@ class TodoListCubit extends Cubit<TodoListState> {
 
   }
 
-  void loadMoreData() async {
+  Future loadMoreData() async {
     var currentState = state;
     if (currentState is TodoListGetDataSuccess) {
 
