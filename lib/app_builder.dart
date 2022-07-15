@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/login_scene/google_map/google_map_builder.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_builder.dart';
 import 'package:simple_auth_1/session_user.dart';
 import 'package:simple_auth_1/typi_code/main_tab/main_tab_builder.dart';
@@ -43,8 +44,12 @@ class AppBuilder extends DbNoteBuilder with DbNoteRouter implements AppBuildable
     // final MainTabBuildable mainTabBuilder = MainTabBuilder();
     // final widget = mainTabBuilder.build();
 
-    final TodoListBuildable todoListBuildable = TodoListBuilder();
-    final widget = todoListBuildable.build();
+    // final TodoListBuildable todoListBuildable = TodoListBuilder();
+    // final widget = todoListBuildable.build();
+
+    final GoogleMapBuildable googleMapBuildable = GoogleMapBuilder();
+    final widget = googleMapBuildable.build();
+
 
     pushSameRootPage(currentContext, widget);
 

@@ -9,13 +9,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loadmore/loadmore.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/custom_app_bar.dart';
 import 'package:simple_auth_1/models/todo.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_cubit.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_state.dart';
 import 'package:simple_auth_1/utils/logger.dart';
-import 'package:simple_auth_1/widget/load_more_widget.dart';
 import 'package:simple_auth_1/widget/platform_progress.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -192,29 +192,22 @@ class _TodoListPageState extends State<TodoListPage> {
         // await Future.delayed(const Duration(seconds: 2));
         await pageProvider.onRefresh();
       },
-      child: DbLoadMore(
-        isFinish: false, //count >= 60,
+      child: LoadMore(
+        isFinish: false,
         onLoadMore: _loadMore,
-        child: ListView(
-
-          children: List.generate(items.length, (index) {
-            return Card(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(items[index].title.toString()),
-              ),
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              child: Text(items[index].title.toString()),
+              height: 80.0,
+              alignment: Alignment.center,
             );
-          }),
-          // shrinkWrap: true,
-          padding: const EdgeInsets.all(5),
-          // scrollDirection: Axis.vertical,
-          itemExtent: 80,
-          // physics: Platform.isAndroid ? const ClampingScrollPhysics() : const BouncingScrollPhysics(),
+          },
+          itemCount: items.length,
         ),
-
-        // whenEmptyLoad: false,
-        delegate: const DefaultLoadMoreDelegate(),
-        textBuilder: DefaultLoadMoreTextBuilder.english,
+        whenEmptyLoad: true,
+        delegate: DefaultLoadMoreDelegate(),
+        // textBuilder: DefaultLoadMoreTextBuilder.chinese,
       ),
       color: Colors.white,
       backgroundColor: Colors.purple,
@@ -224,8 +217,8 @@ class _TodoListPageState extends State<TodoListPage> {
 
   Future<bool> _loadMore() async {
     eLog("onLoadMore");
-    // await Future.delayed(const Duration(seconds: 0, milliseconds: 2000));
-    await pageProvider.loadMoreData();
+    await Future.delayed(const Duration(seconds: 0, milliseconds: 2000));
+    pageProvider.loadMoreData();
     // load();
     return true;
   }
