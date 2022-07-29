@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_auth_1/app_builder.dart';
@@ -5,7 +7,16 @@ import 'package:simple_auth_1/utils/shared_preferences.dart';
 
 import 'app.dart';
 
+import 'package:event_bus/event_bus.dart';
 
+EventBus globalEventBus = EventBus();
+
+mixin EventBusMixin {
+  StreamSubscription<T> listenEvent<T>(void Function(T) subscription) =>
+      globalEventBus.on<T>().listen(subscription);
+
+  void fireEvent<S>(S event) => globalEventBus.fire(event);
+}
 
 main() async {
 

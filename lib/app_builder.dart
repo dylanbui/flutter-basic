@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/login_scene/flexhome/flex_home_builder.dart';
 import 'package:simple_auth_1/login_scene/google_map/google_map_builder.dart';
+import 'package:simple_auth_1/login_scene/open_web_view/open_web_view_builder.dart';
 import 'package:simple_auth_1/login_scene/splash_start/splash_start_builder.dart';
 import 'package:simple_auth_1/session_user.dart';
 import 'package:simple_auth_1/typi_code/main_tab/main_tab_builder.dart';
@@ -10,6 +12,7 @@ import 'package:simple_auth_1/typi_code/todos/todo_list_builder.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 
 import 'app.dart';
+import 'login_scene/text_editor/text_editor_builder.dart';
 
 // Buildable
 
@@ -47,9 +50,17 @@ class AppBuilder extends DbNoteBuilder with DbNoteRouter implements AppBuildable
     // final TodoListBuildable todoListBuildable = TodoListBuilder();
     // final widget = todoListBuildable.build();
 
-    final GoogleMapBuildable googleMapBuildable = GoogleMapBuilder();
-    final widget = googleMapBuildable.build();
+    // final GoogleMapBuildable googleMapBuildable = GoogleMapBuilder();
+    // final widget = googleMapBuildable.build();
 
+    // final FlexHomeBuildable flexHomeBuildable = FlexHomeBuilder();
+    // final widget = flexHomeBuildable.build();
+
+    // final OpenWebViewBuildable openWebViewBuildable = OpenWebViewBuilder();
+    // final widget = openWebViewBuildable.build();
+
+    final TextEditorBuildable textEditorBuildable = TextEditorBuilder();
+    final widget = textEditorBuildable.build();
 
     pushSameRootPage(currentContext, widget);
 

@@ -15,7 +15,7 @@ import 'package:simple_auth_1/models/todo.dart';
 ///
 
 
-abstract class TodoListState extends BaseBlocEvent {
+abstract class TodoListState extends BaseBlocState {
   // const TodoListState();
   //
   // @override
