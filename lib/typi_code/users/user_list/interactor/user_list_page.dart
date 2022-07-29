@@ -11,7 +11,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'user_list_provider.dart';
+import 'user_list_bloc.dart';
 
 class UserListPage extends BaseStateFulWidget {
 

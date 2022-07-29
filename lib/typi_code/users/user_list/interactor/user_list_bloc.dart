@@ -12,7 +12,7 @@
 
 import 'package:simple_auth_1/commons/base_provider.dart';
 
-class UserListProvider extends BaseProvider {
+class UserList Provider extends BaseProvider {
 
   UserListProvider() {
     isLoading = true;
