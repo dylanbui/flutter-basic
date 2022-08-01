@@ -26,17 +26,17 @@ class UserListPage extends BaseStateFulWidget {
 
 }
 
-class _UserListPageState extends BaseState<UserListPage, UserListProvider> {
+class _UserListPageState extends State<UserListPage> {
 
   @override
   void initState() {
     super.initState();
   }
 
-  @override
-  Widget getLayout(BuildContext context) {
-    return const Text("data");
 
+  @override
+  Widget build(BuildContext context) {
+    return const Text("data");
   }
 
 }

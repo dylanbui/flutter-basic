@@ -10,12 +10,13 @@
 
 // Provider
 
-import 'package:simple_auth_1/commons/base_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_auth_1/typi_code/users/user_list/interactor/user_list_event_state.dart';
 
-class UserList Provider extends BaseProvider {
+class UserListBloc extends Bloc<UserListEvent, UserListState> {
 
-  UserListProvider() {
-    isLoading = true;
-  }
+  UserListBloc(super.initialState);
+
+  // UserListBloc() : super(null);
 
 }

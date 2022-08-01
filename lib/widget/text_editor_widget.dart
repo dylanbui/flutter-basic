@@ -24,6 +24,25 @@ class TextEditorWidget extends StatelessWidget {
 
   final HtmlEditorController controller = HtmlEditorController();
 
+  String _removeLink(String strHtml) {
+    // Regex for anchor tags
+    final regex = RegExp(r"<a[^>]*>([^<]+)<\/a>");
+    // Remove all of them
+    String noUrls = strHtml;
+    while(true) {
+      final match = regex.firstMatch(noUrls);
+      if (match == null) {
+        break;
+      }
+      // wLog(match.groupCount.toString());
+      // wLog(match.group(0).toString()); // All string
+      // wLog(match.group(1).toString());
+      String replace = match.group(1).toString();
+      noUrls = noUrls.replaceFirst(regex, replace);
+    }
+    return noUrls;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +56,9 @@ class TextEditorWidget extends StatelessWidget {
               onPressed: () {
                 controller.getText().then((value) {
                   // wLog(value);
-                  listener?.onSave(value);
+                  if (value.isNotEmpty) {
+                    listener?.onSave(_removeLink(value));
+                  }
                   Navigator.pop(context);
                 });
                 // Clear text editor
