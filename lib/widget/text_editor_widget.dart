@@ -9,20 +9,61 @@
 
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:simple_auth_1/utils/logger.dart';
 
 abstract class TextEditorListener {
   void onSave(String content);
 }
 
-class TextEditorWidget extends StatelessWidget {
+class TextEditorWidget extends StatefulWidget {
 
-  final String? title;
-  final String? content;
+  late String title;
+  late String content;
+  late int limitCount;
+  // late int currentCount;
+
   final TextEditorListener? listener;
+  // String? _rawContent;
 
-  TextEditorWidget({Key? key, this.title, this.content, this.listener}) : super(key: key);
+  TextEditorWidget({Key? key, String? title, String? content, this.listener, int? limitCount}) : super(key: key) {
+    this.title = title ?? "";
+    this.content = content ?? "";
+    this.limitCount = limitCount ?? 2000;
+
+  }
+
+  @override
+  State<TextEditorWidget> createState() => _TextEditorWidgetState();
+}
+
+class _TextEditorWidgetState extends State<TextEditorWidget> {
 
   final HtmlEditorController controller = HtmlEditorController();
+  late int currentCount;
+  late String currentContent;
+  bool justPasted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    currentCount = _removeAllHtml(widget.content).length;
+    currentContent = widget.content;
+  }
+
+  String _removeAllHtml(String strHtml) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return strHtml.replaceAll(exp, '');
+  }
+
+  String _formatCharacterCount() {
+    return "$currentCount/${widget.limitCount}";
+  }
+
+  void updateCurrentCharacterCount(int count) {
+    setState(() {
+      currentCount = count;
+    });
+  }
 
   String _removeLink(String strHtml) {
     // Regex for anchor tags
@@ -47,7 +88,7 @@ class TextEditorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title ?? ""),
+        title: Text(widget.title + " " + _formatCharacterCount()),
         elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
@@ -57,7 +98,7 @@ class TextEditorWidget extends StatelessWidget {
                 controller.getText().then((value) {
                   // wLog(value);
                   if (value.isNotEmpty) {
-                    listener?.onSave(_removeLink(value));
+                    widget.listener?.onSave(_removeLink(value));
                   }
                   Navigator.pop(context);
                 });
@@ -106,11 +147,35 @@ class TextEditorWidget extends StatelessWidget {
               ),
               otherOptions: OtherOptions(height: MediaQuery.of(context).size.height - 105),
               callbacks: Callbacks(onBeforeCommand: (String? currentHtml) {
-
+                // eLog("onBeforeCommand");
+              }, onChangeContent: (String? changed) {
+                // eLog('content changed to $changed');
+                // Cho nay characterCount run cung ko dung
+                // eLog('onChangeContent count: ${controller.characterCount}');
+                if (justPasted) {
+                  justPasted = false;
+                  currentCount = _removeAllHtml(changed ?? "").length;
+                  updateCurrentCharacterCount(currentCount);
+                  return;
+                }
+                // Khi nhap qua so luong ky tu, se nhap lai gia tri cu
+                if (currentCount >= widget.limitCount) {
+                  // Set lai gia tri cu
+                  controller.setText(currentContent);
+                } else {
+                  currentContent = changed ?? "";
+                }
+              }, onPaste: () {
+                // eLog('pasted into editor');
+                // eLog('onPaste: ${controller.characterCount}');
+                justPasted = true;
+              }, onKeyDown: (int? keyCode) {
+                updateCurrentCharacterCount(controller.characterCount);
               }, onInit: () {
                 // Clear text editor
-                // Insert first data
-                controller.setText(content ?? "");
+                controller.setText(currentContent);
+                // O day khong tinh dc characterCount
+                // eLog('start count: ${controller.characterCount}');
               }),
             )
           ],
