@@ -127,6 +127,7 @@ class _TextEditorWidgetState extends State<TextEditorWidget> {
               htmlEditorOptions: const HtmlEditorOptions(
                 // hint: 'Your text here...',
                 shouldEnsureVisible: true,
+                // characterLimit: 30, khong su dung dc
                 // initialText: "<p>text content initial, if any</p>",
               ),
               htmlToolbarOptions: HtmlToolbarOptions(
