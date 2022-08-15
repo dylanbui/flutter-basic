@@ -32,7 +32,8 @@ class TextEditorPage extends BaseStateFulWidget {
 
 class _TextEditorPageState extends BaseState<TextEditorPage, TextEditorProvider> implements TextEditorListener {
   final HtmlEditorController controller = HtmlEditorController();
-  String contentHtml = '<a title="abcd" href="stackoverflow.com/">abcd-1</a> </br> <a title="abcd" href="stackoverflow.com/">abcd-2</a>';
+  // String contentHtml = '<a title="abcd" href="stackoverflow.com/">abcd-1</a> </br> <a title="abcd" href="stackoverflow.com/">abcd-2</a>';
+  String contentHtml = "<p>text content initial, <b>if any</b></p>";
 
   @override
   void initState() {

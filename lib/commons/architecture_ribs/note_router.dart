@@ -17,6 +17,7 @@ abstract class DbNoteRoute {
 abstract class DbNoteRouter {
 
   DbNoteRouter? parentRouter;
+  final navigator = GlobalKey<NavigatorState>();
 
   // DbNoteRouter({this.parentRouter});
 
@@ -24,17 +25,29 @@ abstract class DbNoteRouter {
 
   // Se tach push, pop qua 1 class khac
   void push(BuildContext fromContext, Widget widget) {
-    Navigator.push(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft),);
+    // Navigator.push(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft),);
+    navigator.currentState?.push(PageTransition(child: widget, type: PageTransitionType.rightToLeft));
+
+    // navigator.currentState?.pushAndRemoveUntil(newRoute, (route) => false);
+
   }
 
   void pushSameRootPage(BuildContext fromContext, Widget widget) {
-    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
+    // Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
+    navigator.currentState?.pushAndRemoveUntil(PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
   }
 
   void pop(BuildContext context) {
-    if (Navigator.of(context).canPop()) {
-      Navigator.pop(context);
+    var currentState = navigator.currentState;
+    if (currentState != null) {
+      if (currentState.canPop()) {
+        currentState.pop();
+      }
     }
+
+    // if (Navigator.of(context).canPop()) {
+    //   Navigator.pop(context);
+    // }
   }
 
 }
