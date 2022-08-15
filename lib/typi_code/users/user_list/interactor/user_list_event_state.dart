@@ -32,6 +32,8 @@ class UserListCancelSearchingEvent extends UserListEvent {}
 
 abstract class UserListState extends BaseBlocState { }
 
+class InitListGetDataState extends UserListState { }
+
 class UserListGetDataState extends UserListState { }
 
 class UserListGetMoreDataState extends UserListEvent {}

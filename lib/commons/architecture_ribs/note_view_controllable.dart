@@ -10,12 +10,6 @@
 import 'package:flutter/material.dart';
 
 /// Basic interface between a `Router` and the UIKit `UIViewController`.
-mixin ViewControllable on Widget {
+mixin NoteViewControllable on Widget {
   Widget get viewController => this;
-}
-
-class NoteViewer {
-
-  NoteViewer();
-
 }

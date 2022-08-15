@@ -9,6 +9,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_view_controllable.dart';
 
 abstract class DbNoteRoute {
 
@@ -24,30 +25,35 @@ abstract class DbNoteRouter {
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
 
   // Se tach push, pop qua 1 class khac
-  void push(BuildContext fromContext, Widget widget) {
-    // Navigator.push(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft),);
-    navigator.currentState?.push(PageTransition(child: widget, type: PageTransitionType.rightToLeft));
-
-    // navigator.currentState?.pushAndRemoveUntil(newRoute, (route) => false);
-
+  void newPush(NoteViewControllable viewControllable) {
+    navigator.currentState?.push(PageTransition(child: viewControllable, type: PageTransitionType.rightToLeft));
   }
 
-  void pushSameRootPage(BuildContext fromContext, Widget widget) {
-    // Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
-    navigator.currentState?.pushAndRemoveUntil(PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
+  void newPushSameRootPage(NoteViewControllable viewControllable) {
+    navigator.currentState?.pushAndRemoveUntil(PageTransition(child: viewControllable, type: PageTransitionType.rightToLeft), (route) => false);
   }
 
-  void pop(BuildContext context) {
+  void newPop() {
     var currentState = navigator.currentState;
     if (currentState != null) {
       if (currentState.canPop()) {
         currentState.pop();
       }
     }
+  }
 
-    // if (Navigator.of(context).canPop()) {
-    //   Navigator.pop(context);
-    // }
+  void push(BuildContext fromContext, Widget widget) {
+    Navigator.push(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft),);
+  }
+
+  void pushSameRootPage(BuildContext fromContext, Widget widget) {
+    Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
+  }
+
+  void pop(BuildContext context) {
+    if (Navigator.of(context).canPop()) {
+      Navigator.pop(context);
+    }
   }
 
 }

@@ -10,21 +10,21 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'note_viewer.dart';
+import 'note_view_controllable.dart';
 
-/// The controller used for launching [ViewControllable]
+/// The controller used for launching [NoteViewControllable]
 class WindowController {
   static final navigator = GlobalKey<NavigatorState>();
 
   /// Pushes this view to the top of the [Navigator] stack
-  static present(ViewControllable viewControllable) async {
+  static present(NoteViewControllable viewControllable) async {
     navigator.currentState?.push(MaterialPageRoute(
       builder: (context) => viewControllable,
       settings: RouteSettings(arguments: viewControllable),
     ));
   }
 
-  static dismiss(ViewControllable viewControllable) {
+  static dismiss(NoteViewControllable viewControllable) {
     Route? previousRoute;
 
     navigator.currentState?.popUntil((route) {
@@ -36,14 +36,14 @@ class WindowController {
 
   final _currentView = null; // ValueNotifier<ViewControllable>(null);
 
-  ValueNotifier<ViewControllable> get currentView => _currentView;
+  ValueNotifier<NoteViewControllable> get currentView => _currentView;
 
-  void launch(ViewControllable view) {
+  void launch(NoteViewControllable view) {
     _currentView.value = view;
   }
 }
 
-/// The root Window class for launching [ViewControllable]
+/// The root Window class for launching [NoteViewControllable]
 class Window extends StatelessWidget {
 
   Window(this.controller);

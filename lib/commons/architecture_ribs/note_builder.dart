@@ -9,6 +9,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'note_view_controllable.dart';
+
 
 /// The base dependency protocol.
 ///
@@ -29,6 +31,8 @@ class DbNoteBuilder<T extends DbNoteDependency> extends DbNoteBuildable {
   final T? dependency;
 
   late Widget rootPage;
+
+  late NoteViewControllable viewControllable;
 
   /// Initializer.
   ///
