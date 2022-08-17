@@ -34,7 +34,7 @@ class UserInterListBloc extends BlocInteractor<UserListRouter, UserListEvent, Us
 */
 
 
-class UserListInteractor extends Bloc<UserListEvent, UserListState> implements NoteInteractor<UserListRouter> {
+class UserListInteractor extends Bloc<UserListEvent, UserListState> implements DbNoteInteractor<UserListRouter> {
 
   @override
   UserListRouter? router;
