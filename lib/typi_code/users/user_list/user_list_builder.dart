@@ -14,7 +14,7 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_view_controllable.dart';
 import 'package:simple_auth_1/typi_code/users/user_list/user_list_router.dart';
 
-import 'interactor/user_list_bloc.dart';
+import 'interactor/user_list_interactor.dart';
 import 'interactor/user_list_page.dart';
 
 // Listener
@@ -25,7 +25,7 @@ abstract class UserListBuildable extends DbNoteBuildable {
 
   Widget build();
 
-  NoteViewControllable buildController();
+  DbNoteViewControllable buildController();
 
 }
 
@@ -39,10 +39,10 @@ class UserListBuilder extends DbNoteBuilder implements UserListBuildable {
   }
 
   @override
-  NoteViewControllable buildController() {
+  DbNoteViewControllable buildController() {
     final router = UserListRouter();
     final page = UserListPage();
-    viewControllable = BlocProvider(create: (_) =>  UserListInteractor(router: router), child: page,) as NoteViewControllable;
+    viewControllable = BlocProvider(create: (_) =>  UserListInteractor(router), child: page,) as DbNoteViewControllable;
     return viewControllable;
   }
 }

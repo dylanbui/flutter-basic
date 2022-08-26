@@ -23,6 +23,19 @@ class TodoListRoute extends DbNoteRoute {
   TodoListRoute();
 }
 
+class TodoDetailRoute extends DbNoteRoute {
+  int todoId;
+  TodoDetailRoute(this.todoId);
+}
+
+// Router
+
+abstract class TodoListRoutable implements DbNoteRoutable {
+
+  void gotoTodoDetail(TodoDetailRoute detail);
+
+}
+
 // Buildable
 
 abstract class TodoListBuildable extends DbNoteBuildable {
@@ -33,7 +46,7 @@ abstract class TodoListBuildable extends DbNoteBuildable {
 
 // Builder
 
-class TodoListBuilder extends DbNoteBuilder with DbNoteRouter implements TodoListBuildable {
+class TodoListBuilder extends DbNoteBuilder with DbNoteRouter implements TodoListBuildable, TodoListRoutable {
 
   @override
   Widget build() {
@@ -42,11 +55,18 @@ class TodoListBuilder extends DbNoteBuilder with DbNoteRouter implements TodoLis
     return rootPage;
   }
 
+  @override
+  void gotoTodoDetail(TodoDetailRoute detail) {
+
+  }
+
   // TodoListBuildable
   @override
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters}) {
 
   }
+
+
 
 }
  

@@ -15,7 +15,18 @@ abstract class DbNoteRoute {
 
 }
 
-abstract class DbNoteRouter {
+abstract class DbNoteRoutable {
+
+  void newPop();
+  void pop(BuildContext context);
+
+  // Se tach push, pop qua 1 class khac
+  void newPush(DbNoteViewControllable viewControllable);
+  void push(BuildContext fromContext, Widget widget);
+
+}
+
+abstract class DbNoteRouter implements DbNoteRoutable {
 
   DbNoteRouter? parentRouter;
   final navigator = GlobalKey<NavigatorState>();
@@ -25,23 +36,16 @@ abstract class DbNoteRouter {
   void navigate(DbNoteRoute toRoute, BuildContext nextContext, {Map<String, Object>? parameters});
 
   // Se tach push, pop qua 1 class khac
-  void newPush(NoteViewControllable viewControllable) {
+  @override
+  void newPush(DbNoteViewControllable viewControllable) {
     navigator.currentState?.push(PageTransition(child: viewControllable, type: PageTransitionType.rightToLeft));
   }
 
-  void newPushSameRootPage(NoteViewControllable viewControllable) {
+  void newPushSameRootPage(DbNoteViewControllable viewControllable) {
     navigator.currentState?.pushAndRemoveUntil(PageTransition(child: viewControllable, type: PageTransitionType.rightToLeft), (route) => false);
   }
 
-  void newPop() {
-    var currentState = navigator.currentState;
-    if (currentState != null) {
-      if (currentState.canPop()) {
-        currentState.pop();
-      }
-    }
-  }
-
+  @override
   void push(BuildContext fromContext, Widget widget) {
     Navigator.push(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft),);
   }
@@ -50,9 +54,20 @@ abstract class DbNoteRouter {
     Navigator.pushAndRemoveUntil(fromContext, PageTransition(child: widget, type: PageTransitionType.rightToLeft), (route) => false);
   }
 
+  @override
   void pop(BuildContext context) {
     if (Navigator.of(context).canPop()) {
       Navigator.pop(context);
+    }
+  }
+
+  @override
+  void newPop() {
+    var currentState = navigator.currentState;
+    if (currentState != null) {
+      if (currentState.canPop()) {
+        currentState.pop();
+      }
     }
   }
 

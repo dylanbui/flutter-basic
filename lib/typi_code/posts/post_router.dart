@@ -20,7 +20,18 @@ class PostDetailRoute extends DbNoteRoute {
 
 // Router
 
-class PostRouter extends DbNoteRouter {
+abstract class PostRoutable implements DbNoteRoutable {
+
+  void gotoPostDetail(PostDetailRoute postDetail, BuildContext nextContext);
+
+}
+
+class PostRouter extends DbNoteRouter implements PostRoutable {
+
+  @override
+  void gotoPostDetail(PostDetailRoute postDetail, BuildContext nextContext) {
+    navigate(postDetail, nextContext);
+  }
 
 
   @override

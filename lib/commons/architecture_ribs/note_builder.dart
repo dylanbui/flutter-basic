@@ -32,7 +32,7 @@ class DbNoteBuilder<T extends DbNoteDependency> extends DbNoteBuildable {
 
   late Widget rootPage;
 
-  late NoteViewControllable viewControllable;
+  late DbNoteViewControllable viewControllable;
 
   /// Initializer.
   ///

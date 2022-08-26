@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_view_controllable.dart';
 import 'package:simple_auth_1/commons/base_statefull_widget.dart';
-import 'user_list_bloc.dart';
+import 'user_list_interactor.dart';
 
-class UserListPage extends BaseStateFulWidget with NoteViewControllable {
+class UserListPage extends BaseStateFulWidget with DbNoteViewControllable {
 
   final String title = "UserList Page";
 

@@ -14,6 +14,7 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 import 'package:simple_auth_1/commons/custom_app_bar.dart';
 import 'package:simple_auth_1/models/todo.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_cubit.dart';
+import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_interactor.dart';
 import 'package:simple_auth_1/typi_code/todos/interactor/todo_list_state.dart';
 import 'package:simple_auth_1/utils/logger.dart';
 import 'package:simple_auth_1/widget/platform_progress.dart';
@@ -29,7 +30,7 @@ class TodoListPage extends StatefulWidget {
 
 class _TodoListPageState extends State<TodoListPage> {
 
-  late TodoListCubit pageProvider;
+  late TodoListInteractor pageProvider;
 
   String getTitle() {
     return "TodoList Page";
@@ -67,10 +68,10 @@ class _TodoListPageState extends State<TodoListPage> {
 
   @override
   Widget build(BuildContext context) {
-    pageProvider = BlocProvider.of<TodoListCubit>(context);
+    pageProvider = BlocProvider.of<TodoListInteractor>(context);
 
     // return Container();
-    return BlocConsumer<TodoListCubit, TodoListState>(listener: (context, state) {
+    return BlocConsumer<TodoListInteractor, TodoListState>(listener: (context, state) {
       // Show toast event at here
       if (state is TodoListGetDataError) {
         // showToast(state.error.messenger);

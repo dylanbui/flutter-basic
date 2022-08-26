@@ -12,19 +12,19 @@ import 'package:page_transition/page_transition.dart';
 
 import 'note_view_controllable.dart';
 
-/// The controller used for launching [NoteViewControllable]
+/// The controller used for launching [DbNoteViewControllable]
 class WindowController {
   static final navigator = GlobalKey<NavigatorState>();
 
   /// Pushes this view to the top of the [Navigator] stack
-  static present(NoteViewControllable viewControllable) async {
+  static present(DbNoteViewControllable viewControllable) async {
     navigator.currentState?.push(MaterialPageRoute(
       builder: (context) => viewControllable,
       settings: RouteSettings(arguments: viewControllable),
     ));
   }
 
-  static dismiss(NoteViewControllable viewControllable) {
+  static dismiss(DbNoteViewControllable viewControllable) {
     Route? previousRoute;
 
     navigator.currentState?.popUntil((route) {
@@ -36,14 +36,14 @@ class WindowController {
 
   final _currentView = null; // ValueNotifier<ViewControllable>(null);
 
-  ValueNotifier<NoteViewControllable> get currentView => _currentView;
+  ValueNotifier<DbNoteViewControllable> get currentView => _currentView;
 
-  void launch(NoteViewControllable view) {
+  void launch(DbNoteViewControllable view) {
     _currentView.value = view;
   }
 }
 
-/// The root Window class for launching [NoteViewControllable]
+/// The root Window class for launching [DbNoteViewControllable]
 class Window extends StatelessWidget {
 
   Window(this.controller);

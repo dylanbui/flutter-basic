@@ -50,8 +50,8 @@ class AppBuilder extends DbNoteBuilder with DbNoteRouter implements AppBuildable
     // final TodoListBuildable todoListBuildable = TodoListBuilder();
     // final widget = todoListBuildable.build();
 
-    // final GoogleMapBuildable googleMapBuildable = GoogleMapBuilder();
-    // final widget = googleMapBuildable.build();
+    final GoogleMapBuildable googleMapBuildable = GoogleMapBuilder();
+    final widget = googleMapBuildable.build();
 
     // final FlexHomeBuildable flexHomeBuildable = FlexHomeBuilder();
     // final widget = flexHomeBuildable.build();
@@ -59,8 +59,8 @@ class AppBuilder extends DbNoteBuilder with DbNoteRouter implements AppBuildable
     // final OpenWebViewBuildable openWebViewBuildable = OpenWebViewBuilder();
     // final widget = openWebViewBuildable.build();
 
-    final TextEditorBuildable textEditorBuildable = TextEditorBuilder();
-    final widget = textEditorBuildable.build();
+    // final TextEditorBuildable textEditorBuildable = TextEditorBuilder();
+    // final widget = textEditorBuildable.build();
 
     pushSameRootPage(currentContext, widget);
 

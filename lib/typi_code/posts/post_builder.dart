@@ -8,25 +8,28 @@
  */
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_auth_1/commons/architecture_ribs/note_builder.dart';
-import 'package:simple_auth_1/typi_code/posts/post_list_page.dart';
-import 'package:simple_auth_1/typi_code/posts/post_list_provider.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/note_view_controllable.dart';
+import 'package:simple_auth_1/typi_code/posts/interactor/post_list_interactor.dart';
+import 'package:simple_auth_1/typi_code/posts/interactor/post_list_page.dart';
 import 'package:simple_auth_1/typi_code/posts/post_router.dart';
 
 
 // Listener
+
 
 // Buildable
 
 abstract class PostBuildable extends DbNoteBuildable {
 
   Widget build({bool showAppBarOnRootPage = true});
+  DbNoteViewControllable buildNote({bool showAppBarOnRootPage = true});
 
 }
 
-// Builder
 
+// Builder
 
 class PostBuilder extends DbNoteBuilder implements PostBuildable {
 
@@ -66,11 +69,21 @@ class PostBuilder extends DbNoteBuilder implements PostBuildable {
 
   @override
   Widget build({bool showAppBarOnRootPage = true}) {
-    final postRouter = PostRouter();
-    var postListPage = PostListPage(router: postRouter,);
-    postListPage.showAppBar = showAppBarOnRootPage;
-    rootPage = ChangeNotifierProvider<PostListProvider>.value(value: PostListProvider(), child: postListPage,);
+    final router = PostRouter();
+    final postListInteractor = PostListInteractor(router);
+    // postListInteractor.router = router;
+    final page = PostListPage();
+    rootPage = BlocProvider(create: (_) =>  postListInteractor, child: page,);
     return rootPage;
+  }
+
+  @override
+  DbNoteViewControllable buildNote({bool showAppBarOnRootPage = true}) {
+    final router = PostRouter();
+    final postListInteractor = PostListInteractor(router);
+    final page = PostListPage();
+    viewControllable = BlocProvider(create: (_) =>  postListInteractor, child: page,) as DbNoteViewControllable;
+    return viewControllable;
   }
 
 

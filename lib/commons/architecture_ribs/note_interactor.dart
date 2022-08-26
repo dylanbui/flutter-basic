@@ -15,15 +15,16 @@ import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
 abstract class DbNoteInteractable {}
 
 //Interactable
-abstract class DbNoteInteractor<T extends DbNoteRouter> implements DbNoteBuildable {
+abstract class DbNoteInteractor<T extends DbNoteRoutable, P extends DbNotePresentable> implements DbNoteBuildable, DbNotePresentable {
 
   /// The dependency used for this builder to build the RIB.
   T? router;
+  P? presenter;
 
   /// Initializer.
   ///
   /// - parameter dependency: The dependency used for this builder to build the RIB.
-  DbNoteInteractor({this.router});
+  // DbNoteInteractor({this.router});
 
 }
 
@@ -32,15 +33,18 @@ abstract class DbNoteInteractor<T extends DbNoteRouter> implements DbNoteBuildab
 /// The base protocol for all `Presenter`s.
 abstract class DbNotePresentable {}
 
+/// The special empty dependency.
+abstract class DbNoteEmptyPresenter extends DbNotePresentable {}
+
 /// The base class of all `Presenter`s. A `Presenter` translates business models into values the corresponding
 /// `ViewController` can consume and display. It also maps UI events to business logic method, invoked to
 /// its listener.
-class DbNotePresenter<ViewControllerType> extends DbNotePresentable {
+class DbNotePresenter<InteractorType> extends DbNotePresentable {
   /// The view controller of this presenter.
-  final ViewControllerType viewController;
+  final InteractorType interactor;
 
   /// Initializer.
   ///
   /// - parameter viewController: The `ViewController` of this `Pesenters`.
-  DbNotePresenter(this.viewController);
+  DbNotePresenter(this.interactor);
 }

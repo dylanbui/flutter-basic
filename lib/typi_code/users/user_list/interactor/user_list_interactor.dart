@@ -10,9 +10,7 @@
 
 // Provider
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_auth_1/commons/architecture_ribs/note_interactor.dart';
-import 'package:simple_auth_1/commons/architecture_ribs/note_router.dart';
+import 'package:simple_auth_1/commons/architecture_ribs/cubit_interactor.dart';
 import 'package:simple_auth_1/typi_code/users/user_list/interactor/user_list_event_state.dart';
 import 'package:simple_auth_1/typi_code/users/user_list/user_list_router.dart';
 
@@ -34,13 +32,11 @@ class UserInterListBloc extends BlocInteractor<UserListRouter, UserListEvent, Us
 */
 
 
-class UserListInteractor extends Bloc<UserListEvent, UserListState> implements DbNoteInteractor<UserListRouter> {
+class UserListInteractor extends CubitInteractor<UserListRouter, UserListState> {
 
-  @override
-  UserListRouter? router;
-
-  UserListInteractor({this.router}) : super(InitListGetDataState()) {
+  UserListInteractor(UserListRouter router) : super(InitListGetDataState()) {
     // Them presenter neu can thiet
+    this.router = router;
   }
 
 
